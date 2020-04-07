@@ -1,0 +1,27 @@
+{
+  "name": "jashmi",
+  "version": "0.0.1",
+  "description": "A JavaScript framework to build browser friendly Human Machine Interfaces for automation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JaS-HMI/jashmi.git"
+  },
+  "keywords": [
+    "HMI",
+    "automation",
+    "gui"
+  ],
+  "author": "Ale",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JaS-HMI/jashmi/issues"
+  },
+  "homepage": "https://github.com/JaS-HMI/jashmi#readme",
+  "dependencies": {
+    "impera-js": "^0.7.4"
+  }
+}
