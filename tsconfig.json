@@ -2,8 +2,10 @@
     "compilerOptions": {
         "module": "es6",
         "target": "es2018",
+	    "moduleResolution":"Node",
         "noImplicitAny": true,
         "outDir": "build/",
+        "allowJs": true,
         "sourceMap": false
     },
 

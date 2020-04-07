@@ -1,2 +1,3 @@
+import {StateVariable} from 'impera-js'
 
-console.log("ciao");
+export let v = new StateVariable("pino",7);
