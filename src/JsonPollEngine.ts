@@ -1,5 +1,5 @@
-import {DataCommsEngine} from './DataCommsEngine'
-import {systemObject,basicValues,basicResponse,systemVariable,customAction} from './Types'
+import {DataCommsEngine} from './DataCommsEngine.js'
+import {systemObject,basicValues,basicResponse,systemVariable,customAction} from './Types.js'
 
 
 //--------- WRITE --------------

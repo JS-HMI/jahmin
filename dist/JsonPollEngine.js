@@ -1,4 +1,4 @@
-import { DataCommsEngine } from './DataCommsEngine';
+import { DataCommsEngine } from './DataCommsEngine.js';
 //--------- WRITE --------------
 // 1- HMI-element ---> write(value)
 // 2- System Engine --> Request write

@@ -1,5 +1,5 @@
-import { dataManager } from './DataManager';
-import { Actions } from './Types';
+import { dataManager } from './DataManager.js';
+import { Actions } from './Types.js';
 /**Abstract class defining a Comunication Engine for data I/O with a server.*/
 export class DataCommsEngine {
     constructor(systemName) {

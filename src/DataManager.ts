@@ -1,7 +1,6 @@
  import {StateVariable} from "impera-js"
-import {DataCommsEngine} from './DataCommsEngine'
-import {systemVariable,systemObject, basicResponse} from './Types'
-import {brick} from 'brick-element'
+import {DataCommsEngine} from './DataCommsEngine.js'
+import {systemVariable,systemObject, basicResponse} from './Types.js'
 
 
 class DataManager {
@@ -13,8 +12,7 @@ class DataManager {
 
     constructor(){
         // Setup of state transitions
-     //   this.dataTree.addTransition("update",this._updateDataTree)
-     let t = brick``;
+        this.dataTree.addTransition("update",this._updateDataTree)
     }
 
     /**

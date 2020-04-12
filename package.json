@@ -2,7 +2,7 @@
   "name": "jashmi",
   "version": "0.0.1",
   "description": "A JavaScript framework to build browser friendly Human Machine Interfaces for automation",
-  "main": "build/jashmi.js",
+  "main": "dist/jashmi.js",
   "types": "src/jashmi.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -23,11 +23,13 @@
   },
   "homepage": "https://github.com/JaS-HMI/jashmi#readme",
   "dependencies": {
-    "impera-js": "^0.7.5"
+    "impera-js": "^0.7.5",
+    "lit-element": "^2.3.1"
   },
   "devDependencies": {
     "brick-element": "^0.3.2",
     "chai": "^4.2.0",
+    "jest": "^25.3.0",
     "mocha": "^7.1.1",
     "ts-loader": "^6.2.2",
     "typescript": "^3.8.3"

@@ -1,12 +1,10 @@
 import { StateVariable } from "impera-js";
-import { brick } from 'brick-element';
 class DataManager {
     constructor() {
         this.dataTree = new StateVariable("datatree", {});
         this.dataEngines = new Map();
         // Setup of state transitions
-        //   this.dataTree.addTransition("update",this._updateDataTree)
-        let t = brick ``;
+        this.dataTree.addTransition("update", this._updateDataTree);
     }
     /**
      *

@@ -1,5 +1,5 @@
-import {dataManager} from './DataManager'
-import {systemObject,basicValues,basicResponse,systemVariable,customAction, Actions} from './Types'
+import {dataManager} from './DataManager.js'
+import {systemObject,basicValues,basicResponse,systemVariable,customAction, Actions} from './Types.js'
 
 
 

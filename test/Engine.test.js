@@ -1,11 +1,10 @@
-import {dataManager} from '../build/DataManager.js'
-import {JsonPollEngine} from '../build/JsonPollEngine.js'
+ // import {jashmi} from '../build/main.js'
 
 export default function(){
-    let engine = new JsonPollEngine("test_sys")
-    dataManager.AddEngine("test_sys",engine);
+    let engine = new jashmi.JsonPollEngine("test_sys")
+    jashmi.dataManager.AddEngine("test_sys",engine);
 
     for(let i=0; i<10; i++){
-        dataManager.Subscribe({ system:"test_sys", name:"vvv"+i})
+        jashmi.dataManager.Subscribe({ system:"test_sys", name:"vvv"+i})
     }
 }
