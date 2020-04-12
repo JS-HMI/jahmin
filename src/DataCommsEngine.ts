@@ -1,20 +1,71 @@
 import {dataManager} from './DataManager'
-import {systemObject,basicValues,basicResponse,systemVariable,customAction} from './Types'
+import {systemObject,basicValues,basicResponse,systemVariable,customAction, Actions} from './Types'
 
 
 
+/**Abstract class defining a Comunication Engine for data I/O with a server.*/
 export abstract class DataCommsEngine implements systemObject{
     
     manager = dataManager;
     system:string
     name = "DataEngine"
 
+    sub_cache = new Set<string>()
+    private unsub_cache = new Set<string>()
+    private subs_count:{[key:string]:number}= {}
+    private sub_timerID:number = null
+    private unsub_timerID:number = null
+    private bufferTime:number = 10
+
+
     constructor( systemName:string ){
         this.system = systemName
     }
 
+    
+    SetBufferTime(time_ms:number){
+        this.bufferTime = time_ms;
+    }
+
+    RequestSubscription(target:systemObject){
+        if(this.subs_count.hasOwnProperty(target.name)) this.subs_count[target.name] += 1;
+        else this.subs_count[target.name] = 1;
+
+        this.sub_cache.add(target.name)
+
+        if(this.sub_timerID) clearTimeout(this.sub_timerID);
+
+        this.sub_timerID = setTimeout( this._subcribe.bind(this), this.bufferTime );
+    }
+
+    RequestUnsubscription(target:systemObject){
+        if(!this.subs_count.hasOwnProperty(target.name)) return;
+
+        this.subs_count[target.name] -= 1;
+        
+        this.unsub_cache.add(target.name);
+
+        if(this.subs_count[target.name] === 0)
+        {
+            if(this.unsub_timerID) clearTimeout(this.unsub_timerID);
+            this.unsub_timerID = setTimeout( this._unsubcribe.bind(this), this.bufferTime );
+        } 
+
+    }
+
+    private async _subcribe(){
+        let resp = await this.Subscribe( Array.from(this.sub_cache) );
+        this.sub_cache.clear();
+        this.manager.RaiseError(resp, Actions.Subscribe, this);
+    }
+    private async _unsubcribe(){
+        let resp = await this.Unsubscribe( Array.from(this.unsub_cache) );
+        this.unsub_cache.clear();
+        this.manager.RaiseError(resp, Actions.Unsubscribe, this);
+    }
+
     /**
-     * Action Initialize. Place here anything that's neded for initialization of this engine.
+     * Action Initialize. Place here anything that is needed for initialization of this engine.
      */
     abstract async Init() : Promise<basicResponse> ;
 
@@ -65,9 +116,3 @@ export abstract class DataCommsEngine implements systemObject{
 
 }
 
-
-//--------- WRITE --------------
-// 1- HMI-element ---> write(value)
-// 2- System Engine --> Request write
-// 3- Var status changed --> write request
-// 4- on Engine response ---> Write new value to state var or error

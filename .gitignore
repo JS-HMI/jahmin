@@ -29,3 +29,5 @@
 # Debug log from npm
 **/npm-debug.log
 
+build/*
+build

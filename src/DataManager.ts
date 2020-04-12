@@ -1,6 +1,7 @@
-import {StateVariable} from 'impera-js'
+ import {StateVariable} from "impera-js"
 import {DataCommsEngine} from './DataCommsEngine'
-import {systemVariable} from './Types'
+import {systemVariable,systemObject, basicResponse} from './Types'
+import {brick} from 'brick-element'
 
 
 class DataManager {
@@ -9,9 +10,11 @@ class DataManager {
 
     dataEngines = new Map<string,DataCommsEngine>()
 
+
     constructor(){
         // Setup of state transitions
-        this.dataTree.addTransition("update",this._updateDataTree)
+     //   this.dataTree.addTransition("update",this._updateDataTree)
+     let t = brick``;
     }
 
     /**
@@ -23,8 +26,9 @@ class DataManager {
         this.dataEngines.set(subsystemName,engine)
     }
 
-    Subscribe(subsystem:string, varName:string):void{
-
+    Subscribe(target:systemObject):void{
+        let engine = this.dataEngines.get(target.system)
+        if(engine) engine.RequestSubscription(target);
     }
 
     Unsubscribe(subsystem:string, varName:string):void{
@@ -38,9 +42,14 @@ class DataManager {
     Update(system:string, data:systemVariable[]):void{
 
     }
+
+    RaiseError( resp:basicResponse[], action:string, target:systemObject ){
+        // loop over response 
+        // raise error in case
+        console.log("Raising Error in case: ");
+        console.log(resp);
+    }
 }
-
-
 
 // A bit ugly, but we must have a data instance that is shared 
 // automatically between the ui-elements
