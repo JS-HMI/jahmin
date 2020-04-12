@@ -5,7 +5,7 @@
   "main": "dist/jashmi.js",
   "types": "src/jashmi.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -27,11 +27,18 @@
     "lit-element": "^2.3.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "babel-jest": "^25.3.0",
     "brick-element": "^0.3.2",
+    "bufferutil": "^4.0.1",
+    "canvas": "^2.6.1",
     "chai": "^4.2.0",
     "jest": "^25.3.0",
+    "jest-environment-happy-dom": "0.0.41",
     "mocha": "^7.1.1",
     "ts-loader": "^6.2.2",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "utf-8-validate": "^5.0.2"
   }
 }
