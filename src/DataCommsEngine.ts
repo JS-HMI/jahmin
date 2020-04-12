@@ -16,7 +16,7 @@ export abstract class DataCommsEngine implements systemObject{
     private sub_timerID:number = null
     private unsub_timerID:number = null
     private bufferTime:number = 10
-
+    
 
     constructor( systemName:string ){
         this.system = systemName
