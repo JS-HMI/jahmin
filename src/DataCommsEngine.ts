@@ -1,4 +1,4 @@
-import {dataManager} from './DataManager.js'
+import {Manager} from './ServiceManager.js'
 import {systemObject,basicValues,basicResponse,systemVariable,customAction, Actions} from './Types.js'
 
 
@@ -6,13 +6,13 @@ import {systemObject,basicValues,basicResponse,systemVariable,customAction, Acti
 /**Abstract class defining a Comunication Engine for data I/O with a server.*/
 export abstract class DataCommsEngine implements systemObject{
     
-    manager = dataManager;
+    manager = Manager;
     system:string
     name = "DataEngine"
 
-    sub_cache = new Set<string>()
+    private sub_cache = new Set<string>()
     private unsub_cache = new Set<string>()
-    private subs_count:{[key:string]:number}= {}
+    subs_count:{[key:string]:number}= {}
     private sub_timerID:number = null
     private unsub_timerID:number = null
     private bufferTime:number = 10
@@ -54,10 +54,13 @@ export abstract class DataCommsEngine implements systemObject{
     }
 
     private async _subcribe(){
-        let resp = await this.Subscribe( Array.from(this.sub_cache) );
+        let submitted_var = Array.from(this.sub_cache) ;
+        let resp = await this.Subscribe( submitted_var );
+        
+        this.manager.CheckSubcriptions(this.system, submitted_var, resp);
         this.sub_cache.clear();
-        this.manager.RaiseError(resp, Actions.Subscribe, this);
     }
+
     private async _unsubcribe(){
         let resp = await this.Unsubscribe( Array.from(this.unsub_cache) );
         this.unsub_cache.clear();

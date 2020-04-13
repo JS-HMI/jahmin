@@ -44,13 +44,14 @@ export var Actions;
     Actions["Unknown"] = "UNKNOWN";
 })(Actions || (Actions = {}));
 /**
- * Helper class to quickly build systemVariable to be returned from update function.
- * At least one between "value", "status" must be not null.
+ * Defines a generic variable bound to a specific system.
+ * The "value" must be a JSON compatible object, since these values are
+ * persisted in localstorage. So anything is good but functions.
  */
-export class updateVar {
+export class systemVariable {
     constructor(_name) {
+        this.name = _name;
         this.value = null;
         this.status = null;
-        this.name = _name;
     }
 }

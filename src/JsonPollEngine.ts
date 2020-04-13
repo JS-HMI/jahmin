@@ -16,8 +16,6 @@ export class JsonPollEngine extends DataCommsEngine {
         throw new Error("Method not implemented.")
     }    
     async Subscribe(variables: String[]): Promise<basicResponse[]> {
-        console.log("Subscribing: ");
-        console.log(variables);
         let resp:basicResponse[] = [];
         variables.forEach(v => {
             resp.push({success:true});

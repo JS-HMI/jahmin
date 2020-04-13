@@ -1,9 +1,9 @@
-import { dataManager } from './DataManager.js';
+import { Manager } from './ServiceManager.js';
 import { Actions } from './Types.js';
 /**Abstract class defining a Comunication Engine for data I/O with a server.*/
 export class DataCommsEngine {
     constructor(systemName) {
-        this.manager = dataManager;
+        this.manager = Manager;
         this.name = "DataEngine";
         this.sub_cache = new Set();
         this.unsub_cache = new Set();
@@ -38,9 +38,10 @@ export class DataCommsEngine {
         }
     }
     async _subcribe() {
-        let resp = await this.Subscribe(Array.from(this.sub_cache));
+        let submitted_var = Array.from(this.sub_cache);
+        let resp = await this.Subscribe(submitted_var);
+        this.manager.CheckSubcriptions(this.system, submitted_var, resp);
         this.sub_cache.clear();
-        this.manager.RaiseError(resp, Actions.Subscribe, this);
     }
     async _unsubcribe() {
         let resp = await this.Unsubscribe(Array.from(this.unsub_cache));

@@ -75,24 +75,16 @@ export interface systemError extends basicError{
  * The "value" must be a JSON compatible object, since these values are 
  * persisted in localstorage. So anything is good but functions.
  */
-export interface systemVariable{
-    name:string
-    value: any
-    status: string
-}
-
-
-/**
- * Helper class to quickly build systemVariable to be returned from update function.
- * At least one between "value", "status" must be not null.
- */
-export class updateVar implements systemVariable{
+export class systemVariable {
     name  : string
-    value : any = null;
-    status: string = null;
+    value : any 
+    status: string
+    [key:string] : any 
 
     constructor(_name:string){
-        this.name = _name;
+        this.name   = _name;
+        this.value = null;
+        this.status = null;
     }
 }
 
