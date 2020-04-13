@@ -1,5 +1,5 @@
 import {StateVariable} from "impera-js"
-import { systemObject, systemVariable, VarStatusCodes } from "./Types";
+import { systemObject, systemVariable, VarStatusCodes } from "./Types.js";
 
 // NOTE:
 // There are plenty of way of doing this, here we chose to have a single 

@@ -1,5 +1,5 @@
 import { StateVariable } from "impera-js";
-import { systemVariable, VarStatusCodes } from "./Types";
+import { systemVariable, VarStatusCodes } from "./Types.js";
 // NOTE:
 // There are plenty of way of doing this, here we chose to have a single 
 // object representing the whole App state. If one have many var and many

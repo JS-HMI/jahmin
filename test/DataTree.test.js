@@ -9,11 +9,12 @@ describe('Data Tree',()=>{
     test('init',()=>{
         expect(localStorage.getItem("datatree")).not.toBeNull();
     })
-    test('Create',()=>{
+    test('Create',async ()=>{
 
         dt.Create(v0);
         let v = dt.GetVar(v0) ;
         expect(v).toEqual( {name:"walla", status:"PENDING", value: null });
+
     })
 
     test('Update',()=>{
@@ -24,6 +25,12 @@ describe('Data Tree',()=>{
         expect(()=>{dt.Update("halla", {name:89, status:"SUB", value: 7 } );}).toThrow()
         expect(()=>{dt.Update("hall", {name:"walla", status:"SUB", value: 7 } );}).toThrow()
 
+    })
+
+    test('Update Status',()=>{
+        dt.UpdateStatus(v0, "GOT");
+        let v = dt.GetVar(v0) ;
+        expect(v).toEqual( {name:"walla", status:"GOT", value: 7 });
     })
 
 })
