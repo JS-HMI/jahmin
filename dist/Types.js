@@ -23,6 +23,9 @@ export var ErrorCodes;
 (function (ErrorCodes) {
     /**Variable was not found in server */
     ErrorCodes["VarNotExist"] = "NOT-EXIST";
+    ErrorCodes["WontSubcribe"] = "WONT-SUB";
+    ErrorCodes["CantSubcribe"] = "CANT-SUB";
+    ErrorCodes["CantUnSubcribe"] = "CANT-UNSUB";
     /**Provided Write Request value has wrong type or could not be understood */
     ErrorCodes["BadValue"] = "BAD-VALUE";
     /**Network is down, cannot retrieve values */
@@ -53,5 +56,19 @@ export class systemVariable {
         this.name = _name;
         this.value = null;
         this.status = null;
+    }
+}
+export class SubscribeResp {
+    constructor(Success, name, value = null) {
+        this.error = null;
+        this.success = Success;
+        this.varName = name;
+        this.varValue = value;
+    }
+    setError(ErrorCode, Message = "") {
+        this.error = {
+            code: ErrorCode,
+            message: Message
+        };
     }
 }

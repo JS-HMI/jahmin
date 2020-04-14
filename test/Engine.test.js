@@ -2,27 +2,44 @@ import {JsonPollEngine, Manager} from '../dist/jashmi.js'
 import {VarStatusCodes} from '../dist/Types.js'
 
 
-beforeEach(()=>{
-    localStorage.clear();
-})
+localStorage.clear();
+let engine = new JsonPollEngine("test_sys")
+Manager.AddEngine("test_sys",engine);
+let v0 = {system:"test_sys", name:"var"} ;
+let v1 = {system:"test_sys", name:"vario"} ;
 
 test('Subscribe New Variable', async ()=>{
-    let engine = new JsonPollEngine("test_sys")
-    Manager.AddEngine("test_sys",engine);
-    let v0 = {system:"test_sys", name:"var"} ;
-    let v1 = {system:"test_sys", name:"vario"} ;
     Manager.Subscribe(v0);
     Manager.Subscribe(v0);
     Manager.Subscribe(v1);
     let v = Manager.dataTree.GetVar(v0);
-    
-    // new var created 
     expect(v).toEqual({name:"var", value:null, status:VarStatusCodes.Pending})
     await new Promise(resolve => setTimeout(resolve, 20));
-    expect(engine.sub_cache.size).toBe(0);
-    expect(Object.keys(engine.subs_count).length).toBe(2); // only submits unique variables
+    expect(engine.toBeSubscribed.size).toBe(0);  // subscribe list is flushed
+    expect(Array.from(engine.subscribedVar.keys()).length).toBe(2); // only submits unique variables
+    expect(engine.subscribedVar.get(v0.name)).toBe(2)
     
-    v = Manager.dataTree.GetVar(v0);
     expect(v).toEqual({name:"var", value:null, status:VarStatusCodes.Subscribed})
+})
+
+test('Unsubscribe', async ()=>{
+    Manager.Unsubscribe(v0);
+    Manager.Unsubscribe(v0); // double call should not have effect
+    Manager.Unsubscribe(v1);
+
+    let v = Manager.dataTree.GetVar(v0);
+    let _v = Manager.dataTree.GetVar(v1);
+
+    expect(engine.toBeUnsubscribed.size).toBe(2)
+    expect(engine.subscribedVar.get(v0.name)).toBe(1);
+    expect(v.status).toEqual(VarStatusCodes.Subscribed);
+    expect(_v.status).toEqual(VarStatusCodes.Subscribed);
+    
+    await new Promise(resolve => setTimeout(resolve, 20));
+    expect(engine.subscribedVar.get(v0.name)).toBeUndefined();
+    expect(engine.toBeUnsubscribed.size).toBe(0)
+    expect(v.status).toBe(VarStatusCodes.Unsubscribed);
+    expect(_v.status).toBe(VarStatusCodes.Unsubscribed);
+
 })
 

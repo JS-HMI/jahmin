@@ -1,4 +1,5 @@
 import { DataCommsEngine } from './DataCommsEngine.js';
+import { SubscribeResp } from './Types.js';
 //--------- WRITE --------------
 // 1- HMI-element ---> write(value)
 // 2- System Engine --> Request write
@@ -15,12 +16,16 @@ export class JsonPollEngine extends DataCommsEngine {
     async Subscribe(variables) {
         let resp = [];
         variables.forEach(v => {
-            resp.push({ success: true });
+            resp.push(new SubscribeResp(true, v));
         });
         return resp;
     }
-    Unsubscribe(variables) {
-        throw new Error("Method not implemented.");
+    async Unsubscribe(variables) {
+        let resp = [];
+        variables.forEach(v => {
+            resp.push({ success: true });
+        });
+        return resp;
     }
     Write(target, names, values) {
         throw new Error("Method not implemented.");

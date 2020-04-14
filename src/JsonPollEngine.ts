@@ -1,5 +1,5 @@
 import {DataCommsEngine} from './DataCommsEngine.js'
-import {systemObject,basicValues,basicResponse,systemVariable,customAction} from './Types.js'
+import {systemObject,basicValues,basicResponse,systemVariable,customAction, SubscribeResp} from './Types.js'
 
 
 //--------- WRITE --------------
@@ -15,16 +15,20 @@ export class JsonPollEngine extends DataCommsEngine {
     Init(): Promise<basicResponse> {
         throw new Error("Method not implemented.")
     }    
-    async Subscribe(variables: String[]): Promise<basicResponse[]> {
-        let resp:basicResponse[] = [];
+    async Subscribe(variables: string[]): Promise<SubscribeResp[]> {
+        let resp:SubscribeResp[] = [];
         variables.forEach(v => {
-            resp.push({success:true});
+            resp.push(new SubscribeResp(true,v));
         });
         
         return resp;
     }
-    Unsubscribe(variables: String[]): Promise<basicResponse[]> {
-        throw new Error("Method not implemented.")
+    async Unsubscribe(variables: String[]): Promise<basicResponse[]> {
+        let resp:basicResponse[] = []
+        variables.forEach(v =>{
+            resp.push( { success : true });
+        })
+        return resp;
     }
     Write(target: systemObject, names: string[], values: basicValues[]): Promise<basicResponse> {
         throw new Error("Method not implemented.")

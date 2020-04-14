@@ -1,7 +1,7 @@
 import {DataCommsEngine} from './DataCommsEngine.js'
 import {systemVariable,systemObject, basicResponse, VarStatusCodes} from './Types.js'
 import { DataTree } from './DataTree.js'
-import { StateVariable } from 'impera-js';
+import {escape as escapeHtml} from 'html-escaper';
 
 
 export class ServiceManager {
@@ -17,12 +17,16 @@ export class ServiceManager {
      * @param engine 
      */
     AddEngine(subsystemName:string, engine:DataCommsEngine):void{
+        subsystemName = escapeHtml(subsystemName);
         this.dataEngines.set(subsystemName,engine)
     }
 
     Subscribe(target:systemObject):void{
-        if( !(target.name && target.system) ) return ;
+        if( !(target.name && target.system) ) throw Error("CANNOT UNSUBSCRIBE variable " + target.name);
         
+        target.name = escapeHtml(target.name);
+        target.system = escapeHtml(target.system);
+
         let engine = this.dataEngines.get(target.system)
         if(engine) { 
             if(this.dataTree.ExistVar(target)) 
@@ -38,33 +42,20 @@ export class ServiceManager {
         
     }
 
-    CheckSubcriptions(system:string, targets:string[], resp:basicResponse[]){
-        if(targets.length !== resp.length) {
-            // reaise error
-            return;
-        }
-        let update_var:systemVariable[] = [] ;
 
-        for( let idx=0;  idx<targets.length; idx++) {
-            let idx_var = new systemVariable(targets[idx]) ;
-            if(!resp[idx].success) {
-                // raise error 
-                idx_var.status = VarStatusCodes.Error;
-            }
-            else {
-                idx_var.status = VarStatusCodes.Subscribed;
-            }
-            update_var.push(idx_var);
+    Unsubscribe(target:systemObject):void{
+        if( !(target.name && target.system) ) throw Error("CANNOT UNSUBSCRIBE variable " + target.name);
+        let engine = this.dataEngines.get(target.system)
+        if(engine) { 
+            engine.RequestUnsubscription(target);
         }
-        this.dataTree.Update(system,update_var);
+        else {
+            // dispacth error 
+        }
     }
 
-    Unsubscribe(subsystem:string, varName:string):void{
-        
-    }
-
-    Update(system:string, data:systemVariable[]):void{
-
+    Update(system:string, data:systemVariable[]|systemVariable):void{
+        this.dataTree.Update(system,data);
     }
 
     RaiseError( resp:basicResponse[], action:string, target:systemObject ){

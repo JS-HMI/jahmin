@@ -1,5 +1,6 @@
 import {StateVariable} from "impera-js"
 import { systemObject, systemVariable, VarStatusCodes } from "./Types.js";
+import {escape as escapeHtml} from 'html-escaper';
 
 // NOTE:
 // There are plenty of way of doing this, here we chose to have a single 
@@ -72,6 +73,8 @@ export class DataTree extends StateVariable{
 
     _create(varID:systemObject){
         if(varID && typeof varID.system === "string" && typeof varID.name === "string"){
+            varID.system = escapeHtml(varID.system);
+            varID.name = escapeHtml(varID.name);
 
             let new_var = new systemVariable(varID.name);
             new_var.status = VarStatusCodes.Pending ;
@@ -92,7 +95,8 @@ export class DataTree extends StateVariable{
         let sys_var = this.GetVar(varID) ;
         if(!varID) throw Error("Requested Variable does not exist: " + varID.name );
         this._checkVarType(varID);
-        if(varID.status) sys_var.status = varID.status ;
+        if(typeof varID.value === 'string')  varID.value  = escapeHtml(varID.value);
+        if(varID.status) sys_var.status = escapeHtml(varID.status) ;
         if(varID.value)  sys_var.value  = varID.value ;
     }
 

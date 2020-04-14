@@ -28,6 +28,9 @@ export enum VarStatusCodes{
 export enum ErrorCodes{
     /**Variable was not found in server */
     VarNotExist = "NOT-EXIST",
+    WontSubcribe = "WONT-SUB",
+    CantSubcribe = "CANT-SUB",
+    CantUnSubcribe = "CANT-UNSUB",
     /**Provided Write Request value has wrong type or could not be understood */
     BadValue = "BAD-VALUE",
     /**Network is down, cannot retrieve values */
@@ -93,6 +96,25 @@ export interface basicResponse{
     error?  : basicError
 }
 
+export class SubscribeResp implements basicResponse {
+    success:boolean
+    error:basicError = null
+    varName:string
+    varValue:any
+
+    constructor(Success:boolean, name:string, value:any=null){
+        this.success = Success;
+        this.varName = name;
+        this.varValue = value;
+    }
+    setError(ErrorCode:string, Message:string=""){
+        this.error = {
+            code : ErrorCode,
+            message : Message
+        }
+    }
+
+}
 export interface customAction{
     (target:systemObject, data:any) : Promise<basicResponse>
 }
