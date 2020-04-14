@@ -1,6 +1,5 @@
 import {Manager} from './ServiceManager.js'
 import {systemObject,basicValues,basicResponse,systemVariable,customAction, Actions, SubscribeResp, VarStatusCodes, ErrorCodes} from './Types.js'
-import { resolvePlugin } from '@babel/core';
 
 
 
@@ -82,7 +81,6 @@ export abstract class DataCommsEngine implements systemObject{
                 let count = this.toBeSubscribed.get(varName);
                 count +=  ( this.subscribedVar.get(varName) || 0 );
                 this.subscribedVar.set(sub_rsp.varName, count );
-                console.log(count);
                 this.toBeSubscribed.delete(sub_rsp.varName);
 
                 var_idx.status = VarStatusCodes.Subscribed ;
