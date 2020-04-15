@@ -46,6 +46,48 @@ export var Actions;
     Actions["Init"] = "INITIALIZE";
     Actions["Unknown"] = "UNKNOWN";
 })(Actions || (Actions = {}));
+export class systemError {
+    constructor(sysName, Code, target = "", Action = "") {
+        // if(!(err && typeof err.code === "string")) throw TypeError("Err must be valid and of 'basicError' type: {code:string,message?:string}");
+        if (typeof Code !== "string")
+            throw TypeError("Code must be a string");
+        if (typeof sysName !== "string")
+            throw TypeError("sysName must be a string");
+        //this.code = err.code;
+        this.code = Code;
+        this.timestamp_ms = Date.now();
+        this.systemName = sysName;
+        this.action = Action || "";
+        this.targetName = target || "";
+        this.ack = false;
+        //this.message = err.message ? err.message : this.buildDefaultMessage();
+        this.message = this.buildDefaultMessage();
+    }
+    buildDefaultMessage() {
+        let message = `Error in system (${this.systemName})`;
+        if (this.action !== "")
+            message += ` during ${this.action}`;
+        if (this.targetName !== "")
+            message += ` on target (${this.targetName})`;
+        message += `. Error Code: ${this.code}.`;
+        return message;
+    }
+}
+export class systemAlarm extends systemError {
+    constructor(sysName, Code, target, Action = "") {
+        super(sysName, Code, target, Action);
+        this.isActive = true;
+    }
+    buildDefaultMessage() {
+        let message = `Alarm in system (${this.systemName})`;
+        if (this.action !== "")
+            message += ` during ${this.action}`;
+        if (this.targetName !== "")
+            message += ` on target (${this.targetName})`;
+        message += `. Alarm Code: ${this.code}.`;
+        return message;
+    }
+}
 /**
  * Defines a generic variable bound to a specific system.
  * The "value" must be a JSON compatible object, since these values are

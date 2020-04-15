@@ -64,13 +64,55 @@ export interface basicError{
     code:string
     message?:string
 }
-export interface systemError extends basicError{
+export class systemError implements basicError{
     
-    timestamp:Date
+    code:string
+    message:string
+    timestamp_ms: number
     systemName:string
     action:string
     targetName:string
     ack:boolean
+
+    constructor(sysName:string, Code:string, target:string="",Action:string=""){
+        // if(!(err && typeof err.code === "string")) throw TypeError("Err must be valid and of 'basicError' type: {code:string,message?:string}");
+        if(typeof Code !== "string") throw TypeError("Code must be a string");
+        if(typeof sysName !== "string") throw TypeError("sysName must be a string");
+        //this.code = err.code;
+        this.code = Code;
+        this.timestamp_ms = Date.now() ;
+        this.systemName = sysName;
+        this.action = Action || "";
+        this.targetName = target || "";
+        this.ack = false;
+        //this.message = err.message ? err.message : this.buildDefaultMessage();
+        this.message = this.buildDefaultMessage();
+    }
+
+    buildDefaultMessage():string{
+        let message = `Error in system (${this.systemName})`;
+        if(this.action !== "") message += ` during ${this.action}`;
+        if(this.targetName !== "") message += ` on target (${this.targetName})`;
+        message +=`. Error Code: ${this.code}.`;
+        return message;
+    }
+}
+
+export class systemAlarm extends systemError {
+    isActive : boolean
+
+    constructor(sysName:string, Code:string, target:string, Action:string=""){
+        super(sysName, Code,target, Action);
+        this.isActive = true;
+    }
+
+    buildDefaultMessage():string{
+        let message = `Alarm in system (${this.systemName})`;
+        if(this.action !== "") message += ` during ${this.action}`;
+        if(this.targetName !== "") message += ` on target (${this.targetName})`;
+        message +=`. Alarm Code: ${this.code}.`;
+        return message;
+    }
 }
 
 /**

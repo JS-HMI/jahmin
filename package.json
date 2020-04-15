@@ -24,7 +24,7 @@
   "homepage": "https://github.com/JaS-HMI/jashmi#readme",
   "dependencies": {
     "html-escaper": "^3.0.0",
-    "impera-js": "^0.7.5",
+    "impera-js": "^0.7.6",
     "lit-element": "^2.3.1"
   },
   "devDependencies": {
