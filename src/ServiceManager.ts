@@ -1,29 +1,43 @@
 import {DataCommsEngine} from './DataCommsEngine.js'
-import {systemVariable,systemObject, basicResponse, VarStatusCodes} from './Types.js'
+import {systemVariable,systemObject, ServiceStatusCodes, VarStatusCodes, systemError} from './Types.js'
 import { DataTree } from './DataTree.js'
 import {escape as escapeHtml} from 'html-escaper';
+import { ErrorTray } from './ErrorTray.js';
 
 
 export class ServiceManager {
 
-    dataTree = new DataTree();
+    dataTree  = new DataTree();
+    errorTray = new ErrorTray("errortray");
 
     dataEngines = new Map<string,DataCommsEngine>()
 
+    status = ServiceStatusCodes.Down;
+    _initPromise:Promise<void>
+    _initResolve:Function
+
+    constructor(){
+        this._initPromise = new Promise((resolve)=>{
+            this._initResolve = resolve;
+        })
+
+    }
 
     /**
      * 
      * @param subsystemName 
      * @param engine 
      */
-    AddEngine(subsystemName:string, engine:DataCommsEngine):void{
-        subsystemName = escapeHtml(subsystemName);
+    AddEngine(engine:DataCommsEngine):void{
+        let subsystemName = escapeHtml(engine.system);
         this.dataEngines.set(subsystemName,engine)
     }
 
-    Subscribe(target:systemObject):void{
-        if( !(target.name && target.system) ) throw Error("CANNOT UNSUBSCRIBE variable " + target.name);
+    async Subscribe(target:systemObject){
+        if( !(target.name && target.system) ) throw Error("CANNOT SUBSCRIBE variable " + target.name);
         
+        await this.isInitialized();
+
         target.name = escapeHtml(target.name);
         target.system = escapeHtml(target.system);
 
@@ -43,8 +57,10 @@ export class ServiceManager {
     }
 
 
-    Unsubscribe(target:systemObject):void{
+    async Unsubscribe(target:systemObject){
         if( !(target.name && target.system) ) throw Error("CANNOT UNSUBSCRIBE variable " + target.name);
+        await this.isInitialized();
+
         let engine = this.dataEngines.get(target.system)
         if(engine) { 
             engine.RequestUnsubscription(target);
@@ -58,11 +74,24 @@ export class ServiceManager {
         this.dataTree.Update(system,data);
     }
 
-    RaiseError( resp:basicResponse[], action:string, target:systemObject ){
-        // loop over response 
-        // raise error in case
-        // console.log("Raising Error in case: ");
-        // console.log(resp);
+    DispatchError( error:systemError ){
+        this.errorTray.Create(error);
+    }
+
+    async Init(){
+        // signal that all the engines are added, can start 
+        // adding variables to subscription list
+        this._initResolve(); 
+
+        this.status = ServiceStatusCodes.Warming;
+        let proms:Promise<void>[] = [];
+        Array.from(this.dataEngines.values()).forEach( engine => proms.push(engine._init()));
+        await Promise.all(proms);
+        this.status = ServiceStatusCodes.Ready;
+    }
+    
+    isInitialized(){
+        return this._initPromise;
     }
 }
 

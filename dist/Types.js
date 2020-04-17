@@ -19,6 +19,17 @@ export var VarStatusCodes;
      * One can trust the variable value as its last updated value.*/
     VarStatusCodes["Unsubscribed"] = "UNSUBSCRIBED";
 })(VarStatusCodes || (VarStatusCodes = {}));
+export var ServiceStatusCodes;
+(function (ServiceStatusCodes) {
+    /**Engine Running, all ok */
+    ServiceStatusCodes["Ready"] = "READY";
+    /**Engine is still down, no subscription can be made, but no error was raised. */
+    ServiceStatusCodes["Down"] = "DOWN";
+    /**Waiting for initialization to complete */
+    ServiceStatusCodes["Warming"] = "WARMUP";
+    /**Engine could not be initialized. */
+    ServiceStatusCodes["Error"] = "ERROR";
+})(ServiceStatusCodes || (ServiceStatusCodes = {}));
 export var ErrorCodes;
 (function (ErrorCodes) {
     /**Variable was not found in server */
@@ -46,7 +57,24 @@ export var Actions;
     Actions["Init"] = "INITIALIZE";
     Actions["Unknown"] = "UNKNOWN";
 })(Actions || (Actions = {}));
+/**
+ * Describe a system error occurred during a requested Action (like subscribe, write, etc.).
+ * @prop {string}  code - Error code as defined in ErrorCodes
+ * @prop {string}  message  - The error message (this by default will auto build itself), but you can override it.
+ * @prop {string}  systemName  - System name
+ * @prop {string}  targetName  - Target of the Action that generated the error, for example the caller of a write method.
+ * @prop {string}  action      - Action Code as defined in "Actions", what was going to be performed.
+ * @prop {number}  timestamp_ms - Time the error occurred, by default is Date.Now()
+ * @prop {boolean} ack          - If the error was acknowledged by user or not.
+ */
 export class systemError {
+    /**
+     * Standard constructor, by default will auto-build the error message and will set timestamp to Now.
+     * @param sysName System name
+     * @param Code Error code as in "ErrorCodes"
+     * @param target (optional) name of who is in fault, like for example a variable name.
+     * @param Action (optional) Action Code of what was going to be performed.
+     */
     constructor(sysName, Code, target = "", Action = "") {
         // if(!(err && typeof err.code === "string")) throw TypeError("Err must be valid and of 'basicError' type: {code:string,message?:string}");
         if (typeof Code !== "string")
@@ -100,7 +128,15 @@ export class systemVariable {
         this.status = null;
     }
 }
-export class SubscribeResp {
+/**
+ * Class that implemets a general response to actions that involve variable read, write, subscribe, etc.
+ * @prop {boolean} success  - weather the request had success or not
+ * @prop {object}  error  - if success is false then this must not be null, contain error code and error message(optional).
+ * @prop {string} varName - name of the variable
+ * @prop {any}  varValue  -  the value of the variable (can be an object if supported).
+ * @method setError - helper to set the "error" property.
+ */
+export class VarResponse {
     constructor(Success, name, value = null) {
         this.error = null;
         this.success = Success;

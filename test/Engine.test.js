@@ -1,10 +1,11 @@
 import {JsonPollEngine, Manager} from '../dist/jashmi.js'
-import {VarStatusCodes} from '../dist/Types.js'
+import {VarStatusCodes, ServiceStatusCodes} from '../dist/Types.js'
 
 
 localStorage.clear();
 let engine = new JsonPollEngine("test_sys")
-Manager.AddEngine("test_sys",engine);
+engine.status = ServiceStatusCodes.Ready;
+Manager.AddEngine(engine);
 let v0 = {system:"test_sys", name:"var"} ;
 let v1 = {system:"test_sys", name:"vario"} ;
 
@@ -12,8 +13,15 @@ test('Subscribe New Variable', async ()=>{
     Manager.Subscribe(v0);
     Manager.Subscribe(v0);
     Manager.Subscribe(v1);
+
     let v = Manager.dataTree.GetVar(v0);
+    expect(v).toBeNull();  // Manager not ready
+    
+    Manager.Init();
+    await new Promise(resolve => setTimeout(resolve, 0));
+    v = Manager.dataTree.GetVar(v0);
     expect(v).toEqual({name:"var", value:null, status:VarStatusCodes.Pending})
+
     await new Promise(resolve => setTimeout(resolve, 20));
     expect(engine.toBeSubscribed.size).toBe(0);  // subscribe list is flushed
     expect(Array.from(engine.subscribedVar.keys()).length).toBe(2); // only submits unique variables
@@ -23,10 +31,10 @@ test('Subscribe New Variable', async ()=>{
 })
 
 test('Unsubscribe', async ()=>{
-    Manager.Unsubscribe(v0);
-    Manager.Unsubscribe(v0); // double call should not have effect
-    Manager.Unsubscribe(v1);
-
+    await Manager.Unsubscribe(v0);
+    await Manager.Unsubscribe(v0); // double call should not have effect
+    await Manager.Unsubscribe(v1);
+    
     let v = Manager.dataTree.GetVar(v0);
     let _v = Manager.dataTree.GetVar(v1);
 

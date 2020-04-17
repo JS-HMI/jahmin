@@ -1,10 +1,11 @@
 import { Manager } from './ServiceManager.js';
-import { systemVariable, VarStatusCodes, ErrorCodes } from './Types.js';
+import { ServiceStatusCodes, systemVariable, Actions, VarStatusCodes, ErrorCodes, systemError } from './Types.js';
 /**Abstract class defining a Comunication Engine for data I/O with a server.*/
 export class DataCommsEngine {
     constructor(systemName) {
         this.manager = Manager;
         this.name = "DataEngine";
+        this.status = ServiceStatusCodes.Down;
         /**
          * Variables waiting to be subscribed for updates. It is a key-number map.
          * The number represent how many UI element times requested updates from that variable.
@@ -35,6 +36,10 @@ export class DataCommsEngine {
     RequestSubscription(target) {
         let count = this.toBeSubscribed.get(target.name) || 0;
         this.toBeSubscribed.set(target.name, count + 1);
+        // this case just fill the subscribelist,willbe submitted after init
+        if (this.status === ServiceStatusCodes.Down ||
+            this.status === ServiceStatusCodes.Warming)
+            return;
         if (this.sub_timerID)
             clearTimeout(this.sub_timerID);
         this.sub_timerID = setTimeout(this._subcribe.bind(this), this.aggregationTime_ms);
@@ -55,8 +60,7 @@ export class DataCommsEngine {
         this.unsub_timerID = setTimeout(this._unsubcribe.bind(this), this.aggregationTime_ms);
     }
     async _subcribe() {
-        let submitted_var = Array.from(this.toBeSubscribed.keys());
-        let resp = await this.Subscribe(submitted_var);
+        let resp = await this.Subscribe(Array.from(this.toBeSubscribed.keys()));
         let var_upd = [];
         for (let sub_rsp of resp) {
             let varName = sub_rsp.varName;
@@ -76,7 +80,9 @@ export class DataCommsEngine {
                     if (code === ErrorCodes.VarNotExist || code === ErrorCodes.WontSubcribe) {
                         this.toBeSubscribed.delete(sub_rsp.varName);
                         var_idx.status = VarStatusCodes.Error;
-                        // Dispatch error                        
+                        // Dispatch error
+                        let err = new systemError(this.system, code, sub_rsp.varName, Actions.Subscribe);
+                        this.manager.DispatchError(err);
                     }
                     // keep subscribe later
                     else
@@ -86,6 +92,8 @@ export class DataCommsEngine {
                     this.toBeSubscribed.delete(sub_rsp.varName);
                     var_idx.status = VarStatusCodes.Error;
                     // Dispatch error
+                    let err = new systemError(this.system, ErrorCodes.UnknownError, sub_rsp.varName, Actions.Subscribe);
+                    this.manager.DispatchError(err);
                 }
             }
             var_upd.push(var_idx);
@@ -108,11 +116,27 @@ export class DataCommsEngine {
                 if (resp[idx].error && resp[idx].error.code && resp[idx].error.code !== ErrorCodes.CantUnSubcribe) {
                     var_idx.status = VarStatusCodes.Error;
                     // Dispacth Error
+                    let err = new systemError(this.system, resp[idx].error.code, var_name, Actions.Unsubscribe);
+                    this.manager.DispatchError(err);
                 }
             }
             var_upd.push(var_idx);
         }
         this.manager.Update(this.system, var_upd);
+    }
+    async _init() {
+        this.status = ServiceStatusCodes.Warming;
+        let resp = await this.Initialize();
+        if (resp.success)
+            this.status = ServiceStatusCodes.Ready;
+        else {
+            this.status = ServiceStatusCodes.Error;
+            let code = resp.error ? resp.error.code : ErrorCodes.UnknownError;
+            let err = new systemError(this.name, code, "", Actions.Init);
+            this.manager.DispatchError(err);
+        }
+        if (this.toBeSubscribed.size > 0)
+            this._subcribe();
     }
     /**
      * Action Update. It updates a list of variable values and statuses in the DataManager.

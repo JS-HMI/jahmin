@@ -1,5 +1,3 @@
-export type basicValues = string | boolean | number 
-
 /**
  * Default Status Codes for systemVariables, define the UI appereance and behaviour of the variable.
  * They are simple strings and can be extended with custom statuses.
@@ -23,6 +21,18 @@ export enum VarStatusCodes{
     /**The variable is ok, but will not receive updates for some reasons, for example no network. 
      * One can trust the variable value as its last updated value.*/
     Unsubscribed = "UNSUBSCRIBED"
+}
+
+export enum ServiceStatusCodes{
+    
+    /**Engine Running, all ok */
+    Ready = "READY",
+    /**Engine is still down, no subscription can be made, but no error was raised. */
+    Down = "DOWN",
+    /**Waiting for initialization to complete */
+    Warming = "WARMUP",
+    /**Engine could not be initialized. */
+    Error = "ERROR"
 }
 
 export enum ErrorCodes{
@@ -64,6 +74,16 @@ export interface basicError{
     code:string
     message?:string
 }
+/**
+ * Describe a system error occurred during a requested Action (like subscribe, write, etc.).
+ * @prop {string}  code - Error code as defined in ErrorCodes
+ * @prop {string}  message  - The error message (this by default will auto build itself), but you can override it.
+ * @prop {string}  systemName  - System name
+ * @prop {string}  targetName  - Target of the Action that generated the error, for example the caller of a write method.
+ * @prop {string}  action      - Action Code as defined in "Actions", what was going to be performed.
+ * @prop {number}  timestamp_ms - Time the error occurred, by default is Date.Now()
+ * @prop {boolean} ack          - If the error was acknowledged by user or not.
+ */
 export class systemError implements basicError{
     
     code:string
@@ -74,6 +94,13 @@ export class systemError implements basicError{
     targetName:string
     ack:boolean
 
+    /**
+     * Standard constructor, by default will auto-build the error message and will set timestamp to Now.
+     * @param sysName System name
+     * @param Code Error code as in "ErrorCodes"
+     * @param target (optional) name of who is in fault, like for example a variable name. 
+     * @param Action (optional) Action Code of what was going to be performed.
+     */
     constructor(sysName:string, Code:string, target:string="",Action:string=""){
         // if(!(err && typeof err.code === "string")) throw TypeError("Err must be valid and of 'basicError' type: {code:string,message?:string}");
         if(typeof Code !== "string") throw TypeError("Code must be a string");
@@ -138,7 +165,15 @@ export interface basicResponse{
     error?  : basicError
 }
 
-export class SubscribeResp implements basicResponse {
+/**
+ * Class that implemets a general response to actions that involve variable read, write, subscribe, etc.
+ * @prop {boolean} success  - weather the request had success or not
+ * @prop {object}  error  - if success is false then this must not be null, contain error code and error message(optional).
+ * @prop {string} varName - name of the variable
+ * @prop {any}  varValue  -  the value of the variable (can be an object if supported).
+ * @method setError - helper to set the "error" property.
+ */
+export class VarResponse implements basicResponse {
     success:boolean
     error:basicError = null
     varName:string

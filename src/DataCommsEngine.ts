@@ -1,5 +1,5 @@
 import {Manager} from './ServiceManager.js'
-import {systemObject,basicValues,basicResponse,systemVariable,customAction, Actions, SubscribeResp, VarStatusCodes, ErrorCodes} from './Types.js'
+import {systemObject,ServiceStatusCodes,basicResponse,systemVariable,customAction, Actions, VarResponse, VarStatusCodes, ErrorCodes, systemError} from './Types.js'
 
 
 
@@ -9,6 +9,7 @@ export abstract class DataCommsEngine implements systemObject{
     manager = Manager;
     system:string
     name = "DataEngine"
+    status:string = ServiceStatusCodes.Down
 
     /**
      * Variables waiting to be subscribed for updates. It is a key-number map.
@@ -45,7 +46,11 @@ export abstract class DataCommsEngine implements systemObject{
     RequestSubscription(target:systemObject){
         let count  = this.toBeSubscribed.get(target.name) || 0;
         this.toBeSubscribed.set(target.name, count + 1);
-
+        
+        // this case just fill the subscribelist,willbe submitted after init
+        if(this.status === ServiceStatusCodes.Down ||
+            this.status === ServiceStatusCodes.Warming ) return;
+        
         if(this.sub_timerID) clearTimeout(this.sub_timerID);
 
         this.sub_timerID = setTimeout( this._subcribe.bind(this), this.aggregationTime_ms );
@@ -68,8 +73,7 @@ export abstract class DataCommsEngine implements systemObject{
     }
 
     async _subcribe(){
-        let submitted_var = Array.from(this.toBeSubscribed.keys()) ;
-        let resp = await this.Subscribe( submitted_var );
+        let resp = await this.Subscribe( Array.from(this.toBeSubscribed.keys()) );
 
         let var_upd:systemVariable[] = [];
         for( let sub_rsp of resp ){
@@ -95,7 +99,9 @@ export abstract class DataCommsEngine implements systemObject{
                     {
                         this.toBeSubscribed.delete(sub_rsp.varName);
                         var_idx.status = VarStatusCodes.Error;
-                        // Dispatch error                        
+                        // Dispatch error
+                        let err = new systemError(this.system, code, sub_rsp.varName, Actions.Subscribe );
+                        this.manager.DispatchError(err);
                     }
                     // keep subscribe later
                     else var_idx.status = VarStatusCodes.Unsubscribed;
@@ -105,6 +111,8 @@ export abstract class DataCommsEngine implements systemObject{
                     this.toBeSubscribed.delete(sub_rsp.varName);
                     var_idx.status = VarStatusCodes.Error;
                     // Dispatch error
+                    let err = new systemError(this.system, ErrorCodes.UnknownError, sub_rsp.varName, Actions.Subscribe );
+                    this.manager.DispatchError(err);
                 }
             }
             var_upd.push(var_idx);
@@ -131,6 +139,8 @@ export abstract class DataCommsEngine implements systemObject{
                 if(resp[idx].error && resp[idx].error.code && resp[idx].error.code !== ErrorCodes.CantUnSubcribe ) {
                     var_idx.status = VarStatusCodes.Error;
                     // Dispacth Error
+                    let err = new systemError(this.system,resp[idx].error.code, var_name, Actions.Unsubscribe );
+                    this.manager.DispatchError(err);
                 }
             }
             var_upd.push(var_idx);
@@ -138,16 +148,32 @@ export abstract class DataCommsEngine implements systemObject{
         this.manager.Update( this.system, var_upd ) ;
     }
 
+    async _init(){
+        this.status = ServiceStatusCodes.Warming;
+        let resp = await this.Initialize() ;
+        
+        if(resp.success) this.status = ServiceStatusCodes.Ready ;
+        else 
+        {
+            this.status = ServiceStatusCodes.Error ;
+            let code = resp.error ? resp.error.code : ErrorCodes.UnknownError;
+            let err = new systemError(this.name, code, "", Actions.Init);
+            this.manager.DispatchError(err);
+        }
+        if(this.toBeSubscribed.size > 0) this._subcribe();
+
+    }
+
     /**
      * Action Initialize. Place here anything that is needed for initialization of this engine.
      */
-    abstract async Init() : Promise<basicResponse> ;
+    abstract async Initialize() : Promise<basicResponse> ;
 
     /**
      * Action Subscribe. It subscribes the list of variables names for automatic updates.
      * @param variables variables names to be subscribed
      */
-    abstract async Subscribe(variables:String[]) : Promise<SubscribeResp[]> ;
+    abstract async Subscribe(variables:String[]) : Promise<VarResponse[]> ;
 
     /**
      * Action Unsubscribe. It unubscribes the list of variables names from automatic updates.
@@ -162,7 +188,7 @@ export abstract class DataCommsEngine implements systemObject{
      * @param names list of variable names to be written to
      * @param values values related to variables to be written
      */
-    abstract async Write( target:systemObject, names:string[], values:basicValues[] ) : Promise<basicResponse>
+    abstract async Write( target:systemObject[], values:any[] ) : Promise<VarResponse[]>
     
     /**
      * Action Read, this can be called by a UI element. 
@@ -170,7 +196,7 @@ export abstract class DataCommsEngine implements systemObject{
      * @param target the caller of this action
      * @param names list of variable names to be read
      */
-    abstract async Read( target:systemObject, names:string[] ) : Promise<basicResponse>
+    abstract async Read( target:systemObject[] ) : Promise<VarResponse[]>
 
     /**
      * Action Update. It updates a list of variable values and statuses in the DataManager.
