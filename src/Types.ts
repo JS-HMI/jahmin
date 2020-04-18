@@ -49,7 +49,9 @@ export enum ErrorCodes{
     Unauthorized = "UNAUTHORIZED",
     /**Serverside bug? */
     ServerError = "SERVER-ERROR",
-    
+    /**Return from a HTTP 404 */
+    NotFound = "NOT-FOUND",
+    EngineNotExist = "NO-ENGINE",
     UnknownError = "UKNOWN"
 }
 

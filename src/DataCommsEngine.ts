@@ -11,6 +11,10 @@ export abstract class DataCommsEngine implements systemObject{
     name = "DataEngine"
     status:string = ServiceStatusCodes.Down
 
+    VarDispatchErrorCases:string[]
+    VarErrorUnsubCases:string[]
+    VarErrorNoActCases:string[]
+
     /**
      * Variables waiting to be subscribed for updates. It is a key-number map.
      * The number represent how many UI element times requested updates from that variable.
@@ -39,7 +43,16 @@ export abstract class DataCommsEngine implements systemObject{
 
 
     constructor( systemName:string ){
-        this.system = systemName
+        this.system = systemName ;
+        
+        this.VarDispatchErrorCases = [
+            ErrorCodes.VarNotExist, ErrorCodes.WontSubcribe, ErrorCodes.Unauthorized, 
+            ErrorCodes.UnknownError, ErrorCodes.CantUnSubcribe];
+
+        this.VarErrorNoActCases = [ErrorCodes.BadValue, ErrorCodes.CantUnSubcribe, 
+            ErrorCodes.Unauthorized];
+        
+        this.VarErrorUnsubCases = [ErrorCodes.CantSubcribe, ErrorCodes.NoNetwork]
     }
 
     
@@ -73,82 +86,79 @@ export abstract class DataCommsEngine implements systemObject{
     }
 
     async _subcribe(){
-        let resp = await this.Subscribe( Array.from(this.toBeSubscribed.keys()) );
+        let response = await this.Subscribe( Array.from(this.toBeSubscribed.keys()) );
+        this.updateSubscriberLists(response);
+        this.UpdateVars(response, VarStatusCodes.Subscribed, Actions.Subscribe);
+    }
 
-        let var_upd:systemVariable[] = [];
-        for( let sub_rsp of resp ){
-            let varName = sub_rsp.varName;
-            let var_idx = new systemVariable(sub_rsp.varName);
-
-            if(sub_rsp.success) 
+    updateSubscriberLists(response:VarResponse[]){
+        for (let rsp of response) 
+        {
+            if(rsp.success) 
             {
-                let count = this.toBeSubscribed.get(varName);
-                count +=  ( this.subscribedVar.get(varName) || 0 );
-                this.subscribedVar.set(sub_rsp.varName, count );
-                this.toBeSubscribed.delete(sub_rsp.varName);
-
-                var_idx.status = VarStatusCodes.Subscribed ;
-                if(sub_rsp.varValue) var_idx.value  = sub_rsp.varValue;
+                let count = this.toBeSubscribed.get(rsp.varName);
+                count +=  ( this.subscribedVar.get(rsp.varName) || 0 );
+                this.subscribedVar.set(rsp.varName, count );
+                this.toBeSubscribed.delete(rsp.varName);
             }
             else 
             {
-                if(sub_rsp.error && sub_rsp.error.code) 
-                {
-                    let code = sub_rsp.error.code ;
-                    if(code === ErrorCodes.VarNotExist || code === ErrorCodes.WontSubcribe)
-                    {
-                        this.toBeSubscribed.delete(sub_rsp.varName);
-                        var_idx.status = VarStatusCodes.Error;
-                        // Dispatch error
-                        let err = new systemError(this.system, code, sub_rsp.varName, Actions.Subscribe );
-                        this.manager.DispatchError(err);
-                    }
-                    // keep subscribe later
-                    else var_idx.status = VarStatusCodes.Unsubscribed;
+                let code = rsp.error ? rsp.error.code : ErrorCodes.UnknownError;
+                // keep in list for next try later in case of these errors
+                if(code !== ErrorCodes.NoNetwork && code !== ErrorCodes.CantSubcribe)
+                    this.toBeSubscribed.delete(rsp.varName);
+            }
+        }
+    }
+
+    UpdateVars(response:VarResponse[], ok_status:VarStatusCodes, action:string = "")
+    {
+        let var_upd:systemVariable[] = [];
+
+        for( let rsp of response ){
+            let varName = rsp.varName;
+            let var_idx = new systemVariable(varName);
+            if(rsp.success) 
+            {
+                var_idx.status = ok_status ;
+                if(rsp.varValue) var_idx.value  = rsp.varValue;
+            }
+            else 
+            {
+                let code = rsp.error ? rsp.error.code : ErrorCodes.UnknownError;
+                
+                if( this.VarDispatchErrorCases.includes(code))
+                    this.manager.CreateAndDispatchError(this.system,code,varName,action);
+
+                if(this.VarErrorUnsubCases.includes(code)) 
+                    var_idx.status = VarStatusCodes.Unsubscribed;
+                
+                else if(this.VarErrorNoActCases.includes(code)) // no modify status, unless is "pending"
+                {   
+                    let _var = this.manager.dataTree.GetVar({system:this.system, name:varName});
+                    var_idx.status = _var.status === VarStatusCodes.Pending ? VarStatusCodes.Subscribed : null ;
                 }
-                else
-                {
-                    this.toBeSubscribed.delete(sub_rsp.varName);
-                    var_idx.status = VarStatusCodes.Error;
-                    // Dispatch error
-                    let err = new systemError(this.system, ErrorCodes.UnknownError, sub_rsp.varName, Actions.Subscribe );
-                    this.manager.DispatchError(err);
-                }
+                else var_idx.status = VarStatusCodes.Error;
             }
             var_upd.push(var_idx);
         }
-        
         this.manager.Update(this.system, var_upd);
     }
 
-    async _unsubcribe(){
-        let unsubscrib_list = Array.from(this.toBeUnsubscribed) 
-        let resp = await this.Unsubscribe( unsubscrib_list );
-        let var_upd:systemVariable[] = [];
-
-        for ( let idx=0; idx< resp.length; idx++){
-            let var_name = unsubscrib_list[idx];
-            let var_idx = new systemVariable(var_name);
-            if(resp[idx].success) {
-                this.subscribedVar.delete(var_name);
-                this.toBeUnsubscribed.delete(var_name);
-                var_idx.status = VarStatusCodes.Unsubscribed;
-            }
-            else
-            {
-                if(resp[idx].error && resp[idx].error.code && resp[idx].error.code !== ErrorCodes.CantUnSubcribe ) {
-                    var_idx.status = VarStatusCodes.Error;
-                    // Dispacth Error
-                    let err = new systemError(this.system,resp[idx].error.code, var_name, Actions.Unsubscribe );
-                    this.manager.DispatchError(err);
-                }
-            }
-            var_upd.push(var_idx);
+    async _unsubcribe()
+    {
+        let response = await this.Unsubscribe( Array.from(this.toBeUnsubscribed) );
+        for (let rsp of response)
+        {
+            if(rsp.success) this.subscribedVar.delete(rsp.varName);
+            this.toBeUnsubscribed.delete(rsp.varName);            
         }
-        this.manager.Update( this.system, var_upd ) ;
+        this.UpdateVars(response, VarStatusCodes.Unsubscribed, Actions.Unsubscribe);
     }
 
-    async _init(){
+
+    async _init()
+    {
         this.status = ServiceStatusCodes.Warming;
         let resp = await this.Initialize() ;
         
@@ -157,11 +167,10 @@ export abstract class DataCommsEngine implements systemObject{
         {
             this.status = ServiceStatusCodes.Error ;
             let code = resp.error ? resp.error.code : ErrorCodes.UnknownError;
-            let err = new systemError(this.name, code, "", Actions.Init);
+            let err = new systemError(this.name, code, this.name, Actions.Init);
             this.manager.DispatchError(err);
         }
         if(this.toBeSubscribed.size > 0) this._subcribe();
-
     }
 
     /**
@@ -179,24 +188,22 @@ export abstract class DataCommsEngine implements systemObject{
      * Action Unsubscribe. It unubscribes the list of variables names from automatic updates.
      * @param variables variables names to be unsubscribed
      */
-    abstract async Unsubscribe(variables:String[]) : Promise<basicResponse[]> ;
+    abstract async Unsubscribe(variables:String[]) : Promise<VarResponse[]> ;
 
     /**
      * Action Write, this can be called by a UI element. 
      * It writes to server the provided list of values to the relative variables.
-     * @param target the caller of this action
      * @param names list of variable names to be written to
      * @param values values related to variables to be written
      */
-    abstract async Write( target:systemObject[], values:any[] ) : Promise<VarResponse[]>
+    abstract async Write( names:string[], values:any[] ) : Promise<VarResponse[]>
     
     /**
      * Action Read, this can be called by a UI element. 
      * Forces a list of variables to be read from server even if not scheduled.
-     * @param target the caller of this action
      * @param names list of variable names to be read
      */
-    abstract async Read( target:systemObject[] ) : Promise<VarResponse[]>
+    abstract async Read( names:string[] ) : Promise<VarResponse[]>
 
     /**
      * Action Update. It updates a list of variable values and statuses in the DataManager.

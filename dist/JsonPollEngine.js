@@ -1,9 +1,10 @@
 import { DataCommsEngine } from './DataCommsEngine.js';
-import { VarResponse, ErrorCodes } from './Types.js';
+import { VarResponse, systemError, ErrorCodes, Actions, VarStatusCodes } from './Types.js';
 export class JsonPollEngine extends DataCommsEngine {
     constructor(sysName, config) {
         super(sysName);
         this.name = "JsonPollEngine";
+        this.readInterval_ms = config.readInterval_ms || 5000;
         this.host = config.host || "";
         this.readPrefix = config.readPrefix || "";
         this.writePrefix = config.writePrefix || "";
@@ -16,27 +17,81 @@ export class JsonPollEngine extends DataCommsEngine {
         this.referrerPolicy = config.referrerPolicy || 'no-referrer'; // no-referrer
         this.headers = config.headers || {};
         this.headers['Content-Type'] = 'application/json';
+        this.intervalID = setInterval(this._read_in_intervals.bind(this), this.readInterval_ms);
+    }
+    async _read_in_intervals() {
+        let names = Array.from(this.subscribedVar.keys());
+        let response = await this.postData(this.readPrefix, names, Actions.Read);
+        if (!response.success)
+            clearInterval(this.intervalID);
+        let vars = this.unpackReadData(response, names);
+        this.UpdateVars(vars, VarStatusCodes.Subscribed, Actions.Read);
     }
     async Initialize() {
         return { success: true };
     }
     async Subscribe(variables) {
-        let resp = [];
-        variables.forEach(v => {
-            resp.push(new VarResponse(true, v));
-        });
-        return resp;
+        return await this.Read(variables);
     }
     async Unsubscribe(variables) {
-        return variables.map((v) => { return { success: true }; });
+        return variables.map((v) => { return new VarResponse(true, v, null); });
     }
-    Write(target, values) {
-        throw new Error("Method not implemented.");
+    async Write(names, values) {
+        let payload = this.packWriteData(names, values);
+        let response = await this.postData(this.writePrefix, payload, Actions.Write);
+        return this.unpackWriteData(response, names, values);
     }
-    Read(target) {
-        throw new Error("Method not implemented.");
+    async Read(names) {
+        let payload = this.packReadData(names);
+        let response = await this.postData(this.readPrefix, payload, Actions.Read);
+        return this.unpackReadData(response, names);
     }
-    async postData(prefix, data) {
+    packWriteData(names, values) {
+        if (names.length !== 1 || values.length !== 1)
+            throw new Error("Write multiple values not supported yet.");
+        return { name: names[0], value: values[0] };
+    }
+    unpackWriteData(response, request_names, request_val) {
+        let _var = null;
+        if (request_names.length !== 1 || request_val.length !== 1)
+            throw new Error("Write multiple values not supported yet.");
+        if (response.success) {
+            _var = new VarResponse(response.data.Success, request_names[0], request_val[0]);
+            if (!response.data.Success) {
+                // only two possible errors
+                let code = response.data.Error === "NotFound" ? ErrorCodes.VarNotExist : ErrorCodes.BadValue;
+                _var.setError(code);
+                _var.varValue = null;
+            }
+        }
+        else {
+            _var = new VarResponse(false, request_names[0], null);
+            _var.error = response.error;
+        }
+        return [_var];
+    }
+    packReadData(names) {
+        return names;
+    }
+    unpackReadData(response, request) {
+        let variables = [];
+        if (response.success) {
+            for (let node of response.data.Nodes) {
+                let var_idx = new VarResponse(node.Success, node.Name, node.Value);
+                if (!node.Success)
+                    var_idx.setError(ErrorCodes.VarNotExist);
+                variables.push(var_idx);
+            }
+        }
+        else {
+            for (let v of request) {
+                let var_idx = new VarResponse(false, v, null);
+                var_idx.setError(response.error.code, response.error.message);
+            }
+        }
+        return variables;
+    }
+    async postData(prefix, data, action) {
         const response = await fetch(this.host + '/' + prefix, {
             method: 'POST',
             mode: this.mode,
@@ -52,7 +107,7 @@ export class JsonPollEngine extends DataCommsEngine {
         let status = response.status;
         if (response.ok) {
             try {
-                resp_data = response.json();
+                resp_data = await response.json();
                 return {
                     success: true,
                     data: resp_data
@@ -76,14 +131,17 @@ export class JsonPollEngine extends DataCommsEngine {
                     err = { code: ErrorCodes.Unauthorized, message: "Unauthoriazed request." };
                     break;
                 case (404):
-                    err = { code: ErrorCodes.BadValue, message: `Url '${this.host}/${prefix}' not found ` };
+                    err = { code: ErrorCodes.NotFound, message: `Url '${this.host}/${prefix}' not found ` };
                     break;
                 case (500):
                     err = { code: ErrorCodes.ServerError, message: "Server Error" };
                     break;
                 default:
-                    err = { code: ErrorCodes.UnknownError, message: "Unknown Error" };
+                    err = { code: ErrorCodes.UnknownError, message: "Unknown Error, HTTP status code: " + status.toString() };
             }
+            let sys_err = new systemError(this.system, err.code, this.name, Actions.Read);
+            err.message = err.message;
+            this.manager.DispatchError(sys_err);
             return { success: false, data: null, error: err };
         }
     }

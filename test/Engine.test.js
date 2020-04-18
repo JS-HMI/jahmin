@@ -1,13 +1,42 @@
 import {JsonPollEngine, Manager} from '../dist/jashmi.js'
-import {VarStatusCodes, ServiceStatusCodes} from '../dist/Types.js'
+import {VarStatusCodes, ServiceStatusCodes,ErrorCodes} from '../dist/Types.js'
+//import { enableFetchMocks, FetchMock } from 'jest-fetch-mock'
+//enableFetchMocks()
+var fetch_mock = require('jest-fetch-mock');
+fetch_mock.enableFetchMocks();
+
 
 
 localStorage.clear();
-let engine = new JsonPollEngine("test_sys")
+let engine = new JsonPollEngine("test_sys",{})
 engine.status = ServiceStatusCodes.Ready;
 Manager.AddEngine(engine);
 let v0 = {system:"test_sys", name:"var"} ;
 let v1 = {system:"test_sys", name:"vario"} ;
+
+
+test('Post function',async()=>{
+    // ok
+    fetch_mock.mockResponseOnce( JSON.stringify({ciao:2}), {status:200});
+    var p = await engine.postData("ciao",{ciao:1});
+    expect(p).toEqual({success:true, data:{ciao:2}});
+    
+    // invalid JSON
+    fetch_mock.mockResponseOnce( "{ciao:2}", {status:200});
+    p = await engine.postData("ciao",{ciao:1});
+    expect(p).toEqual({success:false, data:null, error:{code : ErrorCodes.BadValue, message : "Failed to parse JSON response"}});
+
+    // 404
+    fetch_mock.mockResponseOnce( "{ciao:2}", {status:404});
+    p = await engine.postData("ciao",{ciao:1});
+    expect(p).toEqual({success:false, data:null, error:{code : ErrorCodes.BadValue, message : "Url '/ciao' not found "}});
+    
+    // 403
+    fetch_mock.mockResponseOnce( "{ciao:2}", {status:403});
+    p = await engine.postData("ciao",{ciao:1});
+    expect(p).toEqual({success:false, data:null, error:{code : ErrorCodes.Unauthorized, message : "Unauthoriazed request."}});
+});
+
 
 test('Subscribe New Variable', async ()=>{
     Manager.Subscribe(v0);
@@ -16,7 +45,7 @@ test('Subscribe New Variable', async ()=>{
 
     let v = Manager.dataTree.GetVar(v0);
     expect(v).toBeNull();  // Manager not ready
-    
+
     Manager.Init();
     await new Promise(resolve => setTimeout(resolve, 0));
     v = Manager.dataTree.GetVar(v0);

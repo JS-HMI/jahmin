@@ -45,6 +45,9 @@ export var ErrorCodes;
     ErrorCodes["Unauthorized"] = "UNAUTHORIZED";
     /**Serverside bug? */
     ErrorCodes["ServerError"] = "SERVER-ERROR";
+    /**Return from a HTTP 404 */
+    ErrorCodes["NotFound"] = "NOT-FOUND";
+    ErrorCodes["EngineNotExist"] = "NO-ENGINE";
     ErrorCodes["UnknownError"] = "UKNOWN";
 })(ErrorCodes || (ErrorCodes = {}));
 export var Actions;

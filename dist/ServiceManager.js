@@ -1,4 +1,4 @@
-import { ServiceStatusCodes, VarStatusCodes } from './Types.js';
+import { systemVariable, ServiceStatusCodes, VarStatusCodes, systemError, Actions, ErrorCodes } from './Types.js';
 import { DataTree } from './DataTree.js';
 import { escape as escapeHtml } from 'html-escaper';
 import { ErrorTray } from './ErrorTray.js';
@@ -38,7 +38,8 @@ export class ServiceManager {
         else {
             this.dataTree.Create(target);
             this.dataTree.UpdateStatus(target, VarStatusCodes.Error);
-            // Throw some error here
+            this.CreateAndDispatchError(target.system, ErrorCodes.EngineNotExist, "", Actions.Subscribe);
+            throw new Error(`Engine '${target.system}' does not exist.`);
         }
     }
     async Unsubscribe(target) {
@@ -50,14 +51,51 @@ export class ServiceManager {
             engine.RequestUnsubscription(target);
         }
         else {
-            // dispacth error 
+            this.CreateAndDispatchError(target.system, ErrorCodes.EngineNotExist, "", Actions.Unsubscribe);
+            throw new Error(`Engine '${target.system}' does not exist.`);
         }
     }
     Update(system, data) {
         this.dataTree.Update(system, data);
     }
+    async Read(system, vars) {
+        if (typeof system !== "string" || vars)
+            throw new TypeError("'system' must be a string and 'vars' an array of strings");
+        await this.isInitialized();
+        let engine = this.dataEngines.get(system);
+        if (engine) {
+            let resp = await engine.Read(vars);
+            engine.UpdateVars(resp, null, Actions.Read);
+            return resp;
+        }
+        else {
+            this.CreateAndDispatchError(system, ErrorCodes.EngineNotExist, "", Actions.Read);
+            throw new Error(`Engine '${system}' does not exist.`);
+        }
+    }
+    async Write(system, vars, values) {
+        if (typeof system !== "string" || vars || values)
+            throw new TypeError("'system' must be a string and 'vars' and values cannot be null");
+        await this.isInitialized();
+        let engine = this.dataEngines.get(system);
+        if (engine) {
+            let sys_vars = vars.map(v => { let x = new systemVariable(v); x.status = VarStatusCodes.Pending; return x; });
+            this.dataTree.Update(system, sys_vars);
+            let resp = await engine.Write(vars, values);
+            engine.UpdateVars(resp, VarStatusCodes.Subscribed, Actions.Write);
+            return resp;
+        }
+        else {
+            this.CreateAndDispatchError(system, ErrorCodes.EngineNotExist, "", Actions.Write);
+            throw new Error(`Engine '${system}' does not exist.`);
+        }
+    }
     DispatchError(error) {
         this.errorTray.Create(error);
+    }
+    CreateAndDispatchError(system, code, target = "", action = "") {
+        let error = new systemError(system, code, target, action);
+        this.DispatchError(error);
     }
     async Init() {
         // signal that all the engines are added, can start 

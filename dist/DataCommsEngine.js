@@ -32,6 +32,13 @@ export class DataCommsEngine {
          */
         this.aggregationTime_ms = 10;
         this.system = systemName;
+        this.VarDispatchErrorCases = [
+            ErrorCodes.VarNotExist, ErrorCodes.WontSubcribe, ErrorCodes.Unauthorized,
+            ErrorCodes.UnknownError, ErrorCodes.CantUnSubcribe
+        ];
+        this.VarErrorNoActCases = [ErrorCodes.BadValue, ErrorCodes.CantUnSubcribe,
+            ErrorCodes.Unauthorized];
+        this.VarErrorUnsubCases = [ErrorCodes.CantSubcribe, ErrorCodes.NoNetwork];
     }
     RequestSubscription(target) {
         let count = this.toBeSubscribed.get(target.name) || 0;
@@ -60,69 +67,62 @@ export class DataCommsEngine {
         this.unsub_timerID = setTimeout(this._unsubcribe.bind(this), this.aggregationTime_ms);
     }
     async _subcribe() {
-        let resp = await this.Subscribe(Array.from(this.toBeSubscribed.keys()));
-        let var_upd = [];
-        for (let sub_rsp of resp) {
-            let varName = sub_rsp.varName;
-            let var_idx = new systemVariable(sub_rsp.varName);
-            if (sub_rsp.success) {
-                let count = this.toBeSubscribed.get(varName);
-                count += (this.subscribedVar.get(varName) || 0);
-                this.subscribedVar.set(sub_rsp.varName, count);
-                this.toBeSubscribed.delete(sub_rsp.varName);
-                var_idx.status = VarStatusCodes.Subscribed;
-                if (sub_rsp.varValue)
-                    var_idx.value = sub_rsp.varValue;
+        let response = await this.Subscribe(Array.from(this.toBeSubscribed.keys()));
+        this.updateSubscriberLists(response);
+        this.UpdateVars(response, VarStatusCodes.Subscribed, Actions.Subscribe);
+    }
+    updateSubscriberLists(response) {
+        for (let rsp of response) {
+            if (rsp.success) {
+                let count = this.toBeSubscribed.get(rsp.varName);
+                count += (this.subscribedVar.get(rsp.varName) || 0);
+                this.subscribedVar.set(rsp.varName, count);
+                this.toBeSubscribed.delete(rsp.varName);
             }
             else {
-                if (sub_rsp.error && sub_rsp.error.code) {
-                    let code = sub_rsp.error.code;
-                    if (code === ErrorCodes.VarNotExist || code === ErrorCodes.WontSubcribe) {
-                        this.toBeSubscribed.delete(sub_rsp.varName);
-                        var_idx.status = VarStatusCodes.Error;
-                        // Dispatch error
-                        let err = new systemError(this.system, code, sub_rsp.varName, Actions.Subscribe);
-                        this.manager.DispatchError(err);
-                    }
-                    // keep subscribe later
-                    else
-                        var_idx.status = VarStatusCodes.Unsubscribed;
+                let code = rsp.error ? rsp.error.code : ErrorCodes.UnknownError;
+                // keep in list for next try later in case of these errors
+                if (code !== ErrorCodes.NoNetwork && code !== ErrorCodes.CantSubcribe)
+                    this.toBeSubscribed.delete(rsp.varName);
+            }
+        }
+    }
+    UpdateVars(response, ok_status, action = "") {
+        let var_upd = [];
+        for (let rsp of response) {
+            let varName = rsp.varName;
+            let var_idx = new systemVariable(varName);
+            if (rsp.success) {
+                var_idx.status = ok_status;
+                if (rsp.varValue)
+                    var_idx.value = rsp.varValue;
+            }
+            else {
+                let code = rsp.error ? rsp.error.code : ErrorCodes.UnknownError;
+                if (this.VarDispatchErrorCases.includes(code))
+                    this.manager.CreateAndDispatchError(this.system, code, varName, action);
+                if (this.VarErrorUnsubCases.includes(code))
+                    var_idx.status = VarStatusCodes.Unsubscribed;
+                else if (this.VarErrorNoActCases.includes(code)) // no modify status, unless is "pending"
+                 {
+                    let _var = this.manager.dataTree.GetVar({ system: this.system, name: varName });
+                    var_idx.status = _var.status === VarStatusCodes.Pending ? VarStatusCodes.Subscribed : null;
                 }
-                else {
-                    this.toBeSubscribed.delete(sub_rsp.varName);
+                else
                     var_idx.status = VarStatusCodes.Error;
-                    // Dispatch error
-                    let err = new systemError(this.system, ErrorCodes.UnknownError, sub_rsp.varName, Actions.Subscribe);
-                    this.manager.DispatchError(err);
-                }
             }
             var_upd.push(var_idx);
         }
         this.manager.Update(this.system, var_upd);
     }
     async _unsubcribe() {
-        let unsubscrib_list = Array.from(this.toBeUnsubscribed);
-        let resp = await this.Unsubscribe(unsubscrib_list);
-        let var_upd = [];
-        for (let idx = 0; idx < resp.length; idx++) {
-            let var_name = unsubscrib_list[idx];
-            let var_idx = new systemVariable(var_name);
-            if (resp[idx].success) {
-                this.subscribedVar.delete(var_name);
-                this.toBeUnsubscribed.delete(var_name);
-                var_idx.status = VarStatusCodes.Unsubscribed;
-            }
-            else {
-                if (resp[idx].error && resp[idx].error.code && resp[idx].error.code !== ErrorCodes.CantUnSubcribe) {
-                    var_idx.status = VarStatusCodes.Error;
-                    // Dispacth Error
-                    let err = new systemError(this.system, resp[idx].error.code, var_name, Actions.Unsubscribe);
-                    this.manager.DispatchError(err);
-                }
-            }
-            var_upd.push(var_idx);
+        let response = await this.Unsubscribe(Array.from(this.toBeUnsubscribed));
+        for (let rsp of response) {
+            if (rsp.success)
+                this.subscribedVar.delete(rsp.varName);
+            this.toBeUnsubscribed.delete(rsp.varName);
         }
-        this.manager.Update(this.system, var_upd);
+        this.UpdateVars(response, VarStatusCodes.Unsubscribed, Actions.Unsubscribe);
     }
     async _init() {
         this.status = ServiceStatusCodes.Warming;
@@ -132,7 +132,7 @@ export class DataCommsEngine {
         else {
             this.status = ServiceStatusCodes.Error;
             let code = resp.error ? resp.error.code : ErrorCodes.UnknownError;
-            let err = new systemError(this.name, code, "", Actions.Init);
+            let err = new systemError(this.name, code, this.name, Actions.Init);
             this.manager.DispatchError(err);
         }
         if (this.toBeSubscribed.size > 0)
