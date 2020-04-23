@@ -59,13 +59,15 @@ export class ServiceManager {
         this.dataTree.Update(system, data);
     }
     async Read(system, vars) {
-        if (typeof system !== "string" || vars)
+        if (typeof system !== "string" || typeof vars !== "object")
             throw new TypeError("'system' must be a string and 'vars' an array of strings");
         await this.isInitialized();
         let engine = this.dataEngines.get(system);
         if (engine) {
             let resp = await engine.Read(vars);
-            engine.UpdateVars(resp, null, Actions.Read);
+            // Maybe here we need something like STATUS OK - if was in error it is not clear that it would be subscribed
+            // see issue https://github.com/JaS-HMI/jashmi/issues/2
+            engine.UpdateVars(resp, VarStatusCodes.Subscribed, Actions.Read);
             return resp;
         }
         else {
@@ -74,7 +76,9 @@ export class ServiceManager {
         }
     }
     async Write(system, vars, values) {
-        if (typeof system !== "string" || vars || values)
+        if (typeof system !== "string" ||
+            typeof vars !== "object" ||
+            typeof values !== "object")
             throw new TypeError("'system' must be a string and 'vars' and values cannot be null");
         await this.isInitialized();
         let engine = this.dataEngines.get(system);
@@ -82,6 +86,8 @@ export class ServiceManager {
             let sys_vars = vars.map(v => { let x = new systemVariable(v); x.status = VarStatusCodes.Pending; return x; });
             this.dataTree.Update(system, sys_vars);
             let resp = await engine.Write(vars, values);
+            // Maybe here we need something like STATUS OK - if was in error it is not clear that it would be subscribed
+            // see issue https://github.com/JaS-HMI/jashmi/issues/2
             engine.UpdateVars(resp, VarStatusCodes.Subscribed, Actions.Write);
             return resp;
         }

@@ -1,8 +1,9 @@
 const path = require('path');
 
 module.exports = {
-  entry: './dist/jashmi.js',
-  mode : 'development',
+  entry: './build/entry.js',
+  //entry: './dist/jashmi.js',
+  mode : 'production',
    
   module: {
     rules: [
@@ -16,12 +17,16 @@ module.exports = {
     extensions: [ '.ts', '.js' ]
   },
   	
-  output: {
+  /*output: {
     filename: 'main.js',
     path: path.resolve(__dirname, 'build/'),
     library: 'jashmi'
+  },*/
+  output: {
+    filename: 'main.js',
+    path: path.resolve(__dirname, 'build/'),
   },
-
+  
    watchOptions: {
     poll: 1000
   }

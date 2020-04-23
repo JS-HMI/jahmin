@@ -33,7 +33,7 @@ export var ServiceStatusCodes;
 export var ErrorCodes;
 (function (ErrorCodes) {
     /**Variable was not found in server */
-    ErrorCodes["VarNotExist"] = "NOT-EXIST";
+    ErrorCodes["VarNotExist"] = "VAR-NOT-EXIST";
     ErrorCodes["WontSubcribe"] = "WONT-SUB";
     ErrorCodes["CantSubcribe"] = "CANT-SUB";
     ErrorCodes["CantUnSubcribe"] = "CANT-UNSUB";
@@ -41,12 +41,16 @@ export var ErrorCodes;
     ErrorCodes["BadValue"] = "BAD-VALUE";
     /**Network is down, cannot retrieve values */
     ErrorCodes["NoNetwork"] = "NO-NETWORK";
+    ErrorCodes["NetError"] = "NET-ERROR";
     /**Action cannot be performed, user has no rights. */
     ErrorCodes["Unauthorized"] = "UNAUTHORIZED";
-    /**Serverside bug? */
+    /**HTTP 400 error on request */
+    ErrorCodes["BadReq"] = "BAD-REQUEST";
+    /**Serverside bug? HTTP 500*/
     ErrorCodes["ServerError"] = "SERVER-ERROR";
     /**Return from a HTTP 404 */
     ErrorCodes["NotFound"] = "NOT-FOUND";
+    ErrorCodes["BadData"] = "BAD-DATA";
     ErrorCodes["EngineNotExist"] = "NO-ENGINE";
     ErrorCodes["UnknownError"] = "UKNOWN";
 })(ErrorCodes || (ErrorCodes = {}));

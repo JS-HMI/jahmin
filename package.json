@@ -1,6 +1,6 @@
 {
   "name": "jashmi",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A JavaScript framework to build browser friendly Human Machine Interfaces for automation",
   "main": "dist/jashmi.js",
   "types": "src/jashmi.ts",

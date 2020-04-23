@@ -68,10 +68,10 @@ export class JsonPollEngine extends DataCommsEngine implements JPollConfig{
 
     async _read_in_intervals()
     {
-        let names:string[] = Array.from(this.subscribedVar.keys());
-        let response = await this.postData( this.readPrefix, names, Actions.Read );
+        let payload = this.packReadData(Array.from(this.subscribedVar.keys()));
+        let response = await this.postData( this.readPrefix, payload, Actions.Read );
         if( !response.success ) clearInterval(this.intervalID);
-        let vars = this.unpackReadData(response, names)
+        let vars = this.unpackReadData(response, payload);
         this.UpdateVars(vars, VarStatusCodes.Subscribed, Actions.Read) ; 
     }
     
@@ -92,7 +92,7 @@ export class JsonPollEngine extends DataCommsEngine implements JPollConfig{
     {
         let payload = this.packWriteData(names,values);
         let response = await this.postData(this.writePrefix,payload, Actions.Write);
-        return this.unpackWriteData(response, names, values);
+        return this.unpackWriteData(response, names);
     }
 
     async Read(names:string[]): Promise<VarResponse[]> 
@@ -102,52 +102,48 @@ export class JsonPollEngine extends DataCommsEngine implements JPollConfig{
         return this.unpackReadData(response, names);
     }
 
-    packWriteData(names:string[], values:any[]):object
+    packWriteData(Names:string[], Values:any[]):object
     {
-        if(names.length !==1 || values.length !==1) throw new Error("Write multiple values not supported yet.");
-        return {name:names[0], value:values[0]};
+        if(Names.length !== Values.length) throw new Error("Bad data, Names and Values must contain samenumber of elements.")
+        return {names:Names, values:Values};
     }
 
-    unpackWriteData(response: postResponse, request_names:string[], request_val:any[]):VarResponse[]
+    unpackWriteData(response: postResponse, request:any):VarResponse[]
     {
-        let _var:VarResponse = null;
-        if(request_names.length !==1 || request_val.length !==1) throw new Error("Write multiple values not supported yet.");
-        
-        if(response.success)
-        {
-            _var = new VarResponse(response.data.Success, request_names[0], request_val[0]);
-            if(!response.data.Success)
-            {
-                // only two possible errors
-                let code = response.data.Error === "NotFound" ? ErrorCodes.VarNotExist : ErrorCodes.BadValue;
-                _var.setError( code );
-                _var.varValue = null ;
-            }
-        }
-        else
-        {
-            _var = new VarResponse(false, request_names[0], null)
-            _var.error = response.error;
-        }
-        
-        return [_var];
+        return this.unpackData(response,request.names, Actions.Write);
     }
 
-    packReadData(names:string[]):object
+    packReadData(Names:string[]):object
     {
-        return names ;
+        return {names: Names} ;
     }
 
-    unpackReadData(response: postResponse, request:string[]):VarResponse[]
+    unpackReadData(response: postResponse, request:any):VarResponse[]
+    {
+        return this.unpackData(response,request.names, Actions.Read);
+    }
+
+    unpackData(response: postResponse, request:string[], action:string):VarResponse[]
     {
         let variables:VarResponse[] = [];
 
         if( response.success )
         {
-            for(let node of response.data.Nodes) 
+            for(let node of response.data) 
             {
-                let var_idx = new VarResponse( node.Success, node.Name, node.Value );
-                if( !node.Success ) var_idx.setError(ErrorCodes.VarNotExist);
+                let var_idx = null;
+                if( typeof node.Success === "undefined" || typeof node.Name !== "string" || 
+                    node.Name === ""  || typeof node.ErrorCode !== "string") 
+                {
+                    // something is wrong
+                    var_idx = new VarResponse( false, node.Name || "Uknown", null );
+                    var_idx.setError(ErrorCodes.BadData);
+                    this.manager.CreateAndDispatchError(this.system,ErrorCodes.BadData, node.Name || "Uknown", action );
+                }
+                else { 
+                    var_idx = new VarResponse( node.Success, node.Name, node.Value );
+                    if( !node.Success ) var_idx.setError(node.ErrorCode);
+                }
                 variables.push(var_idx);
             }
         }
@@ -157,6 +153,7 @@ export class JsonPollEngine extends DataCommsEngine implements JPollConfig{
             {
                 let var_idx = new VarResponse( false, v, null);
                 var_idx.setError( response.error.code, response.error.message );
+                variables.push(var_idx);
             }
         }
         return variables;
@@ -164,16 +161,24 @@ export class JsonPollEngine extends DataCommsEngine implements JPollConfig{
 
     async  postData( prefix :string , data:object, action:string ) : Promise<postResponse> 
     {
-        const response = await fetch(this.host + '/' + prefix, {
-            method         : 'POST',
-            mode           : this.mode,
-            cache          : this.cache,
-            credentials    : this.credentials,
-            headers        : this.headers,
-            redirect       : this.redirect,
-            referrerPolicy : this.referrerPolicy,
-            body           : JSON.stringify(data)
-        });
+        // faking response in case of Net Error
+        let response = {ok:false, status:1000, json:()=>{}};
+
+        try
+        {
+            response = await fetch(this.host + '/' + prefix, {
+                method         : 'POST',
+                mode           : this.mode,
+                cache          : this.cache,
+                credentials    : this.credentials,
+                headers        : this.headers,
+                redirect       : this.redirect,
+                referrerPolicy : this.referrerPolicy,
+                body           : JSON.stringify(data),
+            });
+        }
+        catch{}
+
         let resp_data:any = null;
         let err: basicError = null;
         let status = response.status;
@@ -198,6 +203,9 @@ export class JsonPollEngine extends DataCommsEngine implements JPollConfig{
         else 
         {
             switch(status) {
+                case(400) :
+                    err = { code : ErrorCodes.BadReq, message : "Bad request, data is not understood by the server."}    
+                    break;
                 case(401) :
                     err = { code : ErrorCodes.Unauthorized, message : "Unauthoriazed request."}    
                     break;
@@ -209,6 +217,9 @@ export class JsonPollEngine extends DataCommsEngine implements JPollConfig{
                     break;
                 case(500) :
                     err = { code: ErrorCodes.ServerError, message: "Server Error" }
+                    break;
+                case(1000):
+                    err = { code: ErrorCodes.NetError, message: "Network Error" }
                     break;
                 default :
                     err = { code: ErrorCodes.UnknownError, message: "Unknown Error, HTTP status code: " + status.toString()}

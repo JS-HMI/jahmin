@@ -55,6 +55,7 @@ export class DataTree extends StateVariable{
      * @param variables a list or a single systemVariable object {name,system,status,value}
      */
     Update(system:string, variables:systemVariable|systemVariable[]){
+        if(typeof system !== "string") throw new Error("'system' must be a string.");
         if(Array.isArray(variables)) {
             let upd:update_obj[] = [] ;
             
@@ -92,17 +93,17 @@ export class DataTree extends StateVariable{
     }
 
     _update(varID:update_obj){
-        let sys_var = this.GetVar(varID) ;
-        if(!varID) throw Error("Requested Variable does not exist: " + varID.name );
         this._checkVarType(varID);
+        let sys_var = this.GetVar(varID) ;
+        if(!sys_var) throw new Error("Requested Variable does not exist: " + varID.name );
         if(typeof varID.value === 'string')  varID.value  = escapeHtml(varID.value);
         if(varID.status) sys_var.status = escapeHtml(varID.status) ;
         if(varID.value)  sys_var.value  = varID.value ;
     }
 
     _checkVarType(v:systemVariable){
-        if(!v) throw TypeError("Variable cannot be null");
-        if(typeof v.name !== "string") throw TypeError("Variable Name must be a string");
+        if(!v) throw new TypeError("Variable cannot be null");
+        if(typeof v.name !== "string") throw new TypeError("Variable Name must be a string");
     }
 
     /**

@@ -37,7 +37,7 @@ export enum ServiceStatusCodes{
 
 export enum ErrorCodes{
     /**Variable was not found in server */
-    VarNotExist = "NOT-EXIST",
+    VarNotExist = "VAR-NOT-EXIST",
     WontSubcribe = "WONT-SUB",
     CantSubcribe = "CANT-SUB",
     CantUnSubcribe = "CANT-UNSUB",
@@ -45,12 +45,16 @@ export enum ErrorCodes{
     BadValue = "BAD-VALUE",
     /**Network is down, cannot retrieve values */
     NoNetwork = "NO-NETWORK",
+    NetError = "NET-ERROR",
     /**Action cannot be performed, user has no rights. */
     Unauthorized = "UNAUTHORIZED",
-    /**Serverside bug? */
+    /**HTTP 400 error on request */
+    BadReq = "BAD-REQUEST",
+    /**Serverside bug? HTTP 500*/
     ServerError = "SERVER-ERROR",
     /**Return from a HTTP 404 */
     NotFound = "NOT-FOUND",
+    BadData = "BAD-DATA",
     EngineNotExist = "NO-ENGINE",
     UnknownError = "UKNOWN"
 }
