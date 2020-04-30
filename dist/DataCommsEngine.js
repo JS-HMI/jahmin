@@ -2,9 +2,8 @@ import { Manager } from './ServiceManager.js';
 import { ServiceStatusCodes, systemVariable, Actions, VarStatusCodes, ErrorCodes, systemError } from './Types.js';
 /**Abstract class defining a Comunication Engine for data I/O with a server.*/
 export class DataCommsEngine {
-    constructor(systemName) {
+    constructor(EngineName) {
         this.manager = Manager;
-        this.name = "DataEngine";
         this.status = ServiceStatusCodes.Down;
         /**
          * Variables waiting to be subscribed for updates. It is a key-number map.
@@ -31,7 +30,7 @@ export class DataCommsEngine {
          * can be aggregated and make moreefficient network calls.
          */
         this.aggregationTime_ms = 10;
-        this.system = systemName;
+        this.name = EngineName || "DataEngine";
         this.VarDispatchErrorCases = [
             ErrorCodes.VarNotExist, ErrorCodes.WontSubcribe, ErrorCodes.Unauthorized,
             ErrorCodes.UnknownError, ErrorCodes.CantUnSubcribe
@@ -40,9 +39,24 @@ export class DataCommsEngine {
             ErrorCodes.Unauthorized];
         this.VarErrorUnsubCases = [ErrorCodes.CantSubcribe, ErrorCodes.NoNetwork];
     }
+    serializeSysObject(target) {
+        if (typeof target.name !== "string" || target.name.includes(":") ||
+            typeof target.system !== "string" || target.system.includes(":"))
+            return null;
+        return (target.system + ":" + target.name);
+    }
+    deserializeSysObject(target) {
+        let tmp = target.split(":");
+        if (tmp.length !== 2)
+            return null;
+        return { system: tmp[0], name: tmp[1] };
+    }
     RequestSubscription(target) {
-        let count = this.toBeSubscribed.get(target.name) || 0;
-        this.toBeSubscribed.set(target.name, count + 1);
+        let ser_obj = this.serializeSysObject(target);
+        if (ser_obj === null)
+            throw Error("CANNOT SUBSCRIBE variable " + target.name);
+        let count = this.toBeSubscribed.get(ser_obj) || 0;
+        this.toBeSubscribed.set(ser_obj, count + 1);
         // this case just fill the subscribelist,willbe submitted after init
         if (this.status === ServiceStatusCodes.Down ||
             this.status === ServiceStatusCodes.Warming)
@@ -52,60 +66,62 @@ export class DataCommsEngine {
         this.sub_timerID = setTimeout(this._subcribe.bind(this), this.aggregationTime_ms);
     }
     RequestUnsubscription(target) {
-        if (!this.subscribedVar.has(target.name))
+        let ser_obj = this.serializeSysObject(target);
+        if (ser_obj === null || !this.subscribedVar.has(ser_obj))
             throw Error("CANNOT UNSUBSCRIBE variable " + target.name);
-        let count = this.subscribedVar.get(target.name);
+        let count = this.subscribedVar.get(ser_obj);
         if (count > 1) {
             // the variable needs to remain subscribed untill there 
             // are related UI element connected
-            this.subscribedVar.set(target.name, count - 1);
+            this.subscribedVar.set(ser_obj, count - 1);
             return;
         }
-        this.toBeUnsubscribed.add(target.name);
+        this.toBeUnsubscribed.add(ser_obj);
         if (this.unsub_timerID)
             clearTimeout(this.unsub_timerID);
         this.unsub_timerID = setTimeout(this._unsubcribe.bind(this), this.aggregationTime_ms);
     }
     async _subcribe() {
-        let response = await this.Subscribe(Array.from(this.toBeSubscribed.keys()));
+        let targets = Array.from(this.toBeSubscribed.keys()).map(t => this.deserializeSysObject(t));
+        let response = await this.Subscribe(targets);
         this.updateSubscriberLists(response);
         this.UpdateVars(response, VarStatusCodes.Subscribed, Actions.Subscribe);
     }
     updateSubscriberLists(response) {
         for (let rsp of response) {
+            let var_id = this.serializeSysObject(rsp);
             if (rsp.success) {
-                let count = this.toBeSubscribed.get(rsp.varName);
-                count += (this.subscribedVar.get(rsp.varName) || 0);
-                this.subscribedVar.set(rsp.varName, count);
-                this.toBeSubscribed.delete(rsp.varName);
+                let count = this.toBeSubscribed.get(var_id);
+                count += (this.subscribedVar.get(var_id) || 0);
+                this.subscribedVar.set(var_id, count);
+                this.toBeSubscribed.delete(var_id);
             }
             else {
                 let code = rsp.error ? rsp.error.code : ErrorCodes.UnknownError;
                 // keep in list for next try later in case of these errors
                 if (code !== ErrorCodes.NoNetwork && code !== ErrorCodes.CantSubcribe)
-                    this.toBeSubscribed.delete(rsp.varName);
+                    this.toBeSubscribed.delete(var_id);
             }
         }
     }
     UpdateVars(response, ok_status, action = "") {
         let var_upd = [];
         for (let rsp of response) {
-            let varName = rsp.varName;
-            let var_idx = new systemVariable(varName);
+            let var_idx = new systemVariable(rsp);
             if (rsp.success) {
                 var_idx.status = ok_status;
-                if (rsp.varValue)
-                    var_idx.value = rsp.varValue;
+                if (rsp.value)
+                    var_idx.value = rsp.value;
             }
             else {
                 let code = rsp.error ? rsp.error.code : ErrorCodes.UnknownError;
                 if (this.VarDispatchErrorCases.includes(code))
-                    this.manager.CreateAndDispatchError(this.system, code, varName, action);
+                    this.manager.CreateAndDispatchError(rsp.system, code, rsp.name, action);
                 if (this.VarErrorUnsubCases.includes(code))
                     var_idx.status = VarStatusCodes.Unsubscribed;
                 else if (this.VarErrorNoActCases.includes(code)) // no modify status, unless is "pending"
                  {
-                    let _var = this.manager.dataTree.GetVar({ system: this.system, name: varName });
+                    let _var = this.manager.dataTree.GetVar(rsp);
                     var_idx.status = _var.status === VarStatusCodes.Pending ? VarStatusCodes.Subscribed : null;
                 }
                 else
@@ -113,14 +129,16 @@ export class DataCommsEngine {
             }
             var_upd.push(var_idx);
         }
-        this.manager.Update(this.system, var_upd);
+        this.manager.Update(var_upd);
     }
     async _unsubcribe() {
-        let response = await this.Unsubscribe(Array.from(this.toBeUnsubscribed));
+        let targets = Array.from(this.toBeUnsubscribed).map(t => this.deserializeSysObject(t));
+        let response = await this.Unsubscribe(targets);
         for (let rsp of response) {
+            let var_id = this.serializeSysObject(rsp);
             if (rsp.success)
-                this.subscribedVar.delete(rsp.varName);
-            this.toBeUnsubscribed.delete(rsp.varName);
+                this.subscribedVar.delete(var_id);
+            this.toBeUnsubscribed.delete(var_id);
         }
         this.UpdateVars(response, VarStatusCodes.Unsubscribed, Actions.Unsubscribe);
     }
@@ -144,6 +162,6 @@ export class DataCommsEngine {
      * @param data A list of variable updates, properties (like status or value) that are null will not be updated.
      */
     UpdateData(data) {
-        this.manager.Update(this.system, data);
+        this.manager.Update(data);
     }
 }

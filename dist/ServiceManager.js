@@ -11,6 +11,7 @@ export class ServiceManager {
         this._initPromise = new Promise((resolve) => {
             this._initResolve = resolve;
         });
+        this._defaultEngine = null;
     }
     /**
      *
@@ -18,16 +19,31 @@ export class ServiceManager {
      * @param engine
      */
     AddEngine(engine) {
-        let subsystemName = escapeHtml(engine.system);
+        let subsystemName = escapeHtml(engine.name);
         this.dataEngines.set(subsystemName, engine);
+        if (this._defaultEngine === null)
+            this._defaultEngine = engine;
     }
-    async Subscribe(target) {
-        if (!(target.name && target.system))
+    SetDefeultEngine(engine) {
+        if (!this.dataEngines.has(engine.name))
+            this.AddEngine(engine);
+        this._defaultEngine = engine;
+    }
+    GetEngine(engine_name) {
+        if (typeof engine_name !== "string")
+            throw Error("Engine Name must be a string");
+        if (engine_name.toLocaleLowerCase() === "default")
+            return this._defaultEngine;
+        else
+            return this.dataEngines.get(engine_name);
+    }
+    async Subscribe(engine_name, target) {
+        if (typeof target.name !== "string" || typeof target.system !== "string")
             throw Error("CANNOT SUBSCRIBE variable " + target.name);
         await this.isInitialized();
         target.name = escapeHtml(target.name);
         target.system = escapeHtml(target.system);
-        let engine = this.dataEngines.get(target.system);
+        let engine = this.GetEngine(engine_name);
         if (engine) {
             if (this.dataTree.ExistVar(target))
                 this.dataTree.UpdateStatus(target, VarStatusCodes.Pending);
@@ -39,30 +55,30 @@ export class ServiceManager {
             this.dataTree.Create(target);
             this.dataTree.UpdateStatus(target, VarStatusCodes.Error);
             this.CreateAndDispatchError(target.system, ErrorCodes.EngineNotExist, "", Actions.Subscribe);
-            throw new Error(`Engine '${target.system}' does not exist.`);
+            throw new Error(`Engine '${engine_name}' does not exist.`);
         }
     }
-    async Unsubscribe(target) {
-        if (!(target.name && target.system))
+    async Unsubscribe(engine_name, target) {
+        if (typeof target.name !== "string" || typeof target.system !== "string")
             throw Error("CANNOT UNSUBSCRIBE variable " + target.name);
         await this.isInitialized();
-        let engine = this.dataEngines.get(target.system);
+        let engine = this.GetEngine(engine_name);
         if (engine) {
             engine.RequestUnsubscription(target);
         }
         else {
             this.CreateAndDispatchError(target.system, ErrorCodes.EngineNotExist, "", Actions.Unsubscribe);
-            throw new Error(`Engine '${target.system}' does not exist.`);
+            throw new Error(`Engine '${engine_name}' does not exist.`);
         }
     }
-    Update(system, data) {
-        this.dataTree.Update(system, data);
+    Update(data) {
+        this.dataTree.Update(data);
     }
-    async Read(system, vars) {
-        if (typeof system !== "string" || typeof vars !== "object")
+    async Read(engine_name, vars) {
+        if (typeof vars !== "object")
             throw new TypeError("'system' must be a string and 'vars' an array of strings");
         await this.isInitialized();
-        let engine = this.dataEngines.get(system);
+        let engine = this.GetEngine(engine_name);
         if (engine) {
             let resp = await engine.Read(vars);
             // Maybe here we need something like STATUS OK - if was in error it is not clear that it would be subscribed
@@ -71,20 +87,19 @@ export class ServiceManager {
             return resp;
         }
         else {
-            this.CreateAndDispatchError(system, ErrorCodes.EngineNotExist, "", Actions.Read);
-            throw new Error(`Engine '${system}' does not exist.`);
+            this.CreateAndDispatchError(engine_name, ErrorCodes.EngineNotExist, "", Actions.Read);
+            throw new Error(`Engine '${engine_name}' does not exist.`);
         }
     }
-    async Write(system, vars, values) {
-        if (typeof system !== "string" ||
-            typeof vars !== "object" ||
+    async Write(engine_name, vars, values) {
+        if (typeof vars !== "object" ||
             typeof values !== "object")
             throw new TypeError("'system' must be a string and 'vars' and values cannot be null");
         await this.isInitialized();
-        let engine = this.dataEngines.get(system);
+        let engine = this.GetEngine(engine_name);
         if (engine) {
             let sys_vars = vars.map(v => { let x = new systemVariable(v); x.status = VarStatusCodes.Pending; return x; });
-            this.dataTree.Update(system, sys_vars);
+            this.dataTree.Update(sys_vars);
             let resp = await engine.Write(vars, values);
             // Maybe here we need something like STATUS OK - if was in error it is not clear that it would be subscribed
             // see issue https://github.com/JaS-HMI/jashmi/issues/2
@@ -92,8 +107,8 @@ export class ServiceManager {
             return resp;
         }
         else {
-            this.CreateAndDispatchError(system, ErrorCodes.EngineNotExist, "", Actions.Write);
-            throw new Error(`Engine '${system}' does not exist.`);
+            this.CreateAndDispatchError(engine_name, ErrorCodes.EngineNotExist, "", Actions.Write);
+            throw new Error(`Engine '${engine_name}' does not exist.`);
         }
     }
     DispatchError(error) {

@@ -13,24 +13,24 @@ describe('Data Tree',()=>{
 
         dt.Create(v0);
         let v = dt.GetVar(v0) ;
-        expect(v).toEqual( {name:"walla", status:"PENDING", value: null });
+        expect(v).toEqual( {status:"PENDING", value: null });
 
     })
 
     test('Update',()=>{
-        dt.Update("halla", {name:"walla", status:"SUB", value: 7 } );
+        dt.Update( {name:"walla", status:"SUB", value: 7, system:"halla" } );
         let v = dt.GetVar(v0) ;
-        expect(v).toEqual( {name:"walla", status:"SUB", value: 7 });
+        expect(v).toEqual( { status:"SUB", value: 7 });
 
-        expect(()=>{dt.Update("halla", {name:89, status:"SUB", value: 7 } );}).toThrow()
-        expect(()=>{dt.Update("hall", {name:"walla", status:"SUB", value: 7 } );}).toThrow()
+        expect(()=>{dt.Update({name:89, status:"SUB", value: 7, system:"halla" } );}).toThrow()
+        expect(()=>{dt.Update({name:"walla", status:"SUB", value: 7, system:"hal" } );}).toThrow()
 
     })
 
     test('Update Status',()=>{
         dt.UpdateStatus(v0, "GOT");
         let v = dt.GetVar(v0) ;
-        expect(v).toEqual( {name:"walla", status:"GOT", value: 7 });
+        expect(v).toEqual( { status:"GOT", value: 7 });
     })
 
 })

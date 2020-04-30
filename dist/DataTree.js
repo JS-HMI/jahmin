@@ -37,8 +37,7 @@ export class DataTree extends StateVariable {
         this.applyTransition("create", varID);
     }
     UpdateStatus(varID, _status) {
-        let upd_var = new systemVariable(varID.name);
-        upd_var.system = varID.system;
+        let upd_var = new systemVariable(varID);
         upd_var.status = _status;
         this.applyTransition("update", upd_var);
     }
@@ -47,20 +46,11 @@ export class DataTree extends StateVariable {
      * This will automatically call UI update of all connected elements.
      * @param variables a list or a single systemVariable object {name,system,status,value}
      */
-    Update(system, variables) {
-        if (typeof system !== "string")
-            throw new Error("'system' must be a string.");
+    Update(variables) {
         if (Array.isArray(variables)) {
-            let upd = [];
-            variables.forEach(el => {
-                el.system = system;
-                //@ts-ignore
-                upd.push(el);
-            });
-            this.applyTransition("multiupdate", upd);
+            this.applyTransition("multiupdate", variables);
         }
         else {
-            variables.system = system;
             this.applyTransition("update", variables);
         }
     }
@@ -68,7 +58,7 @@ export class DataTree extends StateVariable {
         if (varID && typeof varID.system === "string" && typeof varID.name === "string") {
             varID.system = escapeHtml(varID.system);
             varID.name = escapeHtml(varID.name);
-            let new_var = new systemVariable(varID.name);
+            let new_var = { status: null, value: null }; //new systemVariable(varID.name, varID.system);
             new_var.status = VarStatusCodes.Pending;
             if (!this.value.hasOwnProperty(varID.system))
                 this.value[varID.system] = {};
@@ -103,7 +93,7 @@ export class DataTree extends StateVariable {
      * @param varID identifier of the variable, an object with {name,system}
      */
     ExistVar(varID) {
-        if (!(varID.system && varID.name))
+        if (typeof varID.system !== "string" && typeof varID.name !== "string")
             return false;
         if (!this.value.hasOwnProperty(varID.system))
             return false;

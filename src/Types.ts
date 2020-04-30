@@ -102,7 +102,7 @@ export class systemError implements basicError{
 
     /**
      * Standard constructor, by default will auto-build the error message and will set timestamp to Now.
-     * @param sysName System name
+     * @param sysName System name for example an engine name
      * @param Code Error code as in "ErrorCodes"
      * @param target (optional) name of who is in fault, like for example a variable name. 
      * @param Action (optional) Action Code of what was going to be performed.
@@ -153,14 +153,16 @@ export class systemAlarm extends systemError {
  * The "value" must be a JSON compatible object, since these values are 
  * persisted in localstorage. So anything is good but functions.
  */
-export class systemVariable {
+export class systemVariable implements systemObject, variable{
     name  : string
+    system : string
     value : any 
     status: string
-    [key:string] : any 
+    // [key:string] : any 
 
-    constructor(_name:string){
-        this.name   = _name;
+    constructor(sys_obj:systemObject){
+        this.system = sys_obj.system;
+        this.name   = sys_obj.name;
         this.value = null;
         this.status = null;
     }
@@ -171,24 +173,33 @@ export interface basicResponse{
     error?  : basicError
 }
 
+export interface variable {
+    value : any 
+    status: string
+    [key:string] : any 
+}
+
 /**
  * Class that implemets a general response to actions that involve variable read, write, subscribe, etc.
  * @prop {boolean} success  - weather the request had success or not
  * @prop {object}  error  - if success is false then this must not be null, contain error code and error message(optional).
- * @prop {string} varName - name of the variable
- * @prop {any}  varValue  -  the value of the variable (can be an object if supported).
+ * @prop {string} name - name of the variable.
+ * @prop {string}  system  -  system name related to the variable.
+ * @prop {any}  value  -  the value of the variable (can be an object if supported).
  * @method setError - helper to set the "error" property.
  */
-export class VarResponse implements basicResponse {
+export class VarResponse implements basicResponse, systemObject {
     success:boolean
     error:basicError = null
-    varName:string
-    varValue:any
+    name:string
+    value:any
+    system:string
 
-    constructor(Success:boolean, name:string, value:any=null){
+    constructor(Success:boolean, _name:string, _system:string, _value:any=null){
         this.success = Success;
-        this.varName = name;
-        this.varValue = value;
+        this.name = _name;
+        this.value = _value;
+        this.system = _system;
     }
     setError(ErrorCode:string, Message:string=""){
         this.error = {

@@ -8,6 +8,7 @@ export class hmiElement extends litStatesMixin([Manager.dataTree, Manager.errorT
 
     name   : string
     system : string
+    engine : string
     datatree : any
     _init : boolean
     service_manager : ServiceManager
@@ -15,7 +16,8 @@ export class hmiElement extends litStatesMixin([Manager.dataTree, Manager.errorT
     constructor(){
         super();
         this.name   = "";
-        this.system = "";
+        this.system = "default";
+        this.engine = "default";
         this._init = false;
         this.service_manager = Manager;
     }
@@ -23,7 +25,8 @@ export class hmiElement extends litStatesMixin([Manager.dataTree, Manager.errorT
     static get properties() { 
         return { 
           name   : { type: String },
-          system : { type: String }
+          system : { type: String },
+          engine : { type: String }
         };
     }
 
@@ -42,42 +45,45 @@ export class hmiElement extends litStatesMixin([Manager.dataTree, Manager.errorT
         super.connectedCallback();
         // maybe here dispatch READY event??
         // maybe here resolve a READY promise so one can await it??
-        Manager.Subscribe(this).then(()=>{this._init = true;})
+        Manager.Subscribe(this.engine,this).then(()=>{this._init = true;})
     }
 
     disconnectedCallback()
     {
         if(super.disconnectedCallback) super.disconnectedCallback();
-        Manager.Unsubscribe(this);
+        Manager.Unsubscribe(this.engine, this);
     }
 
     async Write(value:any)
     {
-        return await this.WriteMultiple([this.name],[value]);
+        return await this.WriteMultiple([this],[value]);
     }
 
-    async WriteMultiple(names:string[],values:any[])
+    async WriteMultiple(targets:systemObject[],values:any[])
     {
-        return await Manager.Write(this.system, names, values);
+        return await Manager.Write(this.engine, targets, values);
     }
 
     async Read()
     {
-        return this.ReadMultiple([this.name]);
+        return this.ReadMultiple([this]);
     }
 
-    async ReadMultiple(names:string[])
+    async ReadMultiple(targets:systemObject[])
     {
-        return await Manager.Read(this.system,names);
+        return await Manager.Read(this.engine,targets);
     }
 
     Update(Value:any, Status:string):void
     {
-        this.UpdateMultiple({name:this.name, value:Value, status: Status })
+        let sysVar = new systemVariable(this);
+        sysVar.status = Status;
+        sysVar.value = Value;
+        this.UpdateMultiple(sysVar);
     }
 
     UpdateMultiple(sysvar:systemVariable[]|systemVariable):void
     {
-        Manager.Update(this.system,sysvar)
+        Manager.Update(sysvar)
     }
 }

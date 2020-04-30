@@ -77,7 +77,7 @@ export var Actions;
 export class systemError {
     /**
      * Standard constructor, by default will auto-build the error message and will set timestamp to Now.
-     * @param sysName System name
+     * @param sysName System name for example an engine name
      * @param Code Error code as in "ErrorCodes"
      * @param target (optional) name of who is in fault, like for example a variable name.
      * @param Action (optional) Action Code of what was going to be performed.
@@ -129,8 +129,10 @@ export class systemAlarm extends systemError {
  * persisted in localstorage. So anything is good but functions.
  */
 export class systemVariable {
-    constructor(_name) {
-        this.name = _name;
+    // [key:string] : any 
+    constructor(sys_obj) {
+        this.system = sys_obj.system;
+        this.name = sys_obj.name;
         this.value = null;
         this.status = null;
     }
@@ -139,16 +141,18 @@ export class systemVariable {
  * Class that implemets a general response to actions that involve variable read, write, subscribe, etc.
  * @prop {boolean} success  - weather the request had success or not
  * @prop {object}  error  - if success is false then this must not be null, contain error code and error message(optional).
- * @prop {string} varName - name of the variable
- * @prop {any}  varValue  -  the value of the variable (can be an object if supported).
+ * @prop {string} name - name of the variable.
+ * @prop {string}  system  -  system name related to the variable.
+ * @prop {any}  value  -  the value of the variable (can be an object if supported).
  * @method setError - helper to set the "error" property.
  */
 export class VarResponse {
-    constructor(Success, name, value = null) {
+    constructor(Success, _name, _system, _value = null) {
         this.error = null;
         this.success = Success;
-        this.varName = name;
-        this.varValue = value;
+        this.name = _name;
+        this.value = _value;
+        this.system = _system;
     }
     setError(ErrorCode, Message = "") {
         this.error = {

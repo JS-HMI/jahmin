@@ -9,8 +9,8 @@ localStorage.clear();
 let engine = new JsonPollEngine("test_sys",{})
 engine.status = ServiceStatusCodes.Ready;
 Manager.AddEngine(engine);
-let v0 = {system:"test_sys", name:"var"} ;
-let v1 = {system:"test_sys", name:"vario"} ;
+let v0 = {system:"k", name:"var"} ;
+let v1 = {system:"k", name:"vario"} ;
 
 
 test('Post function',async()=>{
@@ -33,12 +33,13 @@ test('Post function',async()=>{
     fetch_mock.mockResponseOnce( "{ciao:2}", {status:403});
     p = await engine.postData("ciao",{ciao:1});
     expect(p).toEqual({success:false, data:null, error:{code : ErrorCodes.Unauthorized, message : "Unauthoriazed request."}});
+
 });
 
 
 test('Pack Data', ()=>{
-    expect(engine.packReadData(['a','b','c'])).toEqual({names:['a','b','c']});
-    expect(engine.packWriteData(['a'], [7])).toEqual({names:['a'], values:[7]});
+    expect(engine.packReadData([{name:'a',system:"k"},{name:'b',system:"k"},{name:'c',system:"k"}])).toEqual({names:['a','b','c']});
+    expect(engine.packWriteData([{name:'a',system:"k"}], [7])).toEqual({names:['a'], values:[7]});
 })
 
 test('Unpack Data Read', ()=>{
@@ -57,14 +58,15 @@ test('Unpack Data Read', ()=>{
             }
         ]
     }
-    let request = engine.packReadData(["myName"]);
+    let request = [{name:'myName',system:"k"}]
+    //let payload = engine.packReadData(request);
 
     let resp = engine.unpackReadData(resp_success,request);
-    expect(resp).toEqual( [{varName:"myName", varValue:7, success:true, error:null}] );
+    expect(resp).toEqual( [{name:"myName", value:7, success:true, error:null, system:"k"}] );
 
     let resp_fail = { success: false, data:null, error: {code : ErrorCodes.Unauthorized, message : "Unauthoriazed request."}}
     resp = engine.unpackReadData(resp_fail,request);
-    expect(resp).toEqual( [{varName:"myName", varValue:null, success:false, error:{code : ErrorCodes.Unauthorized, message : "Unauthoriazed request."}}] )
+    expect(resp).toEqual( [{name:"myName", value:null, system:"k", success:false, error:{code : ErrorCodes.Unauthorized, message : "Unauthoriazed request."}}] )
 });
 
 test('Unpack Data Write', ()=>{
@@ -78,9 +80,9 @@ test('Unpack Data Write', ()=>{
                 ErrorCode : "" 
     }]}
     
-    let req = engine.packWriteData(["Myvar"],[90]);
+    let req =  [{name:'myName',system:"k"}] ;//engine.packWriteData(["Myvar"],[90]);
     let resp =  engine.unpackWriteData(resp_succes,req);
-    expect(resp).toEqual([new VarResponse(true,"Myvar",90)]);
+    expect(resp).toEqual([new VarResponse(true,"Myvar","k",90)]);
     
     let resp_fail = {
         success : true,
@@ -92,17 +94,17 @@ test('Unpack Data Write', ()=>{
                 ErrorCode : ErrorCodes.BadValue 
             }]}
     resp =  engine.unpackWriteData(resp_fail,req);
-    let var_resp = new VarResponse(false,"Myvar",null);
+    let var_resp = new VarResponse(false,"Myvar","k", null);
     var_resp.setError(ErrorCodes.BadValue);
     expect(resp).toEqual([var_resp]);
 })
 
 
 test('Subscribe New Variable', async ()=>{
-    Manager.Subscribe(v0);
-    Manager.Subscribe(v0);
-    Manager.Subscribe(v1);
-    
+    Manager.Subscribe("test_sys",v0);
+    Manager.Subscribe("test_sys",v0);
+    Manager.Subscribe("test_sys",v1);
+        
     fetch_mock.mockResponseOnce( async()=>{
         await new Promise(resolve => setTimeout(resolve, 5));
         return JSON.stringify([{
@@ -130,14 +132,14 @@ test('Subscribe New Variable', async ()=>{
     Manager.Init();
     await new Promise(resolve => setTimeout(resolve, 0));
     v = Manager.dataTree.GetVar(v0);
-    expect(v).toEqual({name:"var", value:null, status:VarStatusCodes.Pending})
+    expect(v).toEqual({value:null, status:VarStatusCodes.Pending})
 
     await new Promise(resolve => setTimeout(resolve, 20));
     expect(engine.toBeSubscribed.size).toBe(0);  // subscribe list is flushed
     expect(Array.from(engine.subscribedVar.keys()).length).toBe(2); // only submits unique variables
-    expect(engine.subscribedVar.get(v0.name)).toBe(2)
+    expect(engine.subscribedVar.get(v0.system + ":"+ v0.name)).toBe(2)
     
-    expect(v).toEqual({name:"var", value:7, status:VarStatusCodes.Subscribed})
+    expect(v).toEqual({ value:7, status:VarStatusCodes.Subscribed})
 })
 
 
@@ -154,12 +156,12 @@ test('UpdateVar under Read',async ()=>{
             Timestamp: null
         }]);
     });
-    let resp = await Manager.Read("test_sys",["var"]);
+    let resp = await Manager.Read("test_sys",[{name:"var",system:"k"}]);
     let v = Manager.dataTree.GetVar(v0);
-    let temp_v = new VarResponse(false,"var",null);
+    let temp_v = new VarResponse(false,"var","k",null);
     temp_v.setError(ErrorCodes.VarNotExist);
     expect(resp).toEqual([temp_v]);
-    expect(v).toEqual({name:"var", value:7, status:VarStatusCodes.Error});
+    expect(v).toEqual({value:7,  status:VarStatusCodes.Error});
 
     // var exist
     fetch_mock.mockResponseOnce( async()=>{
@@ -173,11 +175,12 @@ test('UpdateVar under Read',async ()=>{
             Timestamp: new Date().toDateString()
         }]);
     });
-    resp = await Manager.Read("test_sys",["var"]);
-    expect(resp).toEqual([new VarResponse(true,"var",10)]);
+    resp = await Manager.Read("test_sys",[{name:"var",system:"k"}]);
+    expect(resp).toEqual([new VarResponse(true,"var","k",10)]);
     // var gets written
-    expect(v).toEqual({name:"var", value:10, status:VarStatusCodes.Subscribed});
+    expect(v).toEqual({ value:10, status:VarStatusCodes.Subscribed});
 })
+
 
 test('UpdateVar under Write',async ()=>{
     // var not exist case
@@ -191,15 +194,15 @@ test('UpdateVar under Write',async ()=>{
         }]);
    });
     
-   Manager.Write("test_sys",["var"],[90])
+   Manager.Write("test_sys",[{name:"var",system:"k"}],[90])
     .then((resp)=>{
-        expect(resp).toEqual([new VarResponse(true,"var",90)]);
+        expect(resp).toEqual([new VarResponse(true,"var","k",90)]);
     });
     await new Promise(resolve => setTimeout(resolve, 0));
    let v = Manager.dataTree.GetVar(v0);
-   expect(v).toEqual({name:"var", value:10, status:VarStatusCodes.Pending});
+   expect(v).toEqual({value:10, status:VarStatusCodes.Pending});
    await new Promise(resolve => setTimeout(resolve, 20));
-   expect(v).toEqual({name:"var", value:90, status:VarStatusCodes.Subscribed});
+   expect(v).toEqual({ value:90, status:VarStatusCodes.Subscribed});
 
 })
 
@@ -232,32 +235,31 @@ test('Read Interval', async()=>{
     await engine._read_in_intervals();
     let v = Manager.dataTree.GetVar(v0);
     let vv = Manager.dataTree.GetVar(v1);
-    expect(v).toEqual({name:"var", value:11, status:VarStatusCodes.Subscribed});
-    expect(vv).toEqual({name:"vario", value:110, status:VarStatusCodes.Subscribed});
+    expect(v).toEqual({ value:11, status:VarStatusCodes.Subscribed});
+    expect(vv).toEqual({value:110, status:VarStatusCodes.Subscribed});
 
 });
 
+
 test('Unsubscribe', async ()=>{
-    await Manager.Unsubscribe(v0);
-    await Manager.Unsubscribe(v0); // double call should not have effect
-    await Manager.Unsubscribe(v1);
+    await Manager.Unsubscribe("test_sys",v0);
+    await Manager.Unsubscribe("test_sys",v0); // double call should not have effect
+    await Manager.Unsubscribe("test_sys",v1);
     
     let v = Manager.dataTree.GetVar(v0);
     let _v = Manager.dataTree.GetVar(v1);
 
     expect(engine.toBeUnsubscribed.size).toBe(2)
-    expect(engine.subscribedVar.get(v0.name)).toBe(1);
+    expect(engine.subscribedVar.get(v0.system+":"+v0.name)).toBe(1);
     expect(v.status).toEqual(VarStatusCodes.Subscribed);
     expect(_v.status).toEqual(VarStatusCodes.Subscribed);
     
     await new Promise(resolve => setTimeout(resolve, 20));
-    expect(engine.subscribedVar.get(v0.name)).toBeUndefined();
+    expect(engine.subscribedVar.get(v0.system+":"+v0.name)).toBeUndefined();
     expect(engine.toBeUnsubscribed.size).toBe(0)
     expect(v.status).toBe(VarStatusCodes.Unsubscribed);
     expect(_v.status).toBe(VarStatusCodes.Unsubscribed);
 
 })
-
-
 
 

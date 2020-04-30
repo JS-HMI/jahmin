@@ -3,7 +3,6 @@ import { VarResponse, systemError, ErrorCodes, Actions, VarStatusCodes } from '.
 export class JsonPollEngine extends DataCommsEngine {
     constructor(sysName, config) {
         super(sysName);
-        this.name = "JsonPollEngine";
         this.readInterval_ms = config.readInterval_ms || 5000;
         this.host = config.host || "";
         this.readPrefix = config.readPrefix || "";
@@ -20,11 +19,12 @@ export class JsonPollEngine extends DataCommsEngine {
         this.intervalID = setInterval(this._read_in_intervals.bind(this), this.readInterval_ms);
     }
     async _read_in_intervals() {
-        let payload = this.packReadData(Array.from(this.subscribedVar.keys()));
+        let subscriber_list = Array.from(this.subscribedVar.keys()).map(v => this.deserializeSysObject(v));
+        let payload = this.packReadData(subscriber_list);
         let response = await this.postData(this.readPrefix, payload, Actions.Read);
         if (!response.success)
             clearInterval(this.intervalID);
-        let vars = this.unpackReadData(response, payload);
+        let vars = this.unpackReadData(response, subscriber_list);
         this.UpdateVars(vars, VarStatusCodes.Subscribed, Actions.Read);
     }
     async Initialize() {
@@ -34,46 +34,52 @@ export class JsonPollEngine extends DataCommsEngine {
         return await this.Read(variables);
     }
     async Unsubscribe(variables) {
-        return variables.map((v) => { return new VarResponse(true, v, null); });
+        return variables.map((v) => { return new VarResponse(true, v.name, v.system, null); });
     }
-    async Write(names, values) {
-        let payload = this.packWriteData(names, values);
+    async Write(targets, values) {
+        let payload = this.packWriteData(targets, values);
         let response = await this.postData(this.writePrefix, payload, Actions.Write);
-        return this.unpackWriteData(response, names);
+        return this.unpackWriteData(response, targets);
     }
-    async Read(names) {
-        let payload = this.packReadData(names);
+    async Read(request) {
+        let payload = this.packReadData(request);
         let response = await this.postData(this.readPrefix, payload, Actions.Read);
-        return this.unpackReadData(response, names);
+        return this.unpackReadData(response, request);
     }
-    packWriteData(Names, Values) {
-        if (Names.length !== Values.length)
+    packWriteData(request, Values) {
+        if (request.length !== Values.length)
             throw new Error("Bad data, Names and Values must contain samenumber of elements.");
+        // note this engine does not support multiple systems
+        let Names = request.map(v => v.name);
         return { names: Names, values: Values };
     }
     unpackWriteData(response, request) {
-        return this.unpackData(response, request.names, Actions.Write);
+        return this.unpackData(response, request, Actions.Write);
     }
-    packReadData(Names) {
+    packReadData(targets) {
+        // Note this specific engine does not support multiple system (just one)
+        let Names = targets.map(t => t.name);
         return { names: Names };
     }
     unpackReadData(response, request) {
-        return this.unpackData(response, request.names, Actions.Read);
+        return this.unpackData(response, request, Actions.Read);
     }
     unpackData(response, request, action) {
         let variables = [];
+        // this engine does not support multiple systems
+        let system = request[0].system;
         if (response.success) {
             for (let node of response.data) {
                 let var_idx = null;
                 if (typeof node.Success === "undefined" || typeof node.Name !== "string" ||
                     node.Name === "" || typeof node.ErrorCode !== "string") {
                     // something is wrong
-                    var_idx = new VarResponse(false, node.Name || "Uknown", null);
+                    var_idx = new VarResponse(false, node.Name || "Uknown", system, null);
                     var_idx.setError(ErrorCodes.BadData);
-                    this.manager.CreateAndDispatchError(this.system, ErrorCodes.BadData, node.Name || "Uknown", action);
+                    this.manager.CreateAndDispatchError(system, ErrorCodes.BadData, node.Name || "Uknown", action);
                 }
                 else {
-                    var_idx = new VarResponse(node.Success, node.Name, node.Value);
+                    var_idx = new VarResponse(node.Success, node.Name, system, node.Value);
                     if (!node.Success)
                         var_idx.setError(node.ErrorCode);
                 }
@@ -82,7 +88,7 @@ export class JsonPollEngine extends DataCommsEngine {
         }
         else {
             for (let v of request) {
-                let var_idx = new VarResponse(false, v, null);
+                let var_idx = new VarResponse(false, v.name, v.system, null);
                 var_idx.setError(response.error.code, response.error.message);
                 variables.push(var_idx);
             }
@@ -148,7 +154,7 @@ export class JsonPollEngine extends DataCommsEngine {
                 default:
                     err = { code: ErrorCodes.UnknownError, message: "Unknown Error, HTTP status code: " + status.toString() };
             }
-            let sys_err = new systemError(this.system, err.code, this.name, Actions.Read);
+            let sys_err = new systemError(this.name, err.code, this.name, Actions.Read);
             err.message = err.message;
             this.manager.DispatchError(sys_err);
             return { success: false, data: null, error: err };

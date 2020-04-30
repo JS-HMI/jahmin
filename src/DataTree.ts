@@ -1,5 +1,5 @@
 import {StateVariable} from "impera-js"
-import { systemObject, systemVariable, VarStatusCodes } from "./Types.js";
+import { systemObject, systemVariable, VarStatusCodes, variable } from "./Types.js";
 import {escape as escapeHtml} from 'html-escaper';
 
 // NOTE:
@@ -31,7 +31,7 @@ export class DataTree extends StateVariable{
      * it will throw if you try to assign a value.
      * @param varID identifier of the variable, an object with {name,system} 
      */
-    GetVar(varID:systemObject) : systemVariable {
+    GetVar(varID:systemObject) : variable {
         if(this.ExistVar(varID)) {
             return this.value[varID.system][varID.name] ;
         }
@@ -43,8 +43,7 @@ export class DataTree extends StateVariable{
     }
 
     UpdateStatus(varID:systemObject, _status:VarStatusCodes){
-        let upd_var = new systemVariable(varID.name);
-        upd_var.system = varID.system;
+        let upd_var = new systemVariable(varID);
         upd_var.status = _status;
         this.applyTransition("update",upd_var);
     }
@@ -54,20 +53,11 @@ export class DataTree extends StateVariable{
      * This will automatically call UI update of all connected elements.
      * @param variables a list or a single systemVariable object {name,system,status,value}
      */
-    Update(system:string, variables:systemVariable|systemVariable[]){
-        if(typeof system !== "string") throw new Error("'system' must be a string.");
+    Update(variables:systemVariable|systemVariable[]){
         if(Array.isArray(variables)) {
-            let upd:update_obj[] = [] ;
-            
-            variables.forEach(el => { 
-                el.system = system ;
-                //@ts-ignore
-                upd.push(el);
-            });
-            this.applyTransition("multiupdate",upd) ;
+           this.applyTransition("multiupdate",variables) ;
         }
         else {
-            variables.system = system ;
             this.applyTransition("update", variables) ;
         }
     }
@@ -77,7 +67,7 @@ export class DataTree extends StateVariable{
             varID.system = escapeHtml(varID.system);
             varID.name = escapeHtml(varID.name);
 
-            let new_var = new systemVariable(varID.name);
+            let new_var:variable = {status:null, value:null} ; //new systemVariable(varID.name, varID.system);
             new_var.status = VarStatusCodes.Pending ;
             
             if(!this.value.hasOwnProperty(varID.system))
@@ -86,13 +76,13 @@ export class DataTree extends StateVariable{
         }
     }
 
-    _multiupdate(sys_vars:update_obj[]){
+    _multiupdate(sys_vars:systemVariable[]){
         sys_vars.forEach( input_var => {
             this._update(input_var);
         });
     }
 
-    _update(varID:update_obj){
+    _update(varID:systemVariable){
         this._checkVarType(varID);
         let sys_var = this.GetVar(varID) ;
         if(!sys_var) throw new Error("Requested Variable does not exist: " + varID.name );
@@ -111,14 +101,11 @@ export class DataTree extends StateVariable{
      * @param varID identifier of the variable, an object with {name,system} 
      */
     ExistVar(varID:systemObject){
-        if( !(varID.system && varID.name) ) return false;
+        if( typeof varID.system !== "string" && typeof varID.name !== "string" ) return false;
         if( !this.value.hasOwnProperty(varID.system) ) return false;
         if( !this.value[varID.system].hasOwnProperty(varID.name) ) return false;
         return true;
     }
 }
 
-interface update_obj extends systemVariable{
-    system : string
-}
 
