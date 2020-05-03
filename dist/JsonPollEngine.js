@@ -66,9 +66,9 @@ export class JsonPollEngine extends DataCommsEngine {
     }
     unpackData(response, request, action) {
         let variables = [];
-        // this engine does not support multiple systems
-        let system = request[0].system;
         if (response.success) {
+            // this engine does not support multiple systems
+            let system = request[0].system;
             for (let node of response.data) {
                 let var_idx = null;
                 if (typeof node.Success === "undefined" || typeof node.Name !== "string" ||

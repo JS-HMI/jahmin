@@ -7,3 +7,4 @@ export * from "./DataModels/ErrorTray.js"
 export * from "./HMI_ELEMENTS/HMIelement.js"
 import './HMI_ELEMENTS/loader.js'
 import './HMI_ELEMENTS/statusSwitch.js'
+import './HMI_ELEMENTS/boolColorSwitch.js'

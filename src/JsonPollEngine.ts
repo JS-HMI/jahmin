@@ -129,11 +129,12 @@ export class JsonPollEngine extends DataCommsEngine implements JPollConfig{
     unpackData(response: postResponse, request:systemObject[], action:string):VarResponse[]
     {
         let variables:VarResponse[] = [];
-        // this engine does not support multiple systems
-        let system = request[0].system;
-
+        
         if( response.success )
         {
+            // this engine does not support multiple systems
+            let system = request[0].system;
+            
             for(let node of response.data) 
             {
                 let var_idx = null;

@@ -79,7 +79,8 @@ export class DataTree extends StateVariable {
             varID.value = escapeHtml(varID.value);
         if (varID.status)
             sys_var.status = escapeHtml(varID.status);
-        if (varID.value)
+        // carefull here as value can also be false for a boolean, so if(varID.value) does not work
+        if (varID.value !== null && varID.value !== undefined)
             sys_var.value = varID.value;
     }
     _checkVarType(v) {
