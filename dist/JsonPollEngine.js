@@ -1,5 +1,5 @@
 import { DataCommsEngine } from './DataCommsEngine.js';
-import { VarResponse, systemError, ErrorCodes, Actions, VarStatusCodes } from './Types.js';
+import { VarResponse, systemError, ErrorCodes, Actions, VarStatusCodes } from './DataModels/Types.js';
 export class JsonPollEngine extends DataCommsEngine {
     constructor(sysName, config) {
         super(sysName);
@@ -16,7 +16,7 @@ export class JsonPollEngine extends DataCommsEngine {
         this.referrerPolicy = config.referrerPolicy || 'no-referrer'; // no-referrer
         this.headers = config.headers || {};
         this.headers['Content-Type'] = 'application/json';
-        this.intervalID = setInterval(this._read_in_intervals.bind(this), this.readInterval_ms);
+        this.intervalID = window.setInterval(this._read_in_intervals.bind(this), this.readInterval_ms);
     }
     async _read_in_intervals() {
         let subscriber_list = Array.from(this.subscribedVar.keys()).map(v => this.deserializeSysObject(v));

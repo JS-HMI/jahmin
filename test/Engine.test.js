@@ -1,4 +1,5 @@
-import {JsonPollEngine, Manager} from '../dist/jashmi.js'
+import {Manager} from '../dist/ServiceManager.js'
+import {JsonPollEngine} from '../dist/JsonPollEngine.js'
 import {VarStatusCodes, ServiceStatusCodes,ErrorCodes, VarResponse} from '../dist/Types.js'
 var fetch_mock = require('jest-fetch-mock');
 fetch_mock.enableFetchMocks();

@@ -1,8 +1,7 @@
 import {LitElement} from 'lit-element'
 import {litStatesMixin} from 'impera-js'
-import {Manager, ServiceManager} from './ServiceManager.js'
-import {DataTree} from './DataTree.js'
-import { systemObject, systemVariable, VarStatusCodes } from './Types.js';
+import {Manager, ServiceManager} from '../ServiceManager.js'
+import { systemObject, systemVariable, VarStatusCodes } from '../DataModels/Types.js';
 
 export class hmiElement extends litStatesMixin([Manager.dataTree, Manager.errorTray],LitElement) implements systemObject{
 
@@ -26,19 +25,35 @@ export class hmiElement extends litStatesMixin([Manager.dataTree, Manager.errorT
         return { 
           name   : { type: String },
           system : { type: String },
-          engine : { type: String }
+          engine : { type: String },
+          status : { type: String }
         };
     }
 
     get value():any
     {
         if(!this._init) return undefined;
-        return this.datatree[this.system][this.name].value;
+        if(this.service_manager.dataTree.ExistVar(this)) return this.datatree[this.system][this.name].value;
+        else return null;
     }
     get status():string
     {
         if(!this._init) return VarStatusCodes.Pending;
-        return this.datatree[this.system][this.name].status;
+        if(this.service_manager.dataTree.ExistVar(this)) return this.datatree[this.system][this.name].status;
+        else return VarStatusCodes.Error;
+    }
+    set status(Status:string)
+    {
+        if(typeof Status !== "string") return;
+        if(!this.service_manager.dataTree.ExistVar(this)) return;
+        const old_val = this.getAttribute("status");
+        if( old_val !== Status || old_val !== this.status ) {
+            this.DataUpdate(null,Status);
+        }
+    }
+    on_datatree_update()
+    {
+        if(this.getAttribute("status") !== this.status ) this.setAttribute("status",this.status);
     }
     connectedCallback()
     {
@@ -74,15 +89,15 @@ export class hmiElement extends litStatesMixin([Manager.dataTree, Manager.errorT
         return await Manager.Read(this.engine,targets);
     }
 
-    Update(Value:any, Status:string):void
+    DataUpdate(Value:any, Status:string):void
     {
         let sysVar = new systemVariable(this);
         sysVar.status = Status;
         sysVar.value = Value;
-        this.UpdateMultiple(sysVar);
+        this.DataUpdateMultiple(sysVar);
     }
 
-    UpdateMultiple(sysvar:systemVariable[]|systemVariable):void
+    DataUpdateMultiple(sysvar:systemVariable[]|systemVariable):void
     {
         Manager.Update(sysvar)
     }

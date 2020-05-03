@@ -1,8 +1,8 @@
 import {DataCommsEngine} from './DataCommsEngine.js'
-import {systemVariable,systemObject, ServiceStatusCodes, VarStatusCodes, systemError, VarResponse, Actions, ErrorCodes} from './Types.js'
-import { DataTree } from './DataTree.js'
+import {systemVariable,systemObject, ServiceStatusCodes, VarStatusCodes, systemError, VarResponse, Actions, ErrorCodes} from './DataModels/Types.js'
+import { DataTree } from './DataModels/DataTree.js'
 import {escape as escapeHtml} from 'html-escaper';
-import { ErrorTray } from './ErrorTray.js';
+import { ErrorTray } from './DataModels/ErrorTray.js';
 
 
 export class ServiceManager 
@@ -60,8 +60,10 @@ export class ServiceManager
 
         let engine = this.GetEngine(engine_name)
         if(engine) { 
-            if(this.dataTree.ExistVar(target)) 
-                this.dataTree.UpdateStatus(target, VarStatusCodes.Pending);
+            if(this.dataTree.ExistVar(target)){
+                if(!engine.isVarSubscribed(target))  // var exist from localstorage but not yet subscribed
+                    this.dataTree.UpdateStatus(target, VarStatusCodes.Pending);
+            } 
             else this.dataTree.Create(target);
             engine.RequestSubscription(target);
         }

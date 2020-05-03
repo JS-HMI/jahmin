@@ -1,5 +1,5 @@
 import {Manager} from './ServiceManager.js'
-import {systemObject,ServiceStatusCodes,basicResponse,systemVariable,customAction, Actions, VarResponse, VarStatusCodes, ErrorCodes, systemError} from './Types.js'
+import {systemObject,ServiceStatusCodes,basicResponse,systemVariable,customAction, Actions, VarResponse, VarStatusCodes, ErrorCodes, systemError} from './DataModels/Types.js'
 
 
 
@@ -71,6 +71,13 @@ export abstract class DataCommsEngine {
         let ser_obj = this.serializeSysObject(target);
         if(ser_obj === null) throw Error("CANNOT SUBSCRIBE variable " + target.name);
         
+        if(this.subscribedVar.has(ser_obj))
+        {
+            // case already subscribed, just bump the number of subscribed var
+            let idx = this.subscribedVar.get(ser_obj)
+            this.subscribedVar.set(ser_obj, idx + 1);
+            return;
+        }
         let count  = this.toBeSubscribed.get(ser_obj) || 0;
         this.toBeSubscribed.set(ser_obj, count + 1);
         
@@ -80,7 +87,7 @@ export abstract class DataCommsEngine {
         
         if(this.sub_timerID) clearTimeout(this.sub_timerID);
 
-        this.sub_timerID = setTimeout( this._subcribe.bind(this), this.aggregationTime_ms );
+        this.sub_timerID = window.setTimeout( this._subcribe.bind(this), this.aggregationTime_ms );
     }
 
     RequestUnsubscription(target:systemObject){
@@ -97,7 +104,7 @@ export abstract class DataCommsEngine {
         this.toBeUnsubscribed.add(ser_obj);
 
         if(this.unsub_timerID) clearTimeout(this.unsub_timerID);
-        this.unsub_timerID = setTimeout( this._unsubcribe.bind(this), this.aggregationTime_ms );
+        this.unsub_timerID = window.setTimeout( this._unsubcribe.bind(this), this.aggregationTime_ms );
     }
 
     async _subcribe(){
@@ -126,6 +133,12 @@ export abstract class DataCommsEngine {
                     this.toBeSubscribed.delete(var_id);
             }
         }
+    }
+
+    isVarSubscribed(varID:systemObject):boolean
+    {
+        let id = this.serializeSysObject(varID);
+        return this.subscribedVar.has(id);
     }
 
     UpdateVars(response:VarResponse[], ok_status:VarStatusCodes, action:string = "")

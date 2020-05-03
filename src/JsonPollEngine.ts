@@ -1,5 +1,5 @@
 import {DataCommsEngine} from './DataCommsEngine.js'
-import {systemObject,basicResponse,systemVariable, VarResponse, systemError, ErrorCodes, basicError, Actions, VarStatusCodes} from './Types.js'
+import {systemObject,basicResponse,systemVariable, VarResponse, systemError, ErrorCodes, basicError, Actions, VarStatusCodes} from './DataModels/Types.js'
 
 
 //--------- WRITE --------------
@@ -61,7 +61,7 @@ export class JsonPollEngine extends DataCommsEngine implements JPollConfig{
         
         this.headers['Content-Type'] =  'application/json';
 
-        this.intervalID = setInterval(this._read_in_intervals.bind(this) , this.readInterval_ms);
+        this.intervalID = window.setInterval(this._read_in_intervals.bind(this) , this.readInterval_ms);
     }
 
     async _read_in_intervals()

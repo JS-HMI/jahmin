@@ -15,7 +15,7 @@ export class ErrorTray extends StateVariable{
         this.addTransition("ack",this._ack);
         this.addTransition("clean",this._cleanup);
 
-        this.swipe_interval_ID = setInterval(()=>{ this.applyTransition("clean"); }, 10000);
+        this.swipe_interval_ID = window.setInterval(()=>{ this.applyTransition("clean"); }, 10000);
     }
 
     GetAll(){
@@ -24,7 +24,7 @@ export class ErrorTray extends StateVariable{
 
     setSwipeInterval(interval_ms:number){
         clearInterval(this.swipe_interval_ID);
-        this.swipe_interval_ID = setInterval(()=>{ this.applyTransition("clean"); }, interval_ms);
+        this.swipe_interval_ID = window.setInterval(()=>{ this.applyTransition("clean"); }, interval_ms);
     }
 
     Create(error:systemError){
