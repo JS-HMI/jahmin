@@ -120,7 +120,7 @@ export class DataCommsEngine {
             let var_idx = new systemVariable(rsp);
             if (rsp.success) {
                 var_idx.status = ok_status;
-                if (rsp.value)
+                if (rsp.value !== null && rsp.value !== undefined)
                     var_idx.value = rsp.value;
             }
             else {

@@ -3,7 +3,7 @@ import {html,css} from 'lit-element'
 import {VarStatusCodes as vsc} from '../DataModels/Types.js'
 import './loader.js'
 
-class statusSwitch extends hmiElement {
+export class statusSwitch extends hmiElement {
 
     static get styles(){
         return css `

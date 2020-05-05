@@ -1,7 +1,8 @@
 import {StateVariable} from 'impera-js'
 import { systemError, systemAlarm } from './Types.js';
 import {escape as htmlEscape} from 'html-escaper'
-
+  
+  
 export class ErrorTray extends StateVariable{
 
     errorExpiry_days: number

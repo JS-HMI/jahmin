@@ -1,5 +1,5 @@
-import {DataCommsEngine} from './DataCommsEngine.js'
-import {systemObject,basicResponse,systemVariable, VarResponse, systemError, ErrorCodes, basicError, Actions, VarStatusCodes} from './DataModels/Types.js'
+import {DataCommsEngine} from '../DataCommsEngine.js'
+import {systemObject,basicResponse,systemVariable, VarResponse, systemError, ErrorCodes, basicError, Actions, VarStatusCodes} from '../DataModels/Types.js'
 
 
 //--------- WRITE --------------
