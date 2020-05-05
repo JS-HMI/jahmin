@@ -3,7 +3,7 @@ import {hmiElement} from './HMIelement.js';
 import {VarStatusCodes as vsc}  from '../DataModels/Types.js'
 
 
-class boolColorSwitch extends hmiElement {
+export class boolColorSwitch extends hmiElement {
 
     static get styles() : any
     {
@@ -12,8 +12,14 @@ class boolColorSwitch extends hmiElement {
                 display:block;
                 cursor : pointer;
             }
-            *{
-                display : none;
+            slot, x-loader{
+                display:none;
+            }
+            slot[show]{
+                display:contents;
+            }
+            x-loader[show]{
+                display:block;
             }
             slot {
                 cursor : pointer;
@@ -68,5 +74,5 @@ class boolColorSwitch extends hmiElement {
         this.Write(toggle);
     }
 }
+//@ts-ignore
 customElements.define("bool-color",boolColorSwitch);
-
