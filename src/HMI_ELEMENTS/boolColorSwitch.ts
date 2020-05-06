@@ -37,19 +37,19 @@ export class boolColorSwitch extends hmiElement {
                 display:block;
             }
             [val="on"]::slotted(*){
-                stroke : black;
-                fill : green;
+                stroke : var(--on-stroke-c,black);
+                fill : var(--on-fill-c,green);
             }
             [val="off"]::slotted(*){
-                stroke : black;
-                fill : lightgray;
+                stroke : var(--off-stroke-c,black);
+                fill : var(--off-fill-c,lightgray);
             }
             :host([status="ERROR"]) > ::slotted(*){
-                stroke : black;
-                fill : red;
+                stroke : var(--error-stroke-c,black);
+                fill : var(--error-fill-c,red);
             }
             :host([status="UNSUBSCRIBED"]) > ::slotted(*){
-                stroke : yellow;
+                stroke : var(--unsub-stroke-c,yellow);
             }
         `;
     }
