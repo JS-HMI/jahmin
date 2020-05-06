@@ -37,15 +37,15 @@ export class boolColorSwitch extends hmiElement {
                 display:block;
             }
             [val="on"]::slotted(*){
-                stroke : blue;
+                stroke : black;
                 fill : green;
             }
             [val="off"]::slotted(*){
-                stroke : blue;
-                fill : gray;
+                stroke : black;
+                fill : lightgray;
             }
             :host([status="ERROR"]) > ::slotted(*){
-                stroke : red;
+                stroke : black;
                 fill : red;
             }
             :host([status="UNSUBSCRIBED"]) > ::slotted(*){

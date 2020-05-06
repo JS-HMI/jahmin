@@ -46,14 +46,17 @@ export class hmiElement extends litStatesMixin([Manager.dataTree, Manager.errorT
         }
     }
     on_datatree_update() {
-        if (this.getAttribute("status") !== this.status)
-            this.setAttribute("status", this.status);
+        this.setAttribute("status", this.status);
     }
     connectedCallback() {
         super.connectedCallback();
         // maybe here dispatch READY event??
         // maybe here resolve a READY promise so one can await it??
-        Manager.Subscribe(this.engine, this).then(() => { this._init = true; });
+        Manager.Subscribe(this.engine, this).then(() => {
+            this._init = true;
+            this.on_datatree_update();
+            this.requestUpdate();
+        });
     }
     disconnectedCallback() {
         if (super.disconnectedCallback)

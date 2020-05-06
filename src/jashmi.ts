@@ -9,4 +9,5 @@ export * from "./HMI_ELEMENTS/HMIelement.js"
 export * from  './HMI_ELEMENTS/loader.js'
 export * from './HMI_ELEMENTS/statusSwitch.js'
 export * from './HMI_ELEMENTS/boolColorSwitch.js'
+export * from './HMI_ELEMENTS/label.js'
 export * from 'lit-element'

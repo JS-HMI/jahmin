@@ -30,4 +30,5 @@ export class statusSwitch extends hmiElement {
         `;
     }
 }
+//@ts-ignore
 customElements.define("status-switch", statusSwitch);

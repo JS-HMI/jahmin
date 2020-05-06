@@ -29,6 +29,11 @@ export class fakeDataEngine extends DataCommsEngine {
                 resp.push(new VarResponse(false, v.name, v.system));
                 return;
             }
+            // remember last value
+            if (this.manager.dataTree.GetVar(v).value !== null) {
+                resp.push(new VarResponse(true, v.name, v.system));
+                return;
+            }
             let val = 0;
             if (el.tagName.toLowerCase().includes("bool")) {
                 val = (Math.random() > 0.5) ? true : false;

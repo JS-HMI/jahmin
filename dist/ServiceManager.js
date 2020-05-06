@@ -46,7 +46,7 @@ export class ServiceManager {
         let engine = this.GetEngine(engine_name);
         if (engine) {
             if (this.dataTree.ExistVar(target)) {
-                if (!engine.isVarSubscribed(target)) // var exist from localstorage but not yet subscribed
+                if (!engine.isVarSubscribed(target) && this.dataTree.GetVar(target).status !== VarStatusCodes.Pending) // var exist from localstorage but not yet subscribed
                     this.dataTree.UpdateStatus(target, VarStatusCodes.Pending);
             }
             else
