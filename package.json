@@ -1,5 +1,5 @@
 {
-  "name": "jashmi",
+  "name": "jahmin",
   "version": "0.1.0",
   "description": "A JavaScript framework to build browser friendly Human Machine Interfaces for automation",
   "main": "dist/jashmi.js",
@@ -16,12 +16,12 @@
     "automation",
     "gui"
   ],
-  "author": "Ale",
+  "author": "Alessandro Manfredini",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/JaS-HMI/jashmi/issues"
+    "url": "https://github.com/JS-HMI/jahmin/issues"
   },
-  "homepage": "https://github.com/JaS-HMI/jashmi#readme",
+  "homepage": "https://github.com/JS-HMI/jahmin#readme",
   "dependencies": {
     "html-escaper": "^3.0.0",
     "impera-js": "^0.7.7",
