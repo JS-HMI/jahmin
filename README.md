@@ -1,2 +1,2 @@
-# JaSHMI
-A JavaScript framework to build browser friendly Human Machine Interfaces for automation
+# JaHMIn
+A **Ja**vascript framework to build **H**uman **M**achine **In**terfaces for automation
