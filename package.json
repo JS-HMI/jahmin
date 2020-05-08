@@ -2,8 +2,8 @@
   "name": "jahmin",
   "version": "0.1.0",
   "description": "A JavaScript framework to build browser friendly Human Machine Interfaces for automation",
-  "main": "dist/jashmi.js",
-  "types": "src/jashmi.ts",
+  "main": "dist/jahmin.js",
+  "types": "src/jahmin.ts",
   "scripts": {
     "test": "jest"
   },
