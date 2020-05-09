@@ -3,6 +3,9 @@ import {litStatesMixin} from 'impera-js'
 import {Manager, ServiceManager} from '../ServiceManager.js'
 import { systemObject, systemVariable, VarStatusCodes } from '../DataModels/Types.js';
 
+interface props {
+    [key:string] : { type : String | Number | Object }
+}
 export class hmiElement extends litStatesMixin([Manager.dataTree, Manager.errorTray],LitElement) implements systemObject{
 
     name   : string
@@ -21,12 +24,18 @@ export class hmiElement extends litStatesMixin([Manager.dataTree, Manager.errorT
         this.service_manager = Manager;
     }
 
-    static get properties() { 
+    static get properties() : props{ 
         return { 
           name   : { type: String },
           system : { type: String },
           engine : { type: String },
-          status : { type: String }
+          /* this would be nice to have so that one could set status of
+          a child component declaratively from the code of the host,
+          but PROBLEM: lit-Element overrides getter and setter of inherited props
+          in case the "get properties" is redefined in the child class, in short 
+          if you want to add props in a child class the status prop will not work.
+          */
+          // status : { type: String } 
         };
     }
 
@@ -44,6 +53,7 @@ export class hmiElement extends litStatesMixin([Manager.dataTree, Manager.errorT
     }
     set status(Status:string)
     {
+        
         if(typeof Status !== "string") return;
         if(!this.service_manager.dataTree.ExistVar(this)) return;
         const old_val = this.getAttribute("status");

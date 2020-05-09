@@ -16,7 +16,6 @@ export class hmiElement extends litStatesMixin([Manager.dataTree, Manager.errorT
             name: { type: String },
             system: { type: String },
             engine: { type: String },
-            status: { type: String }
         };
     }
     get value() {
