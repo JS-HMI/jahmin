@@ -31,7 +31,7 @@ export class hmiLabel extends hmiElement {
     }
     render() {
         return html `
-            <div><strong>${this.name}</strong></div>
+            <div><strong><slot name="label">${this.name}</slot></strong></div>
             <slot>Empty Slot</slot>
         `;
     }
