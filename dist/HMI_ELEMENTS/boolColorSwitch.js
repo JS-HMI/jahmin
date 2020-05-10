@@ -52,12 +52,12 @@ export class boolColorSwitch extends hmiElement {
     render() {
         return html `
             <slot val="${this.value ? "on" : "off"}" 
-                  @click="${this.onclick}"
+                  @click="${this.click}"
                   ?show="${this.status !== vsc.Pending}"> Empty Slot</slot>
             <x-loader ?show="${this.status === vsc.Pending}"></x-loader>
         `;
     }
-    onclick() {
+    click() {
         let sts = this.status; // avoid the getter function call
         if (this.hasAttribute("read-only") ||
             sts === vsc.Error ||
@@ -68,5 +68,4 @@ export class boolColorSwitch extends hmiElement {
         this.Write(toggle);
     }
 }
-//@ts-ignore
 customElements.define("bool-color", boolColorSwitch);

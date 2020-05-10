@@ -39,5 +39,4 @@ export class hmiLabel extends hmiElement
         `;
     }
 }
-//@ts-ignore
 customElements.define("hmi-label",hmiLabel);

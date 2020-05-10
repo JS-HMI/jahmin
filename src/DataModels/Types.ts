@@ -1,3 +1,5 @@
+import {css, CSSResult, unsafeCSS} from 'lit-element'
+
 /**
  * Default Status Codes for systemVariables, define the UI appereance and behaviour of the variable.
  * They are simple strings and can be extended with custom statuses.
@@ -22,6 +24,19 @@ export enum VarStatusCodes{
      * One can trust the variable value as its last updated value.*/
     Unsubscribed = "UNSUBSCRIBED"
 }
+
+                
+export var VarStatusCodesLit:{[key:string]:CSSResult}= {};
+/*Object.keys(VarStatusCodes).forEach((key)=>{
+    //@ts-ignore
+    VarStatusCodesLit[key] = css`${unsafeCSS(VarStatusCodes[key])}`;
+})*/
+VarStatusCodesLit.Subscribed = css`${unsafeCSS(VarStatusCodes.Subscribed)}`
+VarStatusCodesLit.Error = css`${unsafeCSS(VarStatusCodes.Error)}`
+VarStatusCodesLit.Pending = css`${unsafeCSS(VarStatusCodes.Pending)}`
+VarStatusCodesLit.Warning = css`${unsafeCSS(VarStatusCodes.Warning)}`
+VarStatusCodesLit.Unsubscribed = css`${unsafeCSS(VarStatusCodes.Unsubscribed)}`
+
 
 export enum ServiceStatusCodes{
     

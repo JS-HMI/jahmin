@@ -24,7 +24,7 @@
   "homepage": "https://github.com/JS-HMI/jahmin#readme",
   "dependencies": {
     "html-escaper": "^3.0.0",
-    "impera-js": "^0.7.7",
+    "impera-js": "^0.7.8",
     "lit-element": "^2.3.1"
   },
   "devDependencies": {

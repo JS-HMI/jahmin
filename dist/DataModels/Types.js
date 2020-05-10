@@ -1,3 +1,4 @@
+import { css, unsafeCSS } from 'lit-element';
 /**
  * Default Status Codes for systemVariables, define the UI appereance and behaviour of the variable.
  * They are simple strings and can be extended with custom statuses.
@@ -19,6 +20,16 @@ export var VarStatusCodes;
      * One can trust the variable value as its last updated value.*/
     VarStatusCodes["Unsubscribed"] = "UNSUBSCRIBED";
 })(VarStatusCodes || (VarStatusCodes = {}));
+export var VarStatusCodesLit = {};
+/*Object.keys(VarStatusCodes).forEach((key)=>{
+    //@ts-ignore
+    VarStatusCodesLit[key] = css`${unsafeCSS(VarStatusCodes[key])}`;
+})*/
+VarStatusCodesLit.Subscribed = css `${unsafeCSS(VarStatusCodes.Subscribed)}`;
+VarStatusCodesLit.Error = css `${unsafeCSS(VarStatusCodes.Error)}`;
+VarStatusCodesLit.Pending = css `${unsafeCSS(VarStatusCodes.Pending)}`;
+VarStatusCodesLit.Warning = css `${unsafeCSS(VarStatusCodes.Warning)}`;
+VarStatusCodesLit.Unsubscribed = css `${unsafeCSS(VarStatusCodes.Unsubscribed)}`;
 export var ServiceStatusCodes;
 (function (ServiceStatusCodes) {
     /**Engine Running, all ok */

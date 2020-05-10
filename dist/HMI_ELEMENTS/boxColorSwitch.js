@@ -34,5 +34,4 @@ export class colorBox extends hmiElement {
         `;
     }
 }
-//@ts-ignore
 customElements.define("color-box", colorBox);
