@@ -12,4 +12,5 @@ export * from './HMI_ELEMENTS/boolColorSwitch.js';
 export * from './HMI_ELEMENTS/boxColorSwitch.js';
 export * from './HMI_ELEMENTS/label.js';
 export * from './HMI_ELEMENTS/normalize.css.js';
+export * from './HMI_ELEMENTS/positioning.js';
 export * from 'lit-element';

@@ -1,39 +1,10 @@
 import {css} from 'lit-element'
 
-export const normalize = css`
-    /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+export const shadow_normalize = css`
+/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 
 /* Document
    ========================================================================== */
-
-/**
- * 1. Correct the line height in all browsers.
- * 2. Prevent adjustments of font size after orientation changes in iOS.
- */
-
-html {
-  line-height: 1.15; /* 1 */
-  -webkit-text-size-adjust: 100%; /* 2 */
-}
-
-/* Sections
-   ========================================================================== */
-
-/**
- * Remove the margin in all browsers.
- */
-
-body {
-  margin: 0;
-}
-
-/**
- * Render the 'main' element consistently in IE.
- */
-
-main {
-  display: block;
-}
 
 /**
  * Correct the font size and margin on 'h1' elements within 'section' and
@@ -350,4 +321,15 @@ template {
 [hidden] {
   display: none;
 }
+:host(:focus) {
+    outline:none;
+}
+:host(:active){
+    outline:none;
+}
+            
+button:focus {outline:none;}
+input:focus {outline:none;}
+::-moz-focus-inner {border:0;}
+
 `;
