@@ -1,5 +1,5 @@
 import { DataCommsEngine } from '../DataCommsEngine.js';
-import { VarResponse, VarStatusCodes } from '../DataModels/Types.js';
+import { VarResponse, VarStatusCodes, systemVariable } from '../DataModels/Types.js';
 import { Actions } from '../DataModels/Types.js';
 export class fakeDataEngine extends DataCommsEngine {
     constructor() {
@@ -7,19 +7,36 @@ export class fakeDataEngine extends DataCommsEngine {
         this.var_types = new Map();
     }
     async Initialize() {
-        // setInterval(this._updateVariables.bind(this), 2000);
+        setInterval(this._updateVariables.bind(this), 4000);
         return { success: true };
     }
     _updateVariables() {
         let resp = [];
+        let var_list = [];
         this.var_types.forEach((val, key) => {
             if (val === "number") {
                 let upd = Math.floor(Math.random() * 100);
                 resp.push(new VarResponse(true, key, "default", upd));
+                let x = Math.floor(Math.random() * 100);
+                if (x > 50) {
+                    let v = new systemVariable({ name: key, system: "default" });
+                    let y = Math.floor(Math.random() * 100);
+                    if (y < 25)
+                        v.status = VarStatusCodes.Subscribed;
+                    if (y > 25 && y < 50)
+                        v.status = VarStatusCodes.Error;
+                    if (y > 50 && y < 75)
+                        v.status = VarStatusCodes.Pending;
+                    if (y > 75)
+                        v.status = VarStatusCodes.Warning;
+                    var_list.push(v);
+                }
             }
         });
         if (resp.length !== 0)
             this.UpdateVars(resp, VarStatusCodes.Subscribed, Actions.Read);
+        if (var_list.length !== 0)
+            this.manager.Update(var_list);
     }
     async Subscribe(variables) {
         let resp = [];
@@ -30,10 +47,10 @@ export class fakeDataEngine extends DataCommsEngine {
                 return;
             }
             // remember last value
-            if (this.manager.dataTree.GetVar(v).value !== null) {
+            /*if(this.manager.dataTree.GetVar(v).value !== null){
                 resp.push(new VarResponse(true, v.name, v.system));
                 return;
-            }
+            }*/
             let val = 0;
             if (el.tagName.toLowerCase().includes("bool")) {
                 val = (Math.random() > 0.5) ? true : false;
