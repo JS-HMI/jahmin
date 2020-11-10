@@ -64,8 +64,9 @@ export class boolColorSwitch extends hmiElement {
             sts === vsc.Pending ||
             sts === vsc.Unsubscribed)
             return;
-        let toggle = this.value ? false : true;
-        this.Write(toggle);
+        // this is a UI only element 
+        // let toggle = this.value ? false : true;
+        // this.Write(toggle);
     }
 }
 customElements.define("bool-color", boolColorSwitch);

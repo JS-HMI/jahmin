@@ -3,12 +3,21 @@ import {basicResponse,VarResponse,systemObject, VarStatusCodes, systemVariable} 
 import { Actions } from '../DataModels/Types.js';
 import { StateVariable } from 'impera-js';
 
+export type fakeEngineOptions = {
+    poll : boolean
+}
 export class fakeDataEngine extends DataCommsEngine {
     
     var_types = new Map<string,string>();
+    options:fakeEngineOptions
+
+    constructor(name:string, options:fakeEngineOptions = {poll:false}){
+        super(name);
+        this.options = options;
+    }
 
     async Initialize(): Promise<basicResponse> {
-        setInterval(this._updateVariables.bind(this), 4000);
+        if(this.options && this.options.poll === true) setInterval(this._updateVariables.bind(this), 4000);
         return {success:true };
     }    
 

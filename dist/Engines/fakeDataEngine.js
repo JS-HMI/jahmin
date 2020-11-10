@@ -2,12 +2,14 @@ import { DataCommsEngine } from '../DataCommsEngine.js';
 import { VarResponse, VarStatusCodes, systemVariable } from '../DataModels/Types.js';
 import { Actions } from '../DataModels/Types.js';
 export class fakeDataEngine extends DataCommsEngine {
-    constructor() {
-        super(...arguments);
+    constructor(name, options = { poll: false }) {
+        super(name);
         this.var_types = new Map();
+        this.options = options;
     }
     async Initialize() {
-        setInterval(this._updateVariables.bind(this), 4000);
+        if (this.options && this.options.poll === true)
+            setInterval(this._updateVariables.bind(this), 4000);
         return { success: true };
     }
     _updateVariables() {

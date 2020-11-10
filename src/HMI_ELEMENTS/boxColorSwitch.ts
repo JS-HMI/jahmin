@@ -19,6 +19,7 @@ export class colorBox extends hmiElement
                 border-radius : var(--border-r,0.4rem);
                 padding: var(--padding,0.4rem);
                 box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+                background-color: var(--default-color, #ffffff);
             }
             :host([status="ERROR"]) {
                 background-color: var(--err-color, #ff726f);

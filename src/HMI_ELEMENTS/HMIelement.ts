@@ -14,6 +14,8 @@ export class hmiElement extends litStatesMixin([Manager.dataTree, Manager.errorT
     datatree : any
     _init : boolean
     service_manager : ServiceManager
+    _local_status : string
+    _local_value : any
 
     constructor(){
         super();
@@ -22,6 +24,8 @@ export class hmiElement extends litStatesMixin([Manager.dataTree, Manager.errorT
         this.engine = "default";
         this._init = false;
         this.service_manager = Manager;
+        this._local_status = "UNDEFINED";
+        this._local_value = undefined;
     }
 
     static get properties() : props{ 
@@ -64,6 +68,20 @@ export class hmiElement extends litStatesMixin([Manager.dataTree, Manager.errorT
     on_datatree_update()
     {
         this.setAttribute("status",this.status);
+        if( this.status !== this._local_status ) {
+            let Ev = new CustomEvent("status-changed",{
+                            bubbles:true, composed:true, cancelable:true, 
+                            detail:{newStatus : this.status , oldStatus : this._local_status} });
+            this._local_status = this.status;
+            this.dispatchEvent(Ev);
+        }
+        if(this.value !== this._local_value){
+            let Ev = new CustomEvent("value-changed",{
+                bubbles:true, composed:true, cancelable:true, 
+                detail: { newValue : this.value , oldValue : this._local_value } });
+            this._local_value = this.value;
+            this.dispatchEvent(Ev);
+        }
     }
     connectedCallback()
     {
@@ -116,3 +134,5 @@ export class hmiElement extends litStatesMixin([Manager.dataTree, Manager.errorT
         Manager.Update(sysvar)
     }
 }
+
+customElements.define("hmi-element",hmiElement);
