@@ -1,0 +1,10 @@
+{
+    "opts": {
+        "template": "./node_modules/jaguarjs-jsdoc",
+        "encoding": "utf8",     
+       "lenient": true,
+        "destination": "./docs/", 
+        "recurse": true,
+	"tutorials":"docs/_src_tutorials"
+    }
+}
