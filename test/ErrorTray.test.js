@@ -8,7 +8,7 @@ var er = new ErrorTray("err");
 var e0 = new systemError("sys","ERR0","T0", "A0");
 e0.message = "Ciao"
 var e1 = new systemError("sys","ERR1","T0", "A0");
-
+describe("Error Tray",()=>{
 test('Init',()=>{
     expect(localStorage.getItem('err')).not.toBeNull();
     er.Create(e0);
@@ -37,4 +37,5 @@ test('Clean', async ()=>{
     er.errorExpiry_days = 0;
     await new Promise(resolve => setTimeout(resolve, 10));
     expect(er.GetAll().length).toEqual(0);
+})
 })

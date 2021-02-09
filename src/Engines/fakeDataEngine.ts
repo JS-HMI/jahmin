@@ -50,29 +50,10 @@ export class fakeDataEngine extends DataCommsEngine {
     async Subscribe(variables: systemObject[]): Promise<VarResponse[]> {
         let resp:VarResponse[] = [];
         variables.forEach(v => {
-            let el = document.querySelector(`[name="${v.name}"]`);
-            if(typeof v.name !== "string" || v.name === "" || el === null){
-                resp.push(new VarResponse(false,v.name,v.system));
-                return;
-            }
-            // remember last value
-            /*if(this.manager.dataTree.GetVar(v).value !== null){
-                resp.push(new VarResponse(true, v.name, v.system)); 
-                return;
-            }*/
-
-
-            let val:any = 0;
-            if(el.tagName.toLowerCase().includes("bool"))
-            { 
-                val = ( Math.random() > 0.5 ) ? true : false;
-                this.var_types.set(v.name,"bool")
-            }
-            else 
-            {
-                val = Math.floor(Math.random() * 100);
-                this.var_types.set(v.name,"number")
-            }
+            
+            var val = Math.floor(Math.random() * 100);
+            this.var_types.set(v.name,"number")
+            
             resp.push(new VarResponse(true, v.name, v.system, val));
         });
         return resp;

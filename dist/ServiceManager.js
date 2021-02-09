@@ -21,10 +21,11 @@ export class ServiceManager {
     AddEngine(engine) {
         let subsystemName = escapeHtml(engine.name);
         this.dataEngines.set(subsystemName, engine);
+        engine.manager = this;
         if (this._defaultEngine === null)
             this._defaultEngine = engine;
     }
-    SetDefeultEngine(engine) {
+    SetDefaultEngine(engine) {
         if (!this.dataEngines.has(engine.name))
             this.AddEngine(engine);
         this._defaultEngine = engine;
@@ -121,14 +122,14 @@ export class ServiceManager {
         this.DispatchError(error);
     }
     async Init() {
-        // signal that all the engines are added, can start 
-        // adding variables to subscription list
-        this._initResolve();
         this.status = ServiceStatusCodes.Warming;
         let proms = [];
         Array.from(this.dataEngines.values()).forEach(engine => proms.push(engine._init()));
         await Promise.all(proms);
         this.status = ServiceStatusCodes.Ready;
+        // signal that all the engines are added, can start 
+        // adding variables to subscription list
+        this._initResolve();
     }
     isInitialized() {
         return this._initPromise;

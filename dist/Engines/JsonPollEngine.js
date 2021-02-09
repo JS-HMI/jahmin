@@ -17,16 +17,39 @@ export class JsonPollEngine extends DataCommsEngine {
         this.headers = config.headers || {};
         this.readMethod = config.readMethod || "POST";
         this.headers['Content-Type'] = 'application/json';
-        this.intervalID = window.setInterval(this._read_in_intervals.bind(this), this.readInterval_ms);
+        this.shortIntervalID = window.setInterval(this._read_in_intervals.bind(this), this.readInterval_ms);
+        this.longIntervalID = null;
+        this.failed_request_counter = 0;
+        this.isLongPoll = false;
     }
     async _read_in_intervals() {
         let subscriber_list = Array.from(this.subscribedVar.keys()).map(v => this.deserializeSysObject(v));
         let payload = this.packReadData(subscriber_list);
         let response = await this.netRequest(this.readPrefix, payload, Actions.Read);
         if (!response.success)
-            clearInterval(this.intervalID);
+            this.handleFailedRequest();
+        else
+            this.handleSuccessRequest();
         let vars = this.unpackReadData(response, subscriber_list);
         this.UpdateVars(vars, VarStatusCodes.Subscribed, Actions.Read);
+    }
+    handleFailedRequest() {
+        if (this.failed_request_counter > 10 && this.isLongPoll === false) {
+            clearInterval(this.shortIntervalID);
+            // setting interval to 2 min
+            this.longIntervalID = window.setInterval(this._read_in_intervals.bind(this), 2 * 60 * 1000);
+            this.isLongPoll = true;
+        }
+        this.failed_request_counter++;
+    }
+    handleSuccessRequest() {
+        this.failed_request_counter = 0;
+        if (this.isLongPoll === true) {
+            clearInterval(this.longIntervalID);
+            // resetting the short poll intervall
+            this.shortIntervalID = window.setInterval(this._read_in_intervals.bind(this), this.readInterval_ms);
+            this.isLongPoll = false;
+        }
     }
     async Initialize() {
         return { success: true };

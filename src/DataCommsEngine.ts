@@ -1,4 +1,4 @@
-import {Manager} from './ServiceManager.js'
+import {Manager, ServiceManager} from './ServiceManager.js'
 import {systemObject,ServiceStatusCodes,basicResponse,systemVariable,customAction, Actions, VarResponse, VarStatusCodes, ErrorCodes, systemError} from './DataModels/Types.js'
 
 
@@ -6,7 +6,7 @@ import {systemObject,ServiceStatusCodes,basicResponse,systemVariable,customActio
 /**Abstract class defining a Comunication Engine for data I/O with a server.*/
 export abstract class DataCommsEngine {
     
-    manager = Manager;
+    manager:ServiceManager = Manager;
     status:string = ServiceStatusCodes.Down
     name:string
     VarDispatchErrorCases:string[]
@@ -207,19 +207,19 @@ export abstract class DataCommsEngine {
     /**
      * Action Initialize. Place here anything that is needed for initialization of this engine.
      */
-    abstract async Initialize() : Promise<basicResponse> ;
+    abstract Initialize() : Promise<basicResponse> ;
 
     /**
      * Action Subscribe. It subscribes the list of variables names for automatic updates.
      * @param variables variables names to be subscribed
      */
-    abstract async Subscribe(variables:systemObject[]) : Promise<VarResponse[]> ;
+    abstract Subscribe(variables:systemObject[]) : Promise<VarResponse[]> ;
 
     /**
      * Action Unsubscribe. It unubscribes the list of variables names from automatic updates.
      * @param variables variables names to be unsubscribed
      */
-    abstract async Unsubscribe(variables:systemObject[]) : Promise<VarResponse[]> ;
+    abstract Unsubscribe(variables:systemObject[]) : Promise<VarResponse[]> ;
 
     /**
      * Action Write, this can be called by a UI element. 
@@ -227,14 +227,14 @@ export abstract class DataCommsEngine {
      * @param names list of variables to be written to
      * @param values values related to variables to be written
      */
-    abstract async Write( targets:systemObject[], values:any[] ) : Promise<VarResponse[]>
+    abstract Write( targets:systemObject[], values:any[] ) : Promise<VarResponse[]>
     
     /**
      * Action Read, this can be called by a UI element. 
      * Forces a list of variables to be read from server even if not scheduled.
      * @param names list of variable to be read
      */
-    abstract async Read( targets:systemObject[] ) : Promise<VarResponse[]>
+    abstract  Read( targets:systemObject[] ) : Promise<VarResponse[]>
 
     /**
      * Action Update. It updates a list of variable values and statuses in the DataManager.

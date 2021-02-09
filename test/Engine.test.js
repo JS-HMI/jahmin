@@ -13,7 +13,7 @@ Manager.AddEngine(engine);
 let v0 = {system:"k", name:"var"} ;
 let v1 = {system:"k", name:"vario"} ;
 
-
+describe("engine test",()=>{
 test('Post function',async()=>{
     // ok
     fetch_mock.mockResponseOnce( JSON.stringify({ciao:2}), {status:200});
@@ -262,5 +262,5 @@ test('Unsubscribe', async ()=>{
     expect(_v.status).toBe(VarStatusCodes.Unsubscribed);
 
 })
-
+});
 

@@ -33,10 +33,11 @@ export class ServiceManager
     {
         let subsystemName = escapeHtml(engine.name);
         this.dataEngines.set(subsystemName,engine);
+        engine.manager = this;
         if(this._defaultEngine === null) this._defaultEngine = engine;
     }
 
-    SetDefeultEngine(engine:DataCommsEngine):void
+    SetDefaultEngine(engine:DataCommsEngine):void
     {
         if(!this.dataEngines.has(engine.name)) this.AddEngine(engine);
         this._defaultEngine = engine;
@@ -54,7 +55,6 @@ export class ServiceManager
             throw Error("CANNOT SUBSCRIBE variable " + target.name);
         
         await this.isInitialized();
-
         target.name = escapeHtml(target.name);
         target.system = escapeHtml(target.system);
 
@@ -63,8 +63,9 @@ export class ServiceManager
             if(this.dataTree.ExistVar(target)){
                 if(!engine.isVarSubscribed(target) && this.dataTree.GetVar(target).status !== VarStatusCodes.Pending)  // var exist from localstorage but not yet subscribed
                     this.dataTree.UpdateStatus(target, VarStatusCodes.Pending);
+                
             } 
-            else this.dataTree.Create(target);
+            else  this.dataTree.Create(target);
             engine.RequestSubscription(target);
         }
         else {
@@ -156,15 +157,16 @@ export class ServiceManager
 
     async Init()
     {
-        // signal that all the engines are added, can start 
-        // adding variables to subscription list
-        this._initResolve(); 
-
+        
         this.status = ServiceStatusCodes.Warming;
         let proms:Promise<void>[] = [];
         Array.from(this.dataEngines.values()).forEach( engine => proms.push(engine._init()));
         await Promise.all(proms);
         this.status = ServiceStatusCodes.Ready;
+        
+        // signal that all the engines are added, can start 
+        // adding variables to subscription list
+        this._initResolve(); 
     }
     
     isInitialized()
