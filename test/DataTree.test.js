@@ -1,4 +1,4 @@
-import {DataTree} from '../dist/DataTree.js'
+import {DataTree} from '../dist/DataModels/DataTree.js'
 
 
 describe('Data Tree',()=>{

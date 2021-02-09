@@ -1,5 +1,5 @@
-import {ErrorTray} from '../dist/ErrorTray.js'
-import { systemError } from '../dist/Types.js';
+import {ErrorTray} from '../dist/DataModels/ErrorTray.js'
+import { systemError } from '../dist/DataModels/Types.js';
 
 localStorage.clear();
 

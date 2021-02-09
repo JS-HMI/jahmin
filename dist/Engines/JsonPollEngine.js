@@ -15,13 +15,14 @@ export class JsonPollEngine extends DataCommsEngine {
         this.redirect = config.redirect || 'follow'; // manual, *follow, error
         this.referrerPolicy = config.referrerPolicy || 'no-referrer'; // no-referrer
         this.headers = config.headers || {};
+        this.readMethod = config.readMethod || "POST";
         this.headers['Content-Type'] = 'application/json';
         this.intervalID = window.setInterval(this._read_in_intervals.bind(this), this.readInterval_ms);
     }
     async _read_in_intervals() {
         let subscriber_list = Array.from(this.subscribedVar.keys()).map(v => this.deserializeSysObject(v));
         let payload = this.packReadData(subscriber_list);
-        let response = await this.postData(this.readPrefix, payload, Actions.Read);
+        let response = await this.netRequest(this.readPrefix, payload, Actions.Read);
         if (!response.success)
             clearInterval(this.intervalID);
         let vars = this.unpackReadData(response, subscriber_list);
@@ -38,12 +39,12 @@ export class JsonPollEngine extends DataCommsEngine {
     }
     async Write(targets, values) {
         let payload = this.packWriteData(targets, values);
-        let response = await this.postData(this.writePrefix, payload, Actions.Write);
+        let response = await this.netRequest(this.writePrefix, payload, Actions.Write);
         return this.unpackWriteData(response, targets);
     }
     async Read(request) {
         let payload = this.packReadData(request);
-        let response = await this.postData(this.readPrefix, payload, Actions.Read);
+        let response = await this.netRequest(this.readPrefix, payload, Actions.Read);
         return this.unpackReadData(response, request);
     }
     packWriteData(request, Values) {
@@ -95,12 +96,13 @@ export class JsonPollEngine extends DataCommsEngine {
         }
         return variables;
     }
-    async postData(prefix, data, action) {
+    async netRequest(prefix, data, action) {
         // faking response in case of Net Error
         let response = { ok: false, status: 1000, json: () => { } };
+        let _method = (action === Actions.Read) ? this.readMethod : 'POST';
         try {
             response = await fetch(this.host + '/' + prefix, {
-                method: 'POST',
+                method: _method,
                 mode: this.mode,
                 cache: this.cache,
                 credentials: this.credentials,
@@ -154,7 +156,7 @@ export class JsonPollEngine extends DataCommsEngine {
                 default:
                     err = { code: ErrorCodes.UnknownError, message: "Unknown Error, HTTP status code: " + status.toString() };
             }
-            let sys_err = new systemError(this.name, err.code, this.name, Actions.Read);
+            let sys_err = new systemError(this.name, err.code, this.name, action);
             err.message = err.message;
             this.manager.DispatchError(sys_err);
             return { success: false, data: null, error: err };

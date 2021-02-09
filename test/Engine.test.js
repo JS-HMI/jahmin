@@ -1,6 +1,6 @@
 import {Manager} from '../dist/ServiceManager.js'
-import {JsonPollEngine} from '../dist/JsonPollEngine.js'
-import {VarStatusCodes, ServiceStatusCodes,ErrorCodes, VarResponse} from '../dist/Types.js'
+import {JsonPollEngine} from '../dist/Engines/JsonPollEngine.js'
+import {VarStatusCodes, ServiceStatusCodes,ErrorCodes, VarResponse} from '../dist/DataModels/Types.js'
 var fetch_mock = require('jest-fetch-mock');
 fetch_mock.enableFetchMocks();
 
@@ -17,22 +17,22 @@ let v1 = {system:"k", name:"vario"} ;
 test('Post function',async()=>{
     // ok
     fetch_mock.mockResponseOnce( JSON.stringify({ciao:2}), {status:200});
-    var p = await engine.postData("ciao",{ciao:1});
+    var p = await engine.netRequest("ciao",{ciao:1});
     expect(p).toEqual({success:true, data:{ciao:2}});
     
     // invalid JSON
     fetch_mock.mockResponseOnce( "{ciao:2}", {status:200});
-    p = await engine.postData("ciao",{ciao:1});
+    p = await engine.netRequest("ciao",{ciao:1});
     expect(p).toEqual({success:false, data:null, error:{code : ErrorCodes.BadValue, message : "Failed to parse JSON response"}});
 
     // 404
     fetch_mock.mockResponseOnce( "{ciao:2}", {status:404});
-    p = await engine.postData("ciao",{ciao:1});
+    p = await engine.netRequest("ciao",{ciao:1});
     expect(p).toEqual({success:false, data:null, error:{code : ErrorCodes.NotFound, message : "Url '/ciao' not found "}});
     
     // 403
     fetch_mock.mockResponseOnce( "{ciao:2}", {status:403});
-    p = await engine.postData("ciao",{ciao:1});
+    p = await engine.netRequest("ciao",{ciao:1});
     expect(p).toEqual({success:false, data:null, error:{code : ErrorCodes.Unauthorized, message : "Unauthoriazed request."}});
 
 });

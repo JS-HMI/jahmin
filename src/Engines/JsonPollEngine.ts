@@ -11,6 +11,7 @@ import {systemObject,basicResponse,systemVariable, VarResponse, systemError, Err
 export interface JPollConfig {
     readPrefix : string
     writePrefix: string
+    readMethod?: string
     host?:string
     subscribePrefix?: string
     unsubscribePrefix?: string
@@ -32,6 +33,7 @@ export class JsonPollEngine extends DataCommsEngine implements JPollConfig{
     host:string
     readPrefix : string
     writePrefix: string
+    readMethod : string
     subscribePrefix: string
     unsubscribePrefix: string
     mode : RequestMode
@@ -58,6 +60,7 @@ export class JsonPollEngine extends DataCommsEngine implements JPollConfig{
         this.redirect           = config.redirect || 'follow';           // manual, *follow, error
         this.referrerPolicy     = config.referrerPolicy || 'no-referrer' // no-referrer
         this.headers            = config.headers || {} ; 
+        this.readMethod         = config.readMethod || "POST"
         
         this.headers['Content-Type'] =  'application/json';
 
@@ -68,7 +71,7 @@ export class JsonPollEngine extends DataCommsEngine implements JPollConfig{
     {
         let subscriber_list = Array.from(this.subscribedVar.keys()).map(v => this.deserializeSysObject(v));
         let payload = this.packReadData(subscriber_list);
-        let response = await this.postData( this.readPrefix, payload, Actions.Read );
+        let response = await this.netRequest( this.readPrefix, payload, Actions.Read );
         if( !response.success ) clearInterval(this.intervalID);
         let vars = this.unpackReadData(response, subscriber_list);
         this.UpdateVars(vars, VarStatusCodes.Subscribed, Actions.Read) ; 
@@ -90,14 +93,14 @@ export class JsonPollEngine extends DataCommsEngine implements JPollConfig{
     async Write(targets:systemObject[], values: any[]): Promise<VarResponse[]> 
     {
         let payload = this.packWriteData(targets,values);
-        let response = await this.postData(this.writePrefix,payload, Actions.Write);
+        let response = await this.netRequest(this.writePrefix,payload, Actions.Write);
         return this.unpackWriteData(response, targets);
     }
 
     async Read(request:systemObject[]): Promise<VarResponse[]> 
     {
         let payload = this.packReadData(request);
-        let response = await this.postData( this.readPrefix, payload, Actions.Read );
+        let response = await this.netRequest( this.readPrefix, payload, Actions.Read );
         return this.unpackReadData(response, request);
     }
 
@@ -165,15 +168,15 @@ export class JsonPollEngine extends DataCommsEngine implements JPollConfig{
         return variables;
     }
 
-    async  postData( prefix :string , data:object, action:string ) : Promise<postResponse> 
-    {
+    async  netRequest( prefix :string , data:object, action:Actions ) : Promise<postResponse> {
         // faking response in case of Net Error
         let response = {ok:false, status:1000, json:()=>{}};
+        let _method = ( action === Actions.Read ) ?  this.readMethod : 'POST';
 
         try
         {
             response = await fetch(this.host + '/' + prefix, {
-                method         : 'POST',
+                method         : _method,
                 mode           : this.mode,
                 cache          : this.cache,
                 credentials    : this.credentials,
@@ -231,13 +234,14 @@ export class JsonPollEngine extends DataCommsEngine implements JPollConfig{
                     err = { code: ErrorCodes.UnknownError, message: "Unknown Error, HTTP status code: " + status.toString()}
             }
             
-            let sys_err = new systemError(this.name, err.code, this.name, Actions.Read);
+            let sys_err = new systemError(this.name, err.code, this.name, action);
             err.message = err.message;
             this.manager.DispatchError(sys_err);
 
             return { success:false, data:null, error: err};
         }
+    
     }
-      
+          
 }
 
