@@ -1,36 +1,36 @@
 import {DataTree} from '../dist/DataModels/DataTree.js'
-
+import { expect } from '@esm-bundle/chai';
 
 describe('Data Tree',()=>{
     localStorage.clear();
     var dt = new DataTree();
     var v0 = {name:"walla", system:"halla"};
 
-    test('init',()=>{
-        expect(localStorage.getItem("datatree")).not.toBeNull();
+    it('init',()=>{
+        expect(localStorage.getItem("datatree")).not.null;
     })
-    test('Create',async ()=>{
+    it('Create',async ()=>{
 
         dt.Create(v0);
         let v = dt.GetVar(v0) ;
-        expect(v).toEqual( {status:"PENDING", value: null });
+        expect(v).to.deep.equal( {status:"PENDING", value: null });
 
     })
 
-    test('Update',()=>{
+    it('Update',()=>{
         dt.Update( {name:"walla", status:"SUB", value: 7, system:"halla" } );
         let v = dt.GetVar(v0) ;
-        expect(v).toEqual( { status:"SUB", value: 7 });
+        expect(v).to.deep.equal( { status:"SUB", value: 7 });
 
-        expect(()=>{dt.Update({name:89, status:"SUB", value: 7, system:"halla" } );}).toThrow()
-        expect(()=>{dt.Update({name:"walla", status:"SUB", value: 7, system:"hal" } );}).toThrow()
+        expect(()=>{dt.Update({name:89, status:"SUB", value: 7, system:"halla" } );}).to.throw()
+        expect(()=>{dt.Update({name:"walla", status:"SUB", value: 7, system:"hal" } );}).to.throw()
 
     })
 
-    test('Update Status',()=>{
+    it('Update Status',()=>{
         dt.UpdateStatus(v0, "GOT");
         let v = dt.GetVar(v0) ;
-        expect(v).toEqual( { status:"GOT", value: 7 });
+        expect(v).to.deep.equal( { status:"GOT", value: 7 });
     })
 
 })

@@ -2,6 +2,7 @@ import {html, css} from 'lit-element'
 import {hmiElement} from './HMIelement.js'
 import { shadow_normalize } from './normalize.css.js';
 import './positioning.js'
+import type {props} from "./HMIelement.js"
 
 export class hmiLabel extends hmiElement 
 {

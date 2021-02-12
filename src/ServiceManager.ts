@@ -13,7 +13,7 @@ export class ServiceManager
     dataEngines = new Map<string,DataCommsEngine>()
     _defaultEngine : DataCommsEngine
     status = ServiceStatusCodes.Down;
-    _initPromise:Promise<void>
+    _initPromise:Promise<boolean>
     _initResolve:Function
 
     constructor()
@@ -166,7 +166,7 @@ export class ServiceManager
         
         // signal that all the engines are added, can start 
         // adding variables to subscription list
-        this._initResolve(); 
+        this._initResolve(true); 
     }
     
     isInitialized()

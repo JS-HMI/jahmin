@@ -129,7 +129,7 @@ export class ServiceManager {
         this.status = ServiceStatusCodes.Ready;
         // signal that all the engines are added, can start 
         // adding variables to subscription list
-        this._initResolve();
+        this._initResolve(true);
     }
     isInitialized() {
         return this._initPromise;

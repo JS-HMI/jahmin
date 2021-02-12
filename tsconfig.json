@@ -6,7 +6,8 @@
         "noImplicitAny": true,
         "outDir": "dist/",
         "allowJs": true,
-        "sourceMap": false
+        "sourceMap": false,
+        "declaration": true
     },
 
     "include": [
