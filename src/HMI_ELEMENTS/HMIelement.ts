@@ -3,7 +3,7 @@ import {litStatesMixin} from 'impera-js'
 import {Manager, ServiceManager} from '../ServiceManager.js'
 import { systemObject, systemVariable, VarStatusCodes } from '../DataModels/Types.js';
 
-interface props {
+export interface props {
     [key:string] : { type : String | Number | Object }
 }
 export class hmiElement extends litStatesMixin([Manager.dataTree, Manager.errorTray],LitElement) implements systemObject{
