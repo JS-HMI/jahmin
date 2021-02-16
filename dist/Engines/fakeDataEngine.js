@@ -43,6 +43,7 @@ export class fakeDataEngine extends DataCommsEngine {
     async Subscribe(variables) {
         let resp = [];
         variables.forEach(v => {
+            console.info("Subscribing var", v.name);
             var val = Math.floor(Math.random() * 100);
             this.var_types.set(v.name, "number");
             resp.push(new VarResponse(true, v.name, v.system, val));
