@@ -119,23 +119,28 @@ export class JsonPollEngine extends DataCommsEngine {
         }
         return variables;
     }
-    async netRequest(prefix, data, action) {
+    async netRequest(prefix, data, action = Actions.Unknown) {
         // faking response in case of Net Error
         let response = { ok: false, status: 1000, json: () => { } };
         let _method = (action === Actions.Read) ? this.readMethod : 'POST';
+        let options = {
+            method: _method,
+            mode: this.mode,
+            cache: this.cache,
+            credentials: this.credentials,
+            headers: this.headers,
+            redirect: this.redirect,
+            referrerPolicy: this.referrerPolicy,
+        };
         try {
-            response = await fetch(this.host + '/' + prefix, {
-                method: _method,
-                mode: this.mode,
-                cache: this.cache,
-                credentials: this.credentials,
-                headers: this.headers,
-                redirect: this.redirect,
-                referrerPolicy: this.referrerPolicy,
-                body: JSON.stringify(data),
-            });
+            if (_method === "POST") {
+                options = Object.assign({ body: JSON.stringify(data) }, options);
+            }
+            response = await fetch(this.host + '/' + prefix, options);
         }
-        catch (_a) { }
+        catch (e) {
+            console.error(e.message);
+        }
         let resp_data = null;
         let err = null;
         let status = response.status;

@@ -196,25 +196,32 @@ export class JsonPollEngine extends DataCommsEngine implements JPollConfig{
         return variables;
     }
 
-    async  netRequest( prefix :string , data:object, action:Actions ) : Promise<postResponse> {
+    async  netRequest( prefix :string , data:object, action:Actions = Actions.Unknown) : Promise<postResponse> {
         // faking response in case of Net Error
         let response = {ok:false, status:1000, json:()=>{}};
         let _method = ( action === Actions.Read ) ?  this.readMethod : 'POST';
+        let options = {
+            method         : _method,
+            mode           : this.mode,
+            cache          : this.cache,
+            credentials    : this.credentials,
+            headers        : this.headers,
+            redirect       : this.redirect,
+            referrerPolicy : this.referrerPolicy,
+        }
 
         try
         {
-            response = await fetch(this.host + '/' + prefix, {
-                method         : _method,
-                mode           : this.mode,
-                cache          : this.cache,
-                credentials    : this.credentials,
-                headers        : this.headers,
-                redirect       : this.redirect,
-                referrerPolicy : this.referrerPolicy,
-                body           : JSON.stringify(data),
-            });
+            if( _method === "POST")
+            {
+                options = Object.assign({body : JSON.stringify(data)}, options);
+            }
+            response = await fetch(this.host + '/' + prefix, options);
         }
-        catch{}
+        catch(e)
+        {
+            console.error(e.message);
+        }
 
         let resp_data:any = null;
         let err: basicError = null;

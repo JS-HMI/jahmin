@@ -54,6 +54,6 @@ export declare class JsonPollEngine extends DataCommsEngine implements JPollConf
     packReadData(targets: systemObject[]): object;
     unpackReadData(response: postResponse, request: systemObject[]): VarResponse[];
     unpackData(response: postResponse, request: systemObject[], action: string): VarResponse[];
-    netRequest(prefix: string, data: object, action: Actions): Promise<postResponse>;
+    netRequest(prefix: string, data: object, action?: Actions): Promise<postResponse>;
 }
 export {};
