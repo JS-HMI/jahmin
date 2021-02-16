@@ -323,6 +323,7 @@ export declare class hmiElement extends hmiElement_base implements systemObject 
     set status(Status: string);
     on_datatree_update(): void;
     connectedCallback(): void;
+    subscribe(): void;
     disconnectedCallback(): void;
     Write(value: any): Promise<import("../DataModels/Types.js").VarResponse[]>;
     WriteMultiple(targets: systemObject[], values: any[]): Promise<import("../DataModels/Types.js").VarResponse[]>;

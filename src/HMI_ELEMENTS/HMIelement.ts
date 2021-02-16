@@ -86,6 +86,11 @@ export class hmiElement extends litStatesMixin([Manager.dataTree, Manager.errorT
     connectedCallback()
     {
         super.connectedCallback();
+        this.subscribe()       
+    }
+
+    subscribe()
+    {
         // maybe here dispatch READY event??
         // maybe here resolve a READY promise so one can await it??
         Manager.Subscribe(this.engine,this).then(()=>{
