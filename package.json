@@ -1,6 +1,6 @@
 {
   "name": "jahmin",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A JavaScript framework to build browser friendly Human Machine Interfaces for automation",
   "main": "dist/jahmin.js",
   "types": "src/jahmin.ts",
