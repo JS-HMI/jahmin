@@ -30,7 +30,6 @@
   "devDependencies": {
     "@esm-bundle/chai": "^4.3.0",
     "@web/test-runner": "^0.12.15",
-    "better-docs": "^2.0.1",
     "bufferutil": "^4.0.1",
     "canvas": "^2.6.1",
     "docdash": "^1.2.0",

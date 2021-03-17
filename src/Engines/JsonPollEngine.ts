@@ -77,6 +77,7 @@ export class JsonPollEngine extends DataCommsEngine implements JPollConfig{
     async _read_in_intervals()
     {
         let subscriber_list = Array.from(this.subscribedVar.keys()).map(v => this.deserializeSysObject(v));
+        if(subscriber_list.length === 0) return;
         let payload = this.packReadData(subscriber_list);
         let response = await this.netRequest( this.readPrefix, payload, Actions.Read );
         if( !response.success ) this.handleFailedRequest();
