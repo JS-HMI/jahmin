@@ -1,5 +1,5 @@
 import { DataCommsEngine } from '../DataCommsEngine.js';
-import { systemObject, basicResponse, VarResponse, Actions } from '../DataModels/Types.js';
+import { systemObject, basicResponse, VarResponse, basicError, Actions } from '../DataModels/Types.js';
 export interface JPollConfig {
     readPrefix: string;
     writePrefix: string;
@@ -55,5 +55,6 @@ export declare class JsonPollEngine extends DataCommsEngine implements JPollConf
     unpackReadData(response: postResponse, request: systemObject[]): VarResponse[];
     unpackData(response: postResponse, request: systemObject[], action: string): VarResponse[];
     netRequest(prefix: string, data: object, action?: Actions): Promise<postResponse>;
+    OnHTTPError(err: basicError): void;
 }
 export {};

@@ -189,7 +189,9 @@ export class JsonPollEngine extends DataCommsEngine {
             let sys_err = new systemError(this.name, err.code, this.name, action);
             err.message = err.message;
             this.manager.DispatchError(sys_err);
+            this.OnHTTPError(err);
             return { success: false, data: null, error: err };
         }
     }
+    OnHTTPError(err) { }
 }
