@@ -1,7 +1,7 @@
 # JaHMIn
-A **Ja**vascript framework to build **H**uman **M**achine **In**terfaces for automation.
+A **Ja**vascript framework to build **H**uman **M**achine **In**terfaces for IoT.
 
-**See a Demo at [Demo Basic elements](https://js-hmi.github.io/jmn-basic-elements/demo)**.
+**[Demo of basic elements here](https://js-hmi.github.io/jmn-basic-elements/demo)**.
 
 ### Installation 
 
