@@ -29,8 +29,9 @@ gives the oppurtunity to re-use the components and share them.
 Jahmin comes with a set of basic components, which you can explore [here](https://js-hmi.github.io/jmn-basic-elements/demo).
 
 
+### Docs
 
-
+/!\ Work in progress... 
 
 
 
