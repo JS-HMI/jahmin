@@ -37,7 +37,6 @@
 								<li class="dropdown">
 									<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Globals<b class="caret"></b></a>
 									<ul class="dropdown-menu">
-											<li><a href="global.html#setError-helpertosetthe%2522error%2522property.">setError - helper to set the "error" property.</a></li>
 											<li><a href="global.html#VarStatusCodes">VarStatusCodes</a></li>
 									</ul>
 								</li>
@@ -46,9 +45,13 @@
 									<ul class="dropdown-menu">
 											<li><a href="DataCommsEngine.html">DataCommsEngine</a></li>
 											<li><a href="DataTree.html">DataTree</a></li>
+											<li><a href="ErrorCodes.html">ErrorCodes</a></li>
 											<li><a href="ServiceManager.html">ServiceManager</a></li>
+											<li><a href="ServiceStatusCodes.html">ServiceStatusCodes</a></li>
 											<li><a href="systemError.html">systemError</a></li>
+											<li><a href="systemObject.html">systemObject</a></li>
 											<li><a href="systemVariable.html">systemVariable</a></li>
+											<li><a href="VarResponse.html">VarResponse</a></li>
 									</ul>
 								</li>
 								<li class="dropdown">
@@ -94,100 +97,55 @@
 <dd class="symbol-details class  collapsible-symbol expanded" style="max-height: 9999px;">
 	<div class="symbol-details-inner">
 			<div class="callout callout-primary"><h5>Description</h5>		<div class="description classdesc">Abstract class defining a Comunication Engine for data I/O with a server.</div>
-			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-							<!-- source -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Source</label>
-								<div class="col-sm-9">
-									<p class="form-control-static"><a href="DataCommsEngine.js.html">DataCommsEngine.js</a>, <a href="DataCommsEngine.js.html#line-4">line 4</a></p>
-								</div>
-							</div>
-			
-			
-			
-			
-					</form>
-			</div>	</div>
-</dd>
-							</dl>
-							<article class="secondary">
-									<h3>Classes</h3>
-									<dl class="symbol">
-											<hr/>
-											<dt class="symbol-title class public">
-			<h4 id="DataCommsEngine" class="class public"><a href="DataCommsEngine.html"><span class="signature-new">new&nbsp;</span><span class="name">DataCommsEngine</span><span class="signature-params">()</span><span class="signature-type"></span></a></h4>
-		</dt>
-<dd class="symbol-details class public">
-	<div class="symbol-details-inner">
-	</div>
-</dd>
-									</dl>
-									<h3>Members</h3>
-									<dl class="symbol">
-											<hr/>
-											<dt class="symbol-title member public collapsible-symbol">
-			<h4 id="toBeSubscribed" class="member public"><span class="name">toBeSubscribed</span><span class="signature-type"></span></h4>
-		</dt>
-<dd class="symbol-details member public  collapsible-symbol">
-	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Variables waiting to be subscribed for updates. It is a key-number map.
+			</div>			<div class="callout callout-info">
+				<h5>Properties</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>toBeSubscribed</code></td>
+							<td><span class="param-type">Map.&lt;string, number></span></td>
+							<td class="last">
+									Variables waiting to be subscribed for updates. It is a key-number map.
 			The number represent how many UI element times requested updates from that variable.
 			Variables are purged once subscribed. If subscription fails with "NO-NET"
-			or "CANT-SUB" error the var is kept for later subscription,
-			if fails with "WONT-SUB" or "NOT-EXIST" it will be purged from list.</div>
-			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-							<!-- source -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Source</label>
-								<div class="col-sm-9">
-									<p class="form-control-static"><a href="DataCommsEngine.js.html">DataCommsEngine.js</a>, <a href="DataCommsEngine.js.html#line-15">line 15</a></p>
-								</div>
-							</div>
-			
-			
-			
-			
-					</form>
-			</div>	</div>
-</dd>
-											<hr/>
-											<dt class="symbol-title member public collapsible-symbol">
-			<h4 id="toBeUnsubscribed" class="member public"><span class="name">toBeUnsubscribed</span><span class="signature-type"></span></h4>
-		</dt>
-<dd class="symbol-details member public  collapsible-symbol">
-	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">List of Variables waiting to be unsubscribed from updates.</div>
-			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			or "CANT-SUB" error the var is kept for later subscription, if fails with "WONT-SUB" or "NOT-EXIST" it will be purged from list.
+							</td>
+						</tr>
+						<tr>
+								<td><code>toBeUnsubscribed</code></td>
+							<td><span class="param-type">Set.&lt;string></span></td>
+							<td class="last">
+									List of Variables waiting to be unsubscribed from updates.
+							</td>
+						</tr>
+						<tr>
+								<td><code>subscribedVar</code></td>
+							<td><span class="param-type">Map.&lt;string, number></span></td>
+							<td class="last">
+									List of Variables currently subscribed for updates. It is a key-number map.
+			The number represent the number of UI-elements registered with the same variable,
+			usually one, but for special cases could be more.
+							</td>
+						</tr>
+						<tr>
+								<td><code>aggregationTime_ms</code></td>
+							<td><span class="param-type">number</span></td>
+							<td class="last">
+									Time the system will wait before sending subscruiption/unsubscription, so that variable
+			can be aggregated and make moreefficient network calls.
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
 			
 			
 			
@@ -217,86 +175,339 @@
 					</form>
 			</div>	</div>
 </dd>
+							</dl>
+							<article class="secondary">
+									<h3>Classes</h3>
+									<dl class="symbol">
 											<hr/>
-											<dt class="symbol-title member public collapsible-symbol">
-			<h4 id="subscribedVar" class="member public"><span class="name">subscribedVar</span><span class="signature-type"></span></h4>
+											<dt class="symbol-title class public">
+			<h4 id="DataCommsEngine" class="class public"><a href="DataCommsEngine.html"><span class="signature-new">new&nbsp;</span><span class="name">DataCommsEngine</span><span class="signature-params">()</span><span class="signature-type"></span></a></h4>
 		</dt>
-<dd class="symbol-details member public  collapsible-symbol">
+<dd class="symbol-details class public">
 	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">List of Variables currently subscribed for updates. It is a key-number map.
-			The number represent the number of UI-elements registered with the same variable,
-			usually one, but for special cases could be more.</div>
-			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-							<!-- source -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Source</label>
-								<div class="col-sm-9">
-									<p class="form-control-static"><a href="DataCommsEngine.js.html">DataCommsEngine.js</a>, <a href="DataCommsEngine.js.html#line-25">line 25</a></p>
-								</div>
-							</div>
-			
-			
-			
-			
-					</form>
-			</div>	</div>
-</dd>
-											<hr/>
-											<dt class="symbol-title member public collapsible-symbol">
-			<h4 id="aggregationTime_ms" class="member public"><span class="name">aggregationTime_ms</span><span class="signature-type"></span></h4>
-		</dt>
-<dd class="symbol-details member public  collapsible-symbol">
-	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Time the system will wait before sending subscruiption/unsubscription, so that variable
-			can be aggregated and make moreefficient network calls.</div>
-			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-							<!-- source -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Source</label>
-								<div class="col-sm-9">
-									<p class="form-control-static"><a href="DataCommsEngine.js.html">DataCommsEngine.js</a>, <a href="DataCommsEngine.js.html#line-32">line 32</a></p>
-								</div>
-							</div>
-			
-			
-			
-			
-					</form>
-			</div>	</div>
+	</div>
 </dd>
 									</dl>
 									<h3>Methods</h3>
 									<dl class="symbol">
+											<hr/>
+											<dt class="symbol-title function public collapsible-symbol">
+			<h4 id="Initialize" class="function public"><span class="signature-attribs">&lt;abstract> </span><span class="name">Initialize</span><span class="signature-params">()</span><span class="signature-type"> &rarr;&nbsp;{basicResponse}</span></h4>
+		</dt>
+<dd class="symbol-details function public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Abstract method. Action Initialize. Place here anything that is needed for initialization of this engine.</div>
+			</div>			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">basicResponse</span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description">- return status of initialization action.</div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="DataCommsEngine.js.html">DataCommsEngine.js</a>, <a href="DataCommsEngine.js.html#line-170">line 170</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function public collapsible-symbol">
+			<h4 id="Subscribe" class="function public"><span class="signature-attribs">&lt;abstract> </span><span class="name">Subscribe</span><span class="signature-params">( <span class="signature-param">variables</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Array.&lt;<a href="VarResponse.html">VarResponse</a>>>}</span></h4>
+		</dt>
+<dd class="symbol-details function public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Abstract method. Action Subscribe. It subscribes the list of variables names for automatic updates.</div>
+			</div>			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>variables</code></td>
+							<td><span class="param-type">Array.&lt;<a href="systemObject.html">systemObject</a>></span></td>
+							<td class="last">
+									variables names to be subscribed
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise.&lt;Array.&lt;<a href="VarResponse.html">VarResponse</a>>></span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description">- Response of the action.</div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="DataCommsEngine.js.html">DataCommsEngine.js</a>, <a href="DataCommsEngine.js.html#line-177">line 177</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function public collapsible-symbol">
+			<h4 id="Unsubscribe" class="function public"><span class="signature-attribs">&lt;abstract> </span><span class="name">Unsubscribe</span><span class="signature-params">( <span class="signature-param">variables</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Array.&lt;<a href="VarResponse.html">VarResponse</a>>>}</span></h4>
+		</dt>
+<dd class="symbol-details function public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Abstract method. Action Unsubscribe. It unubscribes the list of variables names from automatic updates.</div>
+			</div>			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>variables</code></td>
+							<td><span class="param-type">Array.&lt;<a href="systemObject.html">systemObject</a>></span></td>
+							<td class="last">
+									variables names to be unsubscribed
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise.&lt;Array.&lt;<a href="VarResponse.html">VarResponse</a>>></span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description">- Response of the action.</div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="DataCommsEngine.js.html">DataCommsEngine.js</a>, <a href="DataCommsEngine.js.html#line-184">line 184</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function public collapsible-symbol">
+			<h4 id="Write" class="function public"><span class="signature-attribs">&lt;abstract> </span><span class="name">Write</span><span class="signature-params">( <span class="signature-param">targets</span>, <span class="signature-param">values</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Array.&lt;<a href="VarResponse.html">VarResponse</a>>>}</span></h4>
+		</dt>
+<dd class="symbol-details function public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Abstract method. Action Write, this can be called by a UI element.
+			It writes to server the provided list of values to the relative variables.</div>
+			</div>			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>targets</code></td>
+							<td><span class="param-type">Array.&lt;<a href="systemObject.html">systemObject</a>></span></td>
+							<td class="last">
+									variables names to be unsubscribed
+							</td>
+						</tr>
+						<tr>
+								<td><code>values</code></td>
+							<td><span class="param-type">Array.&lt;any></span></td>
+							<td class="last">
+									values related to variables to be written
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise.&lt;Array.&lt;<a href="VarResponse.html">VarResponse</a>>></span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="DataCommsEngine.js.html">DataCommsEngine.js</a>, <a href="DataCommsEngine.js.html#line-193">line 193</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function public collapsible-symbol">
+			<h4 id="Read" class="function public"><span class="signature-attribs">&lt;abstract> </span><span class="name">Read</span><span class="signature-params">( <span class="signature-param">names</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Array.&lt;<a href="VarResponse.html">VarResponse</a>>>}</span></h4>
+		</dt>
+<dd class="symbol-details function public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Abstract method. Action Read, this can be called by a UI element.
+			Forces a list of variables to be read from server even if not scheduled.</div>
+			</div>			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>names</code></td>
+							<td></td>
+							<td class="last">
+									list of variable to be read
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise.&lt;Array.&lt;<a href="VarResponse.html">VarResponse</a>>></span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="DataCommsEngine.js.html">DataCommsEngine.js</a>, <a href="DataCommsEngine.js.html#line-201">line 201</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
 											<hr/>
 											<dt class="symbol-title function public collapsible-symbol">
 			<h4 id="UpdateData" class="function public"><span class="name">UpdateData</span><span class="signature-params">( <span class="signature-param">data</span>&nbsp;)</span><span class="signature-type"></span></h4>
@@ -346,7 +557,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="DataCommsEngine.js.html">DataCommsEngine.js</a>, <a href="DataCommsEngine.js.html#line-174">line 174</a></p>
+									<p class="form-control-static"><a href="DataCommsEngine.js.html">DataCommsEngine.js</a>, <a href="DataCommsEngine.js.html#line-207">line 207</a></p>
 								</div>
 							</div>
 			

@@ -10,7 +10,8 @@ import { escape as escapeHtml } from 'html-escaper';
 // of attaching a stateVar to an already instantiated object, without using 
 // a mixin. See issue: https://github.com/WebComponentHelpers/ImperaJS/issues/8
 /**
- * Class that contains all the variable of the App for all the subsystem.
+ * Class that contains all the data structure of the App for all the subsystems.
+ * The app state is saved in here.
  * It is connected automatically to UI element and schedule updates on them.
  */
 export class DataTree extends StateVariable {

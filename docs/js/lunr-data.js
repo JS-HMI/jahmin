@@ -71,118 +71,6 @@ window.lunrData = {
           "list:tutori",
           "tutori"
         ],
-        "DataCommsEngine.html": [
-          "abstract",
-          "class",
-          "comun",
-          "data",
-          "datacommsengin",
-          "defin",
-          "engin",
-          "i/o",
-          "server"
-        ],
-        "DataCommsEngine.html#toBeSubscribed": [
-          "cant",
-          "datacommsengine#tobesubscrib",
-          "element",
-          "error",
-          "exist",
-          "fail",
-          "kept",
-          "key",
-          "later",
-          "list",
-          "mani",
-          "map",
-          "member",
-          "net",
-          "number",
-          "onc",
-          "purg",
-          "repres",
-          "request",
-          "sub",
-          "subscrib",
-          "subscript",
-          "time",
-          "tobesubscrib",
-          "ui",
-          "updat",
-          "var",
-          "variabl",
-          "wait",
-          "wont"
-        ],
-        "DataCommsEngine.html#toBeUnsubscribed": [
-          "datacommsengine#tobeunsubscrib",
-          "list",
-          "member",
-          "tobeunsubscrib",
-          "unsubscrib",
-          "updat",
-          "variabl",
-          "wait"
-        ],
-        "DataCommsEngine.html#subscribedVar": [
-          "case",
-          "current",
-          "datacommsengine#subscribedvar",
-          "element",
-          "key",
-          "list",
-          "map",
-          "member",
-          "more",
-          "number",
-          "on",
-          "regist",
-          "repres",
-          "same",
-          "special",
-          "subscrib",
-          "subscribedvar",
-          "ui",
-          "updat",
-          "usual",
-          "variabl"
-        ],
-        "DataCommsEngine.html#aggregationTime_ms": [
-          "aggreg",
-          "aggregationtime_m",
-          "befor",
-          "call",
-          "datacommsengine#aggregationtime_m",
-          "make",
-          "member",
-          "moreeffici",
-          "network",
-          "send",
-          "subscruiption/unsubscript",
-          "system",
-          "time",
-          "variabl",
-          "wait"
-        ],
-        "DataCommsEngine.html#UpdateData": [
-          "action",
-          "automat",
-          "compon",
-          "connect",
-          "data",
-          "datacommsengine#updatedata",
-          "datamanag",
-          "dispatch",
-          "function",
-          "list",
-          "status",
-          "those",
-          "ui",
-          "updat",
-          "updatedata",
-          "valu",
-          "variabl"
-        ],
         "ServiceManager.html": [
           "class",
           "organizz",
@@ -201,13 +89,17 @@ window.lunrData = {
           "class",
           "connect",
           "contain",
+          "data",
           "datatre",
           "element",
+          "here",
+          "save",
           "schedul",
+          "state",
+          "structur",
           "subsystem",
           "ui",
-          "updat",
-          "variabl"
+          "updat"
         ],
         "DataTree.html#GetVar": [
           "assign",
@@ -253,6 +145,156 @@ window.lunrData = {
           "variabl",
           "varid"
         ],
+        "DataCommsEngine.html": [
+          "abstract",
+          "class",
+          "comun",
+          "data",
+          "datacommsengin",
+          "defin",
+          "engin",
+          "i/o",
+          "server"
+        ],
+        "DataCommsEngine.html#Initialize": [
+          "abstract",
+          "action",
+          "anyth",
+          "basicrespons",
+          "datacommsengine#initi",
+          "engin",
+          "function",
+          "here",
+          "initi",
+          "lt;abstract&gt",
+          "method",
+          "need",
+          "place"
+        ],
+        "DataCommsEngine.html#Subscribe": [
+          "abstract",
+          "action",
+          "automat",
+          "datacommsengine#subscrib",
+          "function",
+          "list",
+          "lt;abstract&gt",
+          "method",
+          "name",
+          "promise.&lt;array.&lt;varresponse&gt;&gt",
+          "subscrib",
+          "updat",
+          "variabl"
+        ],
+        "DataCommsEngine.html#Unsubscribe": [
+          "abstract",
+          "action",
+          "automat",
+          "datacommsengine#unsubscrib",
+          "function",
+          "list",
+          "lt;abstract&gt",
+          "method",
+          "name",
+          "promise.&lt;array.&lt;varresponse&gt;&gt",
+          "unsubscrib",
+          "unubscrib",
+          "updat",
+          "variabl"
+        ],
+        "DataCommsEngine.html#Write": [
+          "abstract",
+          "action",
+          "call",
+          "datacommsengine#writ",
+          "element",
+          "function",
+          "list",
+          "lt;abstract&gt",
+          "method",
+          "promise.&lt;array.&lt;varresponse&gt;&gt",
+          "provid",
+          "rel",
+          "server",
+          "target",
+          "ui",
+          "valu",
+          "variabl",
+          "write"
+        ],
+        "DataCommsEngine.html#Read": [
+          "abstract",
+          "action",
+          "call",
+          "datacommsengine#read",
+          "element",
+          "even",
+          "forc",
+          "function",
+          "list",
+          "lt;abstract&gt",
+          "method",
+          "name",
+          "promise.&lt;array.&lt;varresponse&gt;&gt",
+          "read",
+          "schedul",
+          "server",
+          "ui",
+          "variabl"
+        ],
+        "DataCommsEngine.html#UpdateData": [
+          "action",
+          "automat",
+          "compon",
+          "connect",
+          "data",
+          "datacommsengine#updatedata",
+          "datamanag",
+          "dispatch",
+          "function",
+          "list",
+          "status",
+          "those",
+          "ui",
+          "updat",
+          "updatedata",
+          "valu",
+          "variabl"
+        ],
+        "ServiceStatusCodes.html": [
+          "class",
+          "code",
+          "data",
+          "defin",
+          "engin",
+          "servicestatuscod",
+          "static",
+          "statu"
+        ],
+        "ErrorCodes.html": [
+          "appear",
+          "class",
+          "code",
+          "commun",
+          "defin",
+          "dure",
+          "error",
+          "errorcod",
+          "relat",
+          "server",
+          "static",
+          "variabl"
+        ],
+        "systemObject.html": [
+          "belong",
+          "class",
+          "gener",
+          "object",
+          "repres",
+          "specif",
+          "system",
+          "systemobject"
+        ],
         "systemError.html": [
           "action",
           "class",
@@ -266,6 +308,29 @@ window.lunrData = {
           "system",
           "systemerror",
           "write"
+        ],
+        "VarResponse.html": [
+          "action",
+          "class",
+          "etc",
+          "gener",
+          "implemet",
+          "involv",
+          "read",
+          "respons",
+          "subscrib",
+          "variabl",
+          "varrespons",
+          "write"
+        ],
+        "VarResponse.html#setError": [
+          "error",
+          "function",
+          "helper",
+          "properti",
+          "set",
+          "seterror",
+          "varresponse#seterror"
         ],
         "systemVariable.html": [
           "anyth",
@@ -287,7 +352,7 @@ window.lunrData = {
           "variabl"
         ]
       },
-      "length": 19
+      "length": 25
     },
     "tokenStore": {
       "root": {
@@ -311,17 +376,58 @@ window.lunrData = {
               }
             }
           },
+          "a": {
+            "docs": {},
+            "s": {
+              "docs": {},
+              "i": {
+                "docs": {},
+                "c": {
+                  "docs": {},
+                  "r": {
+                    "docs": {},
+                    "e": {
+                      "docs": {},
+                      "s": {
+                        "docs": {},
+                        "p": {
+                          "docs": {},
+                          "o": {
+                            "docs": {},
+                            "n": {
+                              "docs": {},
+                              "s": {
+                                "docs": {
+                                  "DataCommsEngine.html#Initialize": {
+                                    "ref": "DataCommsEngine.html#Initialize",
+                                    "tf": 33.33333333333333
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
           "e": {
             "docs": {},
-            "f": {
+            "l": {
               "docs": {},
               "o": {
                 "docs": {},
-                "r": {
-                  "docs": {
-                    "DataCommsEngine.html#aggregationTime_ms": {
-                      "ref": "DataCommsEngine.html#aggregationTime_ms",
-                      "tf": 4.166666666666666
+                "n": {
+                  "docs": {},
+                  "g": {
+                    "docs": {
+                      "systemObject.html": {
+                        "ref": "systemObject.html",
+                        "tf": 8.333333333333332
+                      }
                     }
                   }
                 }
@@ -377,20 +483,6 @@ window.lunrData = {
               }
             }
           },
-          "a": {
-            "docs": {},
-            "i": {
-              "docs": {},
-              "l": {
-                "docs": {
-                  "DataCommsEngine.html#toBeSubscribed": {
-                    "ref": "DataCommsEngine.html#toBeSubscribed",
-                    "tf": 2.7777777777777777
-                  }
-                }
-              }
-            }
-          },
           "u": {
             "docs": {},
             "n": {
@@ -405,10 +497,6 @@ window.lunrData = {
                       "docs": {},
                       "n": {
                         "docs": {
-                          "DataCommsEngine.html#UpdateData": {
-                            "ref": "DataCommsEngine.html#UpdateData",
-                            "tf": 110
-                          },
                           "ServiceManager.html#AddEngine": {
                             "ref": "ServiceManager.html#AddEngine",
                             "tf": 110
@@ -425,6 +513,34 @@ window.lunrData = {
                             "ref": "DataTree.html#ExistVar",
                             "tf": 110
                           },
+                          "DataCommsEngine.html#Initialize": {
+                            "ref": "DataCommsEngine.html#Initialize",
+                            "tf": 110
+                          },
+                          "DataCommsEngine.html#Subscribe": {
+                            "ref": "DataCommsEngine.html#Subscribe",
+                            "tf": 110
+                          },
+                          "DataCommsEngine.html#Unsubscribe": {
+                            "ref": "DataCommsEngine.html#Unsubscribe",
+                            "tf": 110
+                          },
+                          "DataCommsEngine.html#Write": {
+                            "ref": "DataCommsEngine.html#Write",
+                            "tf": 110
+                          },
+                          "DataCommsEngine.html#Read": {
+                            "ref": "DataCommsEngine.html#Read",
+                            "tf": 110
+                          },
+                          "DataCommsEngine.html#UpdateData": {
+                            "ref": "DataCommsEngine.html#UpdateData",
+                            "tf": 110
+                          },
+                          "VarResponse.html#setError": {
+                            "ref": "VarResponse.html#setError",
+                            "tf": 110
+                          },
                           "systemVariable.html": {
                             "ref": "systemVariable.html",
                             "tf": 3.125
@@ -432,6 +548,20 @@ window.lunrData = {
                         }
                       }
                     }
+                  }
+                }
+              }
+            }
+          },
+          "o": {
+            "docs": {},
+            "r": {
+              "docs": {},
+              "c": {
+                "docs": {
+                  "DataCommsEngine.html#Read": {
+                    "ref": "DataCommsEngine.html#Read",
+                    "tf": 3.571428571428571
                   }
                 }
               }
@@ -451,6 +581,41 @@ window.lunrData = {
                     "index.html": {
                       "ref": "index.html",
                       "tf": 10
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "e": {
+            "docs": {},
+            "r": {
+              "docs": {},
+              "e": {
+                "docs": {
+                  "DataTree.html": {
+                    "ref": "DataTree.html",
+                    "tf": 3.125
+                  },
+                  "DataCommsEngine.html#Initialize": {
+                    "ref": "DataCommsEngine.html#Initialize",
+                    "tf": 5
+                  }
+                }
+              }
+            },
+            "l": {
+              "docs": {},
+              "p": {
+                "docs": {},
+                "e": {
+                  "docs": {},
+                  "r": {
+                    "docs": {
+                      "VarResponse.html#setError": {
+                        "ref": "VarResponse.html#setError",
+                        "tf": 12.5
+                      }
                     }
                   }
                 }
@@ -498,6 +663,37 @@ window.lunrData = {
                   }
                 }
               }
+            },
+            "i": {
+              "docs": {},
+              "t": {
+                "docs": {},
+                "i": {
+                  "docs": {
+                    "DataCommsEngine.html#Initialize": {
+                      "ref": "DataCommsEngine.html#Initialize",
+                      "tf": 693.3333333333334
+                    }
+                  }
+                }
+              }
+            },
+            "v": {
+              "docs": {},
+              "o": {
+                "docs": {},
+                "l": {
+                  "docs": {},
+                  "v": {
+                    "docs": {
+                      "VarResponse.html": {
+                        "ref": "VarResponse.html",
+                        "tf": 4.545454545454546
+                      }
+                    }
+                  }
+                }
+              }
             }
           },
           "o": {
@@ -518,6 +714,32 @@ window.lunrData = {
                 "DataCommsEngine.html": {
                   "ref": "DataCommsEngine.html",
                   "tf": 6.25
+                }
+              }
+            }
+          },
+          "m": {
+            "docs": {},
+            "p": {
+              "docs": {},
+              "l": {
+                "docs": {},
+                "e": {
+                  "docs": {},
+                  "m": {
+                    "docs": {},
+                    "e": {
+                      "docs": {},
+                      "t": {
+                        "docs": {
+                          "VarResponse.html": {
+                            "ref": "VarResponse.html",
+                            "tf": 4.545454545454546
+                          }
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -609,104 +831,37 @@ window.lunrData = {
                   }
                 }
               }
-            },
-            "n": {
-              "docs": {},
-              "i": {
-                "docs": {
-                  "DataCommsEngine.html#toBeSubscribed": {
-                    "ref": "DataCommsEngine.html#toBeSubscribed",
-                    "tf": 1.3888888888888888
-                  }
-                }
-              }
-            },
-            "p": {
-              "docs": {
-                "DataCommsEngine.html#toBeSubscribed": {
-                  "ref": "DataCommsEngine.html#toBeSubscribed",
-                  "tf": 1.3888888888888888
-                },
-                "DataCommsEngine.html#subscribedVar": {
-                  "ref": "DataCommsEngine.html#subscribedVar",
-                  "tf": 2.380952380952381
-                }
-              }
-            },
-            "k": {
-              "docs": {},
-              "e": {
-                "docs": {
-                  "DataCommsEngine.html#aggregationTime_ms": {
-                    "ref": "DataCommsEngine.html#aggregationTime_ms",
-                    "tf": 4.166666666666666
-                  }
-                }
-              }
             }
           },
           "e": {
             "docs": {},
-            "m": {
+            "t": {
               "docs": {},
-              "b": {
+              "h": {
                 "docs": {},
-                "e": {
+                "o": {
                   "docs": {},
-                  "r": {
+                  "d": {
                     "docs": {
-                      "DataCommsEngine.html#toBeSubscribed": {
-                        "ref": "DataCommsEngine.html#toBeSubscribed",
-                        "tf": 110
+                      "DataCommsEngine.html#Initialize": {
+                        "ref": "DataCommsEngine.html#Initialize",
+                        "tf": 5
                       },
-                      "DataCommsEngine.html#toBeUnsubscribed": {
-                        "ref": "DataCommsEngine.html#toBeUnsubscribed",
-                        "tf": 110
+                      "DataCommsEngine.html#Subscribe": {
+                        "ref": "DataCommsEngine.html#Subscribe",
+                        "tf": 5
                       },
-                      "DataCommsEngine.html#subscribedVar": {
-                        "ref": "DataCommsEngine.html#subscribedVar",
-                        "tf": 110
+                      "DataCommsEngine.html#Unsubscribe": {
+                        "ref": "DataCommsEngine.html#Unsubscribe",
+                        "tf": 5
                       },
-                      "DataCommsEngine.html#aggregationTime_ms": {
-                        "ref": "DataCommsEngine.html#aggregationTime_ms",
-                        "tf": 110
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "o": {
-            "docs": {},
-            "r": {
-              "docs": {},
-              "e": {
-                "docs": {
-                  "DataCommsEngine.html#subscribedVar": {
-                    "ref": "DataCommsEngine.html#subscribedVar",
-                    "tf": 2.380952380952381
-                  }
-                },
-                "e": {
-                  "docs": {},
-                  "f": {
-                    "docs": {},
-                    "f": {
-                      "docs": {},
-                      "i": {
-                        "docs": {},
-                        "c": {
-                          "docs": {},
-                          "i": {
-                            "docs": {
-                              "DataCommsEngine.html#aggregationTime_ms": {
-                                "ref": "DataCommsEngine.html#aggregationTime_ms",
-                                "tf": 4.166666666666666
-                              }
-                            }
-                          }
-                        }
+                      "DataCommsEngine.html#Write": {
+                        "ref": "DataCommsEngine.html#Write",
+                        "tf": 3.571428571428571
+                      },
+                      "DataCommsEngine.html#Read": {
+                        "ref": "DataCommsEngine.html#Read",
+                        "tf": 3.571428571428571
                       }
                     }
                   }
@@ -722,7 +877,16 @@ window.lunrData = {
             "a": {
               "docs": {},
               "d": {
-                "docs": {},
+                "docs": {
+                  "DataCommsEngine.html#Read": {
+                    "ref": "DataCommsEngine.html#Read",
+                    "tf": 682.1428571428571
+                  },
+                  "VarResponse.html": {
+                    "ref": "VarResponse.html",
+                    "tf": 4.545454545454546
+                  }
+                },
                 "m": {
                   "docs": {
                     "index.html": {
@@ -761,70 +925,13 @@ window.lunrData = {
                 }
               }
             },
-            "p": {
-              "docs": {},
-              "r": {
-                "docs": {},
-                "e": {
-                  "docs": {},
-                  "s": {
-                    "docs": {
-                      "DataCommsEngine.html#toBeSubscribed": {
-                        "ref": "DataCommsEngine.html#toBeSubscribed",
-                        "tf": 1.3888888888888888
-                      },
-                      "DataCommsEngine.html#subscribedVar": {
-                        "ref": "DataCommsEngine.html#subscribedVar",
-                        "tf": 2.380952380952381
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "q": {
-              "docs": {},
-              "u": {
-                "docs": {},
-                "e": {
-                  "docs": {},
-                  "s": {
-                    "docs": {},
-                    "t": {
-                      "docs": {
-                        "DataCommsEngine.html#toBeSubscribed": {
-                          "ref": "DataCommsEngine.html#toBeSubscribed",
-                          "tf": 1.3888888888888888
-                        },
-                        "systemError.html": {
-                          "ref": "systemError.html",
-                          "tf": 5
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "g": {
-              "docs": {},
-              "i": {
-                "docs": {},
-                "s": {
-                  "docs": {},
-                  "t": {
-                    "docs": {
-                      "DataCommsEngine.html#subscribedVar": {
-                        "ref": "DataCommsEngine.html#subscribedVar",
-                        "tf": 2.380952380952381
-                      }
-                    }
-                  }
-                }
-              }
-            },
             "l": {
-              "docs": {},
+              "docs": {
+                "DataCommsEngine.html#Write": {
+                  "ref": "DataCommsEngine.html#Write",
+                  "tf": 3.571428571428571
+                }
+              },
               "a": {
                 "docs": {},
                 "t": {
@@ -832,6 +939,10 @@ window.lunrData = {
                     "DataTree.html#GetVar": {
                       "ref": "DataTree.html#GetVar",
                       "tf": 3.3333333333333335
+                    },
+                    "ErrorCodes.html": {
+                      "ref": "ErrorCodes.html",
+                      "tf": 4.166666666666666
                     }
                   }
                 }
@@ -848,6 +959,63 @@ window.lunrData = {
                       "DataTree.html#GetVar": {
                         "ref": "DataTree.html#GetVar",
                         "tf": 3.3333333333333335
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "p": {
+              "docs": {},
+              "r": {
+                "docs": {},
+                "e": {
+                  "docs": {},
+                  "s": {
+                    "docs": {
+                      "systemObject.html": {
+                        "ref": "systemObject.html",
+                        "tf": 8.333333333333332
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "q": {
+              "docs": {},
+              "u": {
+                "docs": {},
+                "e": {
+                  "docs": {},
+                  "s": {
+                    "docs": {},
+                    "t": {
+                      "docs": {
+                        "systemError.html": {
+                          "ref": "systemError.html",
+                          "tf": 5
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "s": {
+              "docs": {},
+              "p": {
+                "docs": {},
+                "o": {
+                  "docs": {},
+                  "n": {
+                    "docs": {},
+                    "s": {
+                      "docs": {
+                        "VarResponse.html": {
+                          "ref": "VarResponse.html",
+                          "tf": 4.545454545454546
+                        }
                       }
                     }
                   }
@@ -894,6 +1062,10 @@ window.lunrData = {
               "docs": {},
               "a": {
                 "docs": {
+                  "DataTree.html": {
+                    "ref": "DataTree.html",
+                    "tf": 3.125
+                  },
                   "DataCommsEngine.html": {
                     "ref": "DataCommsEngine.html",
                     "tf": 6.25
@@ -901,278 +1073,10 @@ window.lunrData = {
                   "DataCommsEngine.html#UpdateData": {
                     "ref": "DataCommsEngine.html#UpdateData",
                     "tf": 50
-                  }
-                },
-                "c": {
-                  "docs": {},
-                  "o": {
-                    "docs": {},
-                    "m": {
-                      "docs": {},
-                      "m": {
-                        "docs": {},
-                        "s": {
-                          "docs": {},
-                          "e": {
-                            "docs": {},
-                            "n": {
-                              "docs": {},
-                              "g": {
-                                "docs": {},
-                                "i": {
-                                  "docs": {},
-                                  "n": {
-                                    "docs": {
-                                      "DataCommsEngine.html": {
-                                        "ref": "DataCommsEngine.html",
-                                        "tf": 1900
-                                      }
-                                    },
-                                    "e": {
-                                      "docs": {},
-                                      "#": {
-                                        "docs": {},
-                                        "t": {
-                                          "docs": {},
-                                          "o": {
-                                            "docs": {},
-                                            "b": {
-                                              "docs": {},
-                                              "e": {
-                                                "docs": {},
-                                                "s": {
-                                                  "docs": {},
-                                                  "u": {
-                                                    "docs": {},
-                                                    "b": {
-                                                      "docs": {},
-                                                      "s": {
-                                                        "docs": {},
-                                                        "c": {
-                                                          "docs": {},
-                                                          "r": {
-                                                            "docs": {},
-                                                            "i": {
-                                                              "docs": {},
-                                                              "b": {
-                                                                "docs": {
-                                                                  "DataCommsEngine.html#toBeSubscribed": {
-                                                                    "ref": "DataCommsEngine.html#toBeSubscribed",
-                                                                    "tf": 1150
-                                                                  }
-                                                                }
-                                                              }
-                                                            }
-                                                          }
-                                                        }
-                                                      }
-                                                    }
-                                                  }
-                                                },
-                                                "u": {
-                                                  "docs": {},
-                                                  "n": {
-                                                    "docs": {},
-                                                    "s": {
-                                                      "docs": {},
-                                                      "u": {
-                                                        "docs": {},
-                                                        "b": {
-                                                          "docs": {},
-                                                          "s": {
-                                                            "docs": {},
-                                                            "c": {
-                                                              "docs": {},
-                                                              "r": {
-                                                                "docs": {},
-                                                                "i": {
-                                                                  "docs": {},
-                                                                  "b": {
-                                                                    "docs": {
-                                                                      "DataCommsEngine.html#toBeUnsubscribed": {
-                                                                        "ref": "DataCommsEngine.html#toBeUnsubscribed",
-                                                                        "tf": 1150
-                                                                      }
-                                                                    }
-                                                                  }
-                                                                }
-                                                              }
-                                                            }
-                                                          }
-                                                        }
-                                                      }
-                                                    }
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          }
-                                        },
-                                        "s": {
-                                          "docs": {},
-                                          "u": {
-                                            "docs": {},
-                                            "b": {
-                                              "docs": {},
-                                              "s": {
-                                                "docs": {},
-                                                "c": {
-                                                  "docs": {},
-                                                  "r": {
-                                                    "docs": {},
-                                                    "i": {
-                                                      "docs": {},
-                                                      "b": {
-                                                        "docs": {},
-                                                        "e": {
-                                                          "docs": {},
-                                                          "d": {
-                                                            "docs": {},
-                                                            "v": {
-                                                              "docs": {},
-                                                              "a": {
-                                                                "docs": {},
-                                                                "r": {
-                                                                  "docs": {
-                                                                    "DataCommsEngine.html#subscribedVar": {
-                                                                      "ref": "DataCommsEngine.html#subscribedVar",
-                                                                      "tf": 1150
-                                                                    }
-                                                                  }
-                                                                }
-                                                              }
-                                                            }
-                                                          }
-                                                        }
-                                                      }
-                                                    }
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          }
-                                        },
-                                        "a": {
-                                          "docs": {},
-                                          "g": {
-                                            "docs": {},
-                                            "g": {
-                                              "docs": {},
-                                              "r": {
-                                                "docs": {},
-                                                "e": {
-                                                  "docs": {},
-                                                  "g": {
-                                                    "docs": {},
-                                                    "a": {
-                                                      "docs": {},
-                                                      "t": {
-                                                        "docs": {},
-                                                        "i": {
-                                                          "docs": {},
-                                                          "o": {
-                                                            "docs": {},
-                                                            "n": {
-                                                              "docs": {},
-                                                              "t": {
-                                                                "docs": {},
-                                                                "i": {
-                                                                  "docs": {},
-                                                                  "m": {
-                                                                    "docs": {},
-                                                                    "e": {
-                                                                      "docs": {},
-                                                                      "_": {
-                                                                        "docs": {},
-                                                                        "m": {
-                                                                          "docs": {
-                                                                            "DataCommsEngine.html#aggregationTime_ms": {
-                                                                              "ref": "DataCommsEngine.html#aggregationTime_ms",
-                                                                              "tf": 1150
-                                                                            }
-                                                                          }
-                                                                        }
-                                                                      }
-                                                                    }
-                                                                  }
-                                                                }
-                                                              }
-                                                            }
-                                                          }
-                                                        }
-                                                      }
-                                                    }
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          }
-                                        },
-                                        "u": {
-                                          "docs": {},
-                                          "p": {
-                                            "docs": {},
-                                            "d": {
-                                              "docs": {},
-                                              "a": {
-                                                "docs": {},
-                                                "t": {
-                                                  "docs": {},
-                                                  "e": {
-                                                    "docs": {},
-                                                    "d": {
-                                                      "docs": {},
-                                                      "a": {
-                                                        "docs": {},
-                                                        "t": {
-                                                          "docs": {},
-                                                          "a": {
-                                                            "docs": {
-                                                              "DataCommsEngine.html#UpdateData": {
-                                                                "ref": "DataCommsEngine.html#UpdateData",
-                                                                "tf": 1150
-                                                              }
-                                                            }
-                                                          }
-                                                        }
-                                                      }
-                                                    }
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                },
-                "m": {
-                  "docs": {},
-                  "a": {
-                    "docs": {},
-                    "n": {
-                      "docs": {},
-                      "a": {
-                        "docs": {},
-                        "g": {
-                          "docs": {
-                            "DataCommsEngine.html#UpdateData": {
-                              "ref": "DataCommsEngine.html#UpdateData",
-                              "tf": 3.125
-                            }
-                          }
-                        }
-                      }
-                    }
+                  },
+                  "ServiceStatusCodes.html": {
+                    "ref": "ServiceStatusCodes.html",
+                    "tf": 6.25
                   }
                 },
                 "t": {
@@ -1260,6 +1164,217 @@ window.lunrData = {
                       }
                     }
                   }
+                },
+                "c": {
+                  "docs": {},
+                  "o": {
+                    "docs": {},
+                    "m": {
+                      "docs": {},
+                      "m": {
+                        "docs": {},
+                        "s": {
+                          "docs": {},
+                          "e": {
+                            "docs": {},
+                            "n": {
+                              "docs": {},
+                              "g": {
+                                "docs": {},
+                                "i": {
+                                  "docs": {},
+                                  "n": {
+                                    "docs": {
+                                      "DataCommsEngine.html": {
+                                        "ref": "DataCommsEngine.html",
+                                        "tf": 1900
+                                      }
+                                    },
+                                    "e": {
+                                      "docs": {},
+                                      "#": {
+                                        "docs": {},
+                                        "i": {
+                                          "docs": {},
+                                          "n": {
+                                            "docs": {},
+                                            "i": {
+                                              "docs": {},
+                                              "t": {
+                                                "docs": {},
+                                                "i": {
+                                                  "docs": {
+                                                    "DataCommsEngine.html#Initialize": {
+                                                      "ref": "DataCommsEngine.html#Initialize",
+                                                      "tf": 1150
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "s": {
+                                          "docs": {},
+                                          "u": {
+                                            "docs": {},
+                                            "b": {
+                                              "docs": {},
+                                              "s": {
+                                                "docs": {},
+                                                "c": {
+                                                  "docs": {},
+                                                  "r": {
+                                                    "docs": {},
+                                                    "i": {
+                                                      "docs": {},
+                                                      "b": {
+                                                        "docs": {
+                                                          "DataCommsEngine.html#Subscribe": {
+                                                            "ref": "DataCommsEngine.html#Subscribe",
+                                                            "tf": 1150
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "u": {
+                                          "docs": {},
+                                          "n": {
+                                            "docs": {},
+                                            "s": {
+                                              "docs": {},
+                                              "u": {
+                                                "docs": {},
+                                                "b": {
+                                                  "docs": {},
+                                                  "s": {
+                                                    "docs": {},
+                                                    "c": {
+                                                      "docs": {},
+                                                      "r": {
+                                                        "docs": {},
+                                                        "i": {
+                                                          "docs": {},
+                                                          "b": {
+                                                            "docs": {
+                                                              "DataCommsEngine.html#Unsubscribe": {
+                                                                "ref": "DataCommsEngine.html#Unsubscribe",
+                                                                "tf": 1150
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          },
+                                          "p": {
+                                            "docs": {},
+                                            "d": {
+                                              "docs": {},
+                                              "a": {
+                                                "docs": {},
+                                                "t": {
+                                                  "docs": {},
+                                                  "e": {
+                                                    "docs": {},
+                                                    "d": {
+                                                      "docs": {},
+                                                      "a": {
+                                                        "docs": {},
+                                                        "t": {
+                                                          "docs": {},
+                                                          "a": {
+                                                            "docs": {
+                                                              "DataCommsEngine.html#UpdateData": {
+                                                                "ref": "DataCommsEngine.html#UpdateData",
+                                                                "tf": 1150
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "w": {
+                                          "docs": {},
+                                          "r": {
+                                            "docs": {},
+                                            "i": {
+                                              "docs": {},
+                                              "t": {
+                                                "docs": {
+                                                  "DataCommsEngine.html#Write": {
+                                                    "ref": "DataCommsEngine.html#Write",
+                                                    "tf": 1150
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "r": {
+                                          "docs": {},
+                                          "e": {
+                                            "docs": {},
+                                            "a": {
+                                              "docs": {},
+                                              "d": {
+                                                "docs": {
+                                                  "DataCommsEngine.html#Read": {
+                                                    "ref": "DataCommsEngine.html#Read",
+                                                    "tf": 1150
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "m": {
+                  "docs": {},
+                  "a": {
+                    "docs": {},
+                    "n": {
+                      "docs": {},
+                      "a": {
+                        "docs": {},
+                        "g": {
+                          "docs": {
+                            "DataCommsEngine.html#UpdateData": {
+                              "ref": "DataCommsEngine.html#UpdateData",
+                              "tf": 3.125
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -1275,6 +1390,14 @@ window.lunrData = {
                     "DataCommsEngine.html": {
                       "ref": "DataCommsEngine.html",
                       "tf": 6.25
+                    },
+                    "ServiceStatusCodes.html": {
+                      "ref": "ServiceStatusCodes.html",
+                      "tf": 6.25
+                    },
+                    "ErrorCodes.html": {
+                      "ref": "ErrorCodes.html",
+                      "tf": 4.166666666666666
                     },
                     "systemVariable.html": {
                       "ref": "systemVariable.html",
@@ -1337,6 +1460,10 @@ window.lunrData = {
               "docs": {},
               "e": {
                 "docs": {
+                  "ErrorCodes.html": {
+                    "ref": "ErrorCodes.html",
+                    "tf": 4.166666666666666
+                  },
                   "systemError.html": {
                     "ref": "systemError.html",
                     "tf": 5
@@ -1393,6 +1520,14 @@ window.lunrData = {
                 "docs": {},
                 "r": {
                   "docs": {
+                    "systemObject.html": {
+                      "ref": "systemObject.html",
+                      "tf": 8.333333333333332
+                    },
+                    "VarResponse.html": {
+                      "ref": "VarResponse.html",
+                      "tf": 4.545454545454546
+                    },
                     "systemVariable.html": {
                       "ref": "systemVariable.html",
                       "tf": 3.125
@@ -1442,113 +1577,8 @@ window.lunrData = {
               }
             }
           },
-          "i": {
-            "docs": {},
-            "m": {
-              "docs": {},
-              "e": {
-                "docs": {
-                  "DataCommsEngine.html#toBeSubscribed": {
-                    "ref": "DataCommsEngine.html#toBeSubscribed",
-                    "tf": 1.3888888888888888
-                  },
-                  "DataCommsEngine.html#aggregationTime_ms": {
-                    "ref": "DataCommsEngine.html#aggregationTime_ms",
-                    "tf": 4.166666666666666
-                  }
-                }
-              }
-            }
-          },
-          "o": {
-            "docs": {},
-            "b": {
-              "docs": {},
-              "e": {
-                "docs": {},
-                "s": {
-                  "docs": {},
-                  "u": {
-                    "docs": {},
-                    "b": {
-                      "docs": {},
-                      "s": {
-                        "docs": {},
-                        "c": {
-                          "docs": {},
-                          "r": {
-                            "docs": {},
-                            "i": {
-                              "docs": {},
-                              "b": {
-                                "docs": {
-                                  "DataCommsEngine.html#toBeSubscribed": {
-                                    "ref": "DataCommsEngine.html#toBeSubscribed",
-                                    "tf": 750
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                },
-                "u": {
-                  "docs": {},
-                  "n": {
-                    "docs": {},
-                    "s": {
-                      "docs": {},
-                      "u": {
-                        "docs": {},
-                        "b": {
-                          "docs": {},
-                          "s": {
-                            "docs": {},
-                            "c": {
-                              "docs": {},
-                              "r": {
-                                "docs": {},
-                                "i": {
-                                  "docs": {},
-                                  "b": {
-                                    "docs": {
-                                      "DataCommsEngine.html#toBeUnsubscribed": {
-                                        "ref": "DataCommsEngine.html#toBeUnsubscribed",
-                                        "tf": 750
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
           "h": {
             "docs": {},
-            "o": {
-              "docs": {},
-              "s": {
-                "docs": {},
-                "e": {
-                  "docs": {
-                    "DataCommsEngine.html#UpdateData": {
-                      "ref": "DataCommsEngine.html#UpdateData",
-                      "tf": 3.125
-                    }
-                  }
-                }
-              }
-            },
             "r": {
               "docs": {},
               "o": {
@@ -1558,6 +1588,20 @@ window.lunrData = {
                     "DataTree.html#GetVar": {
                       "ref": "DataTree.html#GetVar",
                       "tf": 3.3333333333333335
+                    }
+                  }
+                }
+              }
+            },
+            "o": {
+              "docs": {},
+              "s": {
+                "docs": {},
+                "e": {
+                  "docs": {
+                    "DataCommsEngine.html#UpdateData": {
+                      "ref": "DataCommsEngine.html#UpdateData",
+                      "tf": 3.125
                     }
                   }
                 }
@@ -1585,6 +1629,26 @@ window.lunrData = {
                 }
               }
             }
+          },
+          "a": {
+            "docs": {},
+            "r": {
+              "docs": {},
+              "g": {
+                "docs": {},
+                "e": {
+                  "docs": {},
+                  "t": {
+                    "docs": {
+                      "DataCommsEngine.html#Write": {
+                        "ref": "DataCommsEngine.html#Write",
+                        "tf": 20
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "c": {
@@ -1601,21 +1665,37 @@ window.lunrData = {
                       "ref": "list_class.html",
                       "tf": 635
                     },
-                    "DataCommsEngine.html": {
-                      "ref": "DataCommsEngine.html",
-                      "tf": 116.25
-                    },
                     "ServiceManager.html": {
                       "ref": "ServiceManager.html",
                       "tf": 135
                     },
                     "DataTree.html": {
                       "ref": "DataTree.html",
-                      "tf": 114.54545454545455
+                      "tf": 113.125
+                    },
+                    "DataCommsEngine.html": {
+                      "ref": "DataCommsEngine.html",
+                      "tf": 116.25
+                    },
+                    "ServiceStatusCodes.html": {
+                      "ref": "ServiceStatusCodes.html",
+                      "tf": 116.25
+                    },
+                    "ErrorCodes.html": {
+                      "ref": "ErrorCodes.html",
+                      "tf": 114.16666666666667
+                    },
+                    "systemObject.html": {
+                      "ref": "systemObject.html",
+                      "tf": 110
                     },
                     "systemError.html": {
                       "ref": "systemError.html",
                       "tf": 110
+                    },
+                    "VarResponse.html": {
+                      "ref": "VarResponse.html",
+                      "tf": 114.54545454545455
                     },
                     "systemVariable.html": {
                       "ref": "systemVariable.html",
@@ -1628,6 +1708,51 @@ window.lunrData = {
           },
           "o": {
             "docs": {},
+            "n": {
+              "docs": {},
+              "n": {
+                "docs": {},
+                "e": {
+                  "docs": {},
+                  "c": {
+                    "docs": {},
+                    "t": {
+                      "docs": {
+                        "DataTree.html": {
+                          "ref": "DataTree.html",
+                          "tf": 3.125
+                        },
+                        "DataTree.html#Update": {
+                          "ref": "DataTree.html#Update",
+                          "tf": 5
+                        },
+                        "DataCommsEngine.html#UpdateData": {
+                          "ref": "DataCommsEngine.html#UpdateData",
+                          "tf": 3.125
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "t": {
+                "docs": {},
+                "a": {
+                  "docs": {},
+                  "i": {
+                    "docs": {},
+                    "n": {
+                      "docs": {
+                        "DataTree.html": {
+                          "ref": "DataTree.html",
+                          "tf": 3.125
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
             "m": {
               "docs": {},
               "u": {
@@ -1665,89 +1790,33 @@ window.lunrData = {
                     }
                   }
                 }
-              }
-            },
-            "n": {
-              "docs": {},
-              "n": {
-                "docs": {},
-                "e": {
-                  "docs": {},
-                  "c": {
-                    "docs": {},
-                    "t": {
-                      "docs": {
-                        "DataCommsEngine.html#UpdateData": {
-                          "ref": "DataCommsEngine.html#UpdateData",
-                          "tf": 3.125
-                        },
-                        "DataTree.html": {
-                          "ref": "DataTree.html",
-                          "tf": 4.545454545454546
-                        },
-                        "DataTree.html#Update": {
-                          "ref": "DataTree.html#Update",
-                          "tf": 5
-                        }
-                      }
-                    }
-                  }
-                }
               },
-              "t": {
+              "m": {
                 "docs": {},
-                "a": {
+                "u": {
                   "docs": {},
-                  "i": {
-                    "docs": {},
-                    "n": {
-                      "docs": {
-                        "DataTree.html": {
-                          "ref": "DataTree.html",
-                          "tf": 4.545454545454546
-                        }
+                  "n": {
+                    "docs": {
+                      "ErrorCodes.html": {
+                        "ref": "ErrorCodes.html",
+                        "tf": 4.166666666666666
                       }
                     }
                   }
                 }
               }
-            }
-          },
-          "a": {
-            "docs": {},
-            "n": {
-              "docs": {},
-              "t": {
-                "docs": {
-                  "DataCommsEngine.html#toBeSubscribed": {
-                    "ref": "DataCommsEngine.html#toBeSubscribed",
-                    "tf": 1.3888888888888888
-                  }
-                }
-              }
             },
-            "s": {
+            "d": {
               "docs": {},
               "e": {
                 "docs": {
-                  "DataCommsEngine.html#subscribedVar": {
-                    "ref": "DataCommsEngine.html#subscribedVar",
-                    "tf": 2.380952380952381
-                  }
-                }
-              }
-            },
-            "l": {
-              "docs": {},
-              "l": {
-                "docs": {
-                  "DataCommsEngine.html#aggregationTime_ms": {
-                    "ref": "DataCommsEngine.html#aggregationTime_ms",
-                    "tf": 4.166666666666666
+                  "ServiceStatusCodes.html": {
+                    "ref": "ServiceStatusCodes.html",
+                    "tf": 6.25
                   },
-                  "DataTree.html#Update": {
-                    "ref": "DataTree.html#Update",
-                    "tf": 5
+                  "ErrorCodes.html": {
+                    "ref": "ErrorCodes.html",
+                    "tf": 4.166666666666666
                   }
                 }
               }
@@ -1765,10 +1834,6 @@ window.lunrData = {
                     "docs": {},
                     "t": {
                       "docs": {
-                        "DataCommsEngine.html#subscribedVar": {
-                          "ref": "DataCommsEngine.html#subscribedVar",
-                          "tf": 2.380952380952381
-                        },
                         "DataTree.html#GetVar": {
                           "ref": "DataTree.html#GetVar",
                           "tf": 3.3333333333333335
@@ -1779,6 +1844,28 @@ window.lunrData = {
                         }
                       }
                     }
+                  }
+                }
+              }
+            }
+          },
+          "a": {
+            "docs": {},
+            "l": {
+              "docs": {},
+              "l": {
+                "docs": {
+                  "DataTree.html#Update": {
+                    "ref": "DataTree.html#Update",
+                    "tf": 5
+                  },
+                  "DataCommsEngine.html#Write": {
+                    "ref": "DataCommsEngine.html#Write",
+                    "tf": 3.571428571428571
+                  },
+                  "DataCommsEngine.html#Read": {
+                    "ref": "DataCommsEngine.html#Read",
+                    "tf": 3.571428571428571
                   }
                 }
               }
@@ -1818,25 +1905,29 @@ window.lunrData = {
                     "ref": "list_tutorial.html",
                     "tf": 110
                   },
-                  "DataCommsEngine.html#toBeSubscribed": {
-                    "ref": "DataCommsEngine.html#toBeSubscribed",
-                    "tf": 1.3888888888888888
+                  "DataTree.html#Update": {
+                    "ref": "DataTree.html#Update",
+                    "tf": 5
                   },
-                  "DataCommsEngine.html#toBeUnsubscribed": {
-                    "ref": "DataCommsEngine.html#toBeUnsubscribed",
-                    "tf": 10
+                  "DataCommsEngine.html#Subscribe": {
+                    "ref": "DataCommsEngine.html#Subscribe",
+                    "tf": 5
                   },
-                  "DataCommsEngine.html#subscribedVar": {
-                    "ref": "DataCommsEngine.html#subscribedVar",
-                    "tf": 2.380952380952381
+                  "DataCommsEngine.html#Unsubscribe": {
+                    "ref": "DataCommsEngine.html#Unsubscribe",
+                    "tf": 5
+                  },
+                  "DataCommsEngine.html#Write": {
+                    "ref": "DataCommsEngine.html#Write",
+                    "tf": 3.571428571428571
+                  },
+                  "DataCommsEngine.html#Read": {
+                    "ref": "DataCommsEngine.html#Read",
+                    "tf": 3.571428571428571
                   },
                   "DataCommsEngine.html#UpdateData": {
                     "ref": "DataCommsEngine.html#UpdateData",
                     "tf": 3.125
-                  },
-                  "DataTree.html#Update": {
-                    "ref": "DataTree.html#Update",
-                    "tf": 5
                   }
                 },
                 ":": {
@@ -1888,17 +1979,60 @@ window.lunrData = {
               }
             }
           },
-          "a": {
+          "t": {
             "docs": {},
-            "t": {
+            ";": {
               "docs": {},
-              "e": {
+              "a": {
                 "docs": {},
-                "r": {
-                  "docs": {
-                    "DataCommsEngine.html#toBeSubscribed": {
-                      "ref": "DataCommsEngine.html#toBeSubscribed",
-                      "tf": 1.3888888888888888
+                "b": {
+                  "docs": {},
+                  "s": {
+                    "docs": {},
+                    "t": {
+                      "docs": {},
+                      "r": {
+                        "docs": {},
+                        "a": {
+                          "docs": {},
+                          "c": {
+                            "docs": {},
+                            "t": {
+                              "docs": {},
+                              "&": {
+                                "docs": {},
+                                "g": {
+                                  "docs": {},
+                                  "t": {
+                                    "docs": {
+                                      "DataCommsEngine.html#Initialize": {
+                                        "ref": "DataCommsEngine.html#Initialize",
+                                        "tf": 33.33333333333333
+                                      },
+                                      "DataCommsEngine.html#Subscribe": {
+                                        "ref": "DataCommsEngine.html#Subscribe",
+                                        "tf": 25
+                                      },
+                                      "DataCommsEngine.html#Unsubscribe": {
+                                        "ref": "DataCommsEngine.html#Unsubscribe",
+                                        "tf": 25
+                                      },
+                                      "DataCommsEngine.html#Write": {
+                                        "ref": "DataCommsEngine.html#Write",
+                                        "tf": 20
+                                      },
+                                      "DataCommsEngine.html#Read": {
+                                        "ref": "DataCommsEngine.html#Read",
+                                        "tf": 25
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
                     }
                   }
                 }
@@ -1960,145 +2094,6 @@ window.lunrData = {
               }
             }
           },
-          "b": {
-            "docs": {},
-            "s": {
-              "docs": {},
-              "t": {
-                "docs": {},
-                "r": {
-                  "docs": {},
-                  "a": {
-                    "docs": {},
-                    "c": {
-                      "docs": {},
-                      "t": {
-                        "docs": {
-                          "DataCommsEngine.html": {
-                            "ref": "DataCommsEngine.html",
-                            "tf": 6.25
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "g": {
-            "docs": {},
-            "g": {
-              "docs": {},
-              "r": {
-                "docs": {},
-                "e": {
-                  "docs": {},
-                  "g": {
-                    "docs": {
-                      "DataCommsEngine.html#aggregationTime_ms": {
-                        "ref": "DataCommsEngine.html#aggregationTime_ms",
-                        "tf": 4.166666666666666
-                      }
-                    },
-                    "a": {
-                      "docs": {},
-                      "t": {
-                        "docs": {},
-                        "i": {
-                          "docs": {},
-                          "o": {
-                            "docs": {},
-                            "n": {
-                              "docs": {},
-                              "t": {
-                                "docs": {},
-                                "i": {
-                                  "docs": {},
-                                  "m": {
-                                    "docs": {},
-                                    "e": {
-                                      "docs": {},
-                                      "_": {
-                                        "docs": {},
-                                        "m": {
-                                          "docs": {
-                                            "DataCommsEngine.html#aggregationTime_ms": {
-                                              "ref": "DataCommsEngine.html#aggregationTime_ms",
-                                              "tf": 750
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "c": {
-            "docs": {},
-            "t": {
-              "docs": {},
-              "i": {
-                "docs": {},
-                "o": {
-                  "docs": {},
-                  "n": {
-                    "docs": {
-                      "DataCommsEngine.html#UpdateData": {
-                        "ref": "DataCommsEngine.html#UpdateData",
-                        "tf": 3.125
-                      },
-                      "systemError.html": {
-                        "ref": "systemError.html",
-                        "tf": 5
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "u": {
-            "docs": {},
-            "t": {
-              "docs": {},
-              "o": {
-                "docs": {},
-                "m": {
-                  "docs": {},
-                  "a": {
-                    "docs": {},
-                    "t": {
-                      "docs": {
-                        "DataCommsEngine.html#UpdateData": {
-                          "ref": "DataCommsEngine.html#UpdateData",
-                          "tf": 3.125
-                        },
-                        "DataTree.html": {
-                          "ref": "DataTree.html",
-                          "tf": 4.545454545454546
-                        },
-                        "DataTree.html#Update": {
-                          "ref": "DataTree.html#Update",
-                          "tf": 5
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
           "d": {
             "docs": {},
             "d": {
@@ -2131,7 +2126,60 @@ window.lunrData = {
               "docs": {
                 "DataTree.html": {
                   "ref": "DataTree.html",
-                  "tf": 4.545454545454546
+                  "tf": 6.25
+                }
+              },
+              "e": {
+                "docs": {},
+                "a": {
+                  "docs": {},
+                  "r": {
+                    "docs": {
+                      "ErrorCodes.html": {
+                        "ref": "ErrorCodes.html",
+                        "tf": 4.166666666666666
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "u": {
+            "docs": {},
+            "t": {
+              "docs": {},
+              "o": {
+                "docs": {},
+                "m": {
+                  "docs": {},
+                  "a": {
+                    "docs": {},
+                    "t": {
+                      "docs": {
+                        "DataTree.html": {
+                          "ref": "DataTree.html",
+                          "tf": 3.125
+                        },
+                        "DataTree.html#Update": {
+                          "ref": "DataTree.html#Update",
+                          "tf": 5
+                        },
+                        "DataCommsEngine.html#Subscribe": {
+                          "ref": "DataCommsEngine.html#Subscribe",
+                          "tf": 5
+                        },
+                        "DataCommsEngine.html#Unsubscribe": {
+                          "ref": "DataCommsEngine.html#Unsubscribe",
+                          "tf": 5
+                        },
+                        "DataCommsEngine.html#UpdateData": {
+                          "ref": "DataCommsEngine.html#UpdateData",
+                          "tf": 3.125
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -2156,6 +2204,100 @@ window.lunrData = {
               }
             }
           },
+          "b": {
+            "docs": {},
+            "s": {
+              "docs": {},
+              "t": {
+                "docs": {},
+                "r": {
+                  "docs": {},
+                  "a": {
+                    "docs": {},
+                    "c": {
+                      "docs": {},
+                      "t": {
+                        "docs": {
+                          "DataCommsEngine.html": {
+                            "ref": "DataCommsEngine.html",
+                            "tf": 6.25
+                          },
+                          "DataCommsEngine.html#Initialize": {
+                            "ref": "DataCommsEngine.html#Initialize",
+                            "tf": 5
+                          },
+                          "DataCommsEngine.html#Subscribe": {
+                            "ref": "DataCommsEngine.html#Subscribe",
+                            "tf": 5
+                          },
+                          "DataCommsEngine.html#Unsubscribe": {
+                            "ref": "DataCommsEngine.html#Unsubscribe",
+                            "tf": 5
+                          },
+                          "DataCommsEngine.html#Write": {
+                            "ref": "DataCommsEngine.html#Write",
+                            "tf": 3.571428571428571
+                          },
+                          "DataCommsEngine.html#Read": {
+                            "ref": "DataCommsEngine.html#Read",
+                            "tf": 3.571428571428571
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "c": {
+            "docs": {},
+            "t": {
+              "docs": {},
+              "i": {
+                "docs": {},
+                "o": {
+                  "docs": {},
+                  "n": {
+                    "docs": {
+                      "DataCommsEngine.html#Initialize": {
+                        "ref": "DataCommsEngine.html#Initialize",
+                        "tf": 5
+                      },
+                      "DataCommsEngine.html#Subscribe": {
+                        "ref": "DataCommsEngine.html#Subscribe",
+                        "tf": 5
+                      },
+                      "DataCommsEngine.html#Unsubscribe": {
+                        "ref": "DataCommsEngine.html#Unsubscribe",
+                        "tf": 5
+                      },
+                      "DataCommsEngine.html#Write": {
+                        "ref": "DataCommsEngine.html#Write",
+                        "tf": 3.571428571428571
+                      },
+                      "DataCommsEngine.html#Read": {
+                        "ref": "DataCommsEngine.html#Read",
+                        "tf": 3.571428571428571
+                      },
+                      "DataCommsEngine.html#UpdateData": {
+                        "ref": "DataCommsEngine.html#UpdateData",
+                        "tf": 3.125
+                      },
+                      "systemError.html": {
+                        "ref": "systemError.html",
+                        "tf": 5
+                      },
+                      "VarResponse.html": {
+                        "ref": "VarResponse.html",
+                        "tf": 4.545454545454546
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
           "n": {
             "docs": {},
             "y": {
@@ -2164,6 +2306,10 @@ window.lunrData = {
                 "docs": {},
                 "h": {
                   "docs": {
+                    "DataCommsEngine.html#Initialize": {
+                      "ref": "DataCommsEngine.html#Initialize",
+                      "tf": 5
+                    },
                     "systemVariable.html": {
                       "ref": "systemVariable.html",
                       "tf": 3.125
@@ -2174,111 +2320,25 @@ window.lunrData = {
             }
           }
         },
-        "e": {
+        "o": {
           "docs": {},
-          "n": {
+          "r": {
             "docs": {},
             "g": {
               "docs": {},
-              "i": {
+              "a": {
                 "docs": {},
                 "n": {
-                  "docs": {
-                    "DataCommsEngine.html": {
-                      "ref": "DataCommsEngine.html",
-                      "tf": 6.25
-                    },
-                    "ServiceManager.html#AddEngine": {
-                      "ref": "ServiceManager.html#AddEngine",
-                      "tf": 33.33333333333333
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "l": {
-            "docs": {},
-            "e": {
-              "docs": {},
-              "m": {
-                "docs": {},
-                "e": {
                   "docs": {},
-                  "n": {
+                  "i": {
                     "docs": {},
-                    "t": {
-                      "docs": {
-                        "DataCommsEngine.html#toBeSubscribed": {
-                          "ref": "DataCommsEngine.html#toBeSubscribed",
-                          "tf": 1.3888888888888888
-                        },
-                        "DataCommsEngine.html#subscribedVar": {
-                          "ref": "DataCommsEngine.html#subscribedVar",
-                          "tf": 2.380952380952381
-                        },
-                        "DataTree.html": {
-                          "ref": "DataTree.html",
-                          "tf": 4.545454545454546
-                        },
-                        "DataTree.html#Update": {
-                          "ref": "DataTree.html#Update",
-                          "tf": 5
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "r": {
-            "docs": {},
-            "r": {
-              "docs": {},
-              "o": {
-                "docs": {},
-                "r": {
-                  "docs": {
-                    "DataCommsEngine.html#toBeSubscribed": {
-                      "ref": "DataCommsEngine.html#toBeSubscribed",
-                      "tf": 1.3888888888888888
-                    },
-                    "systemError.html": {
-                      "ref": "systemError.html",
-                      "tf": 5
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "x": {
-            "docs": {},
-            "i": {
-              "docs": {},
-              "s": {
-                "docs": {},
-                "t": {
-                  "docs": {
-                    "DataCommsEngine.html#toBeSubscribed": {
-                      "ref": "DataCommsEngine.html#toBeSubscribed",
-                      "tf": 1.3888888888888888
-                    },
-                    "DataTree.html#ExistVar": {
-                      "ref": "DataTree.html#ExistVar",
-                      "tf": 8.333333333333332
-                    }
-                  },
-                  "v": {
-                    "docs": {},
-                    "a": {
+                    "z": {
                       "docs": {},
-                      "r": {
+                      "z": {
                         "docs": {
-                          "DataTree.html#ExistVar": {
-                            "ref": "DataTree.html#ExistVar",
-                            "tf": 700
+                          "ServiceManager.html": {
+                            "ref": "ServiceManager.html",
+                            "tf": 25
                           }
                         }
                       }
@@ -2288,13 +2348,43 @@ window.lunrData = {
               }
             }
           },
-          "t": {
+          "b": {
+            "docs": {},
+            "j": {
+              "docs": {},
+              "e": {
+                "docs": {},
+                "c": {
+                  "docs": {},
+                  "t": {
+                    "docs": {
+                      "systemObject.html": {
+                        "ref": "systemObject.html",
+                        "tf": 8.333333333333332
+                      },
+                      "systemVariable.html": {
+                        "ref": "systemVariable.html",
+                        "tf": 3.125
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "c": {
             "docs": {},
             "c": {
-              "docs": {
-                "systemError.html": {
-                  "ref": "systemError.html",
-                  "tf": 5
+              "docs": {},
+              "u": {
+                "docs": {},
+                "r": {
+                  "docs": {
+                    "systemError.html": {
+                      "ref": "systemError.html",
+                      "tf": 5
+                    }
+                  }
                 }
               }
             }
@@ -2308,17 +2398,6 @@ window.lunrData = {
               "docs": {},
               "v": {
                 "docs": {},
-                "e": {
-                  "docs": {},
-                  "r": {
-                    "docs": {
-                      "DataCommsEngine.html": {
-                        "ref": "DataCommsEngine.html",
-                        "tf": 6.25
-                      }
-                    }
-                  }
-                },
                 "i": {
                   "docs": {},
                   "c": {
@@ -2382,139 +2461,28 @@ window.lunrData = {
                             }
                           }
                         }
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "n": {
-              "docs": {},
-              "d": {
-                "docs": {
-                  "DataCommsEngine.html#aggregationTime_ms": {
-                    "ref": "DataCommsEngine.html#aggregationTime_ms",
-                    "tf": 4.166666666666666
-                  }
-                }
-              }
-            }
-          },
-          "u": {
-            "docs": {},
-            "b": {
-              "docs": {
-                "DataCommsEngine.html#toBeSubscribed": {
-                  "ref": "DataCommsEngine.html#toBeSubscribed",
-                  "tf": 2.7777777777777777
-                }
-              },
-              "s": {
-                "docs": {},
-                "c": {
-                  "docs": {},
-                  "r": {
-                    "docs": {},
-                    "i": {
-                      "docs": {},
-                      "b": {
-                        "docs": {
-                          "DataCommsEngine.html#toBeSubscribed": {
-                            "ref": "DataCommsEngine.html#toBeSubscribed",
-                            "tf": 2.7777777777777777
-                          },
-                          "DataCommsEngine.html#subscribedVar": {
-                            "ref": "DataCommsEngine.html#subscribedVar",
-                            "tf": 2.380952380952381
-                          },
-                          "systemError.html": {
-                            "ref": "systemError.html",
-                            "tf": 5
-                          }
-                        },
-                        "e": {
-                          "docs": {},
-                          "d": {
-                            "docs": {},
-                            "v": {
-                              "docs": {},
-                              "a": {
-                                "docs": {},
-                                "r": {
-                                  "docs": {
-                                    "DataCommsEngine.html#subscribedVar": {
-                                      "ref": "DataCommsEngine.html#subscribedVar",
-                                      "tf": 750
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
                       },
-                      "p": {
+                      "s": {
                         "docs": {},
                         "t": {
-                          "docs": {
-                            "DataCommsEngine.html#toBeSubscribed": {
-                              "ref": "DataCommsEngine.html#toBeSubscribed",
-                              "tf": 2.7777777777777777
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "u": {
-                      "docs": {},
-                      "i": {
-                        "docs": {},
-                        "p": {
                           "docs": {},
-                          "t": {
+                          "a": {
                             "docs": {},
-                            "i": {
+                            "t": {
                               "docs": {},
-                              "o": {
+                              "u": {
                                 "docs": {},
-                                "n": {
+                                "s": {
                                   "docs": {},
-                                  "/": {
+                                  "c": {
                                     "docs": {},
-                                    "u": {
+                                    "o": {
                                       "docs": {},
-                                      "n": {
-                                        "docs": {},
-                                        "s": {
-                                          "docs": {},
-                                          "u": {
-                                            "docs": {},
-                                            "b": {
-                                              "docs": {},
-                                              "s": {
-                                                "docs": {},
-                                                "c": {
-                                                  "docs": {},
-                                                  "r": {
-                                                    "docs": {},
-                                                    "i": {
-                                                      "docs": {},
-                                                      "p": {
-                                                        "docs": {},
-                                                        "t": {
-                                                          "docs": {
-                                                            "DataCommsEngine.html#aggregationTime_ms": {
-                                                              "ref": "DataCommsEngine.html#aggregationTime_ms",
-                                                              "tf": 4.166666666666666
-                                                            }
-                                                          }
-                                                        }
-                                                      }
-                                                    }
-                                                  }
-                                                }
-                                              }
-                                            }
+                                      "d": {
+                                        "docs": {
+                                          "ServiceStatusCodes.html": {
+                                            "ref": "ServiceStatusCodes.html",
+                                            "tf": 1900
                                           }
                                         }
                                       }
@@ -2529,6 +2497,66 @@ window.lunrData = {
                     }
                   }
                 },
+                "e": {
+                  "docs": {},
+                  "r": {
+                    "docs": {
+                      "DataCommsEngine.html": {
+                        "ref": "DataCommsEngine.html",
+                        "tf": 6.25
+                      },
+                      "DataCommsEngine.html#Write": {
+                        "ref": "DataCommsEngine.html#Write",
+                        "tf": 3.571428571428571
+                      },
+                      "DataCommsEngine.html#Read": {
+                        "ref": "DataCommsEngine.html#Read",
+                        "tf": 3.571428571428571
+                      },
+                      "ErrorCodes.html": {
+                        "ref": "ErrorCodes.html",
+                        "tf": 4.166666666666666
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "t": {
+              "docs": {
+                "VarResponse.html#setError": {
+                  "ref": "VarResponse.html#setError",
+                  "tf": 12.5
+                }
+              },
+              "e": {
+                "docs": {},
+                "r": {
+                  "docs": {},
+                  "r": {
+                    "docs": {},
+                    "o": {
+                      "docs": {},
+                      "r": {
+                        "docs": {
+                          "VarResponse.html#setError": {
+                            "ref": "VarResponse.html#setError",
+                            "tf": 750
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "u": {
+            "docs": {},
+            "b": {
+              "docs": {},
+              "s": {
+                "docs": {},
                 "y": {
                   "docs": {},
                   "s": {
@@ -2541,7 +2569,7 @@ window.lunrData = {
                           "docs": {
                             "DataTree.html": {
                               "ref": "DataTree.html",
-                              "tf": 4.545454545454546
+                              "tf": 3.125
                             }
                           },
                           "n": {
@@ -2562,19 +2590,167 @@ window.lunrData = {
                       }
                     }
                   }
+                },
+                "c": {
+                  "docs": {},
+                  "r": {
+                    "docs": {},
+                    "i": {
+                      "docs": {},
+                      "b": {
+                        "docs": {
+                          "DataCommsEngine.html#Subscribe": {
+                            "ref": "DataCommsEngine.html#Subscribe",
+                            "tf": 685
+                          },
+                          "systemError.html": {
+                            "ref": "systemError.html",
+                            "tf": 5
+                          },
+                          "VarResponse.html": {
+                            "ref": "VarResponse.html",
+                            "tf": 4.545454545454546
+                          }
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
           },
           "a": {
             "docs": {},
-            "m": {
+            "v": {
               "docs": {},
               "e": {
                 "docs": {
-                  "DataCommsEngine.html#subscribedVar": {
-                    "ref": "DataCommsEngine.html#subscribedVar",
-                    "tf": 2.380952380952381
+                  "DataTree.html": {
+                    "ref": "DataTree.html",
+                    "tf": 3.125
+                  }
+                }
+              }
+            }
+          },
+          "c": {
+            "docs": {},
+            "h": {
+              "docs": {},
+              "e": {
+                "docs": {},
+                "d": {
+                  "docs": {},
+                  "u": {
+                    "docs": {},
+                    "l": {
+                      "docs": {
+                        "DataTree.html": {
+                          "ref": "DataTree.html",
+                          "tf": 3.125
+                        },
+                        "DataCommsEngine.html#Read": {
+                          "ref": "DataCommsEngine.html#Read",
+                          "tf": 3.571428571428571
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "t": {
+            "docs": {},
+            "a": {
+              "docs": {},
+              "t": {
+                "docs": {},
+                "e": {
+                  "docs": {
+                    "DataTree.html": {
+                      "ref": "DataTree.html",
+                      "tf": 3.125
+                    },
+                    "DataTree.html#ExistVar": {
+                      "ref": "DataTree.html#ExistVar",
+                      "tf": 8.333333333333332
+                    }
+                  },
+                  "v": {
+                    "docs": {},
+                    "a": {
+                      "docs": {},
+                      "r": {
+                        "docs": {},
+                        "i": {
+                          "docs": {
+                            "DataTree.html#GetVar": {
+                              "ref": "DataTree.html#GetVar",
+                              "tf": 6.666666666666667
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "u": {
+                  "docs": {
+                    "DataTree.html#GetVar": {
+                      "ref": "DataTree.html#GetVar",
+                      "tf": 3.3333333333333335
+                    },
+                    "ServiceStatusCodes.html": {
+                      "ref": "ServiceStatusCodes.html",
+                      "tf": 12.5
+                    }
+                  },
+                  "s": {
+                    "docs": {
+                      "DataCommsEngine.html#UpdateData": {
+                        "ref": "DataCommsEngine.html#UpdateData",
+                        "tf": 3.125
+                      }
+                    }
+                  }
+                },
+                "i": {
+                  "docs": {},
+                  "c": {
+                    "docs": {
+                      "ServiceStatusCodes.html": {
+                        "ref": "ServiceStatusCodes.html",
+                        "tf": 6.25
+                      },
+                      "ErrorCodes.html": {
+                        "ref": "ErrorCodes.html",
+                        "tf": 4.166666666666666
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "r": {
+              "docs": {},
+              "u": {
+                "docs": {},
+                "c": {
+                  "docs": {},
+                  "t": {
+                    "docs": {},
+                    "u": {
+                      "docs": {},
+                      "r": {
+                        "docs": {
+                          "DataTree.html": {
+                            "ref": "DataTree.html",
+                            "tf": 3.125
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               }
@@ -2588,19 +2764,12 @@ window.lunrData = {
                 "docs": {},
                 "i": {
                   "docs": {},
-                  "a": {
-                    "docs": {},
-                    "l": {
-                      "docs": {
-                        "DataCommsEngine.html#subscribedVar": {
-                          "ref": "DataCommsEngine.html#subscribedVar",
-                          "tf": 2.380952380952381
-                        }
-                      }
-                    }
-                  },
                   "f": {
                     "docs": {
+                      "systemObject.html": {
+                        "ref": "systemObject.html",
+                        "tf": 8.333333333333332
+                      },
                       "systemVariable.html": {
                         "ref": "systemVariable.html",
                         "tf": 3.125
@@ -2621,9 +2790,9 @@ window.lunrData = {
                   "docs": {},
                   "m": {
                     "docs": {
-                      "DataCommsEngine.html#aggregationTime_ms": {
-                        "ref": "DataCommsEngine.html#aggregationTime_ms",
-                        "tf": 4.166666666666666
+                      "systemObject.html": {
+                        "ref": "systemObject.html",
+                        "tf": 8.333333333333332
                       },
                       "systemError.html": {
                         "ref": "systemError.html",
@@ -2632,6 +2801,29 @@ window.lunrData = {
                       "systemVariable.html": {
                         "ref": "systemVariable.html",
                         "tf": 3.125
+                      }
+                    },
+                    "o": {
+                      "docs": {},
+                      "b": {
+                        "docs": {},
+                        "j": {
+                          "docs": {},
+                          "e": {
+                            "docs": {},
+                            "c": {
+                              "docs": {},
+                              "t": {
+                                "docs": {
+                                  "systemObject.html": {
+                                    "ref": "systemObject.html",
+                                    "tf": 1900
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
                       }
                     },
                     "e": {
@@ -2675,30 +2867,81 @@ window.lunrData = {
                 }
               }
             }
-          },
-          "t": {
+          }
+        },
+        "e": {
+          "docs": {},
+          "n": {
             "docs": {},
-            "a": {
+            "g": {
               "docs": {},
-              "t": {
+              "i": {
                 "docs": {},
-                "u": {
+                "n": {
                   "docs": {
-                    "DataTree.html#GetVar": {
-                      "ref": "DataTree.html#GetVar",
-                      "tf": 3.3333333333333335
+                    "ServiceManager.html#AddEngine": {
+                      "ref": "ServiceManager.html#AddEngine",
+                      "tf": 33.33333333333333
+                    },
+                    "DataCommsEngine.html": {
+                      "ref": "DataCommsEngine.html",
+                      "tf": 6.25
+                    },
+                    "DataCommsEngine.html#Initialize": {
+                      "ref": "DataCommsEngine.html#Initialize",
+                      "tf": 5
+                    },
+                    "ServiceStatusCodes.html": {
+                      "ref": "ServiceStatusCodes.html",
+                      "tf": 6.25
                     }
-                  },
-                  "s": {
-                    "docs": {
-                      "DataCommsEngine.html#UpdateData": {
-                        "ref": "DataCommsEngine.html#UpdateData",
-                        "tf": 3.125
+                  }
+                }
+              }
+            }
+          },
+          "l": {
+            "docs": {},
+            "e": {
+              "docs": {},
+              "m": {
+                "docs": {},
+                "e": {
+                  "docs": {},
+                  "n": {
+                    "docs": {},
+                    "t": {
+                      "docs": {
+                        "DataTree.html": {
+                          "ref": "DataTree.html",
+                          "tf": 3.125
+                        },
+                        "DataTree.html#Update": {
+                          "ref": "DataTree.html#Update",
+                          "tf": 5
+                        },
+                        "DataCommsEngine.html#Write": {
+                          "ref": "DataCommsEngine.html#Write",
+                          "tf": 3.571428571428571
+                        },
+                        "DataCommsEngine.html#Read": {
+                          "ref": "DataCommsEngine.html#Read",
+                          "tf": 3.571428571428571
+                        }
                       }
                     }
                   }
-                },
-                "e": {
+                }
+              }
+            }
+          },
+          "x": {
+            "docs": {},
+            "i": {
+              "docs": {},
+              "s": {
+                "docs": {},
+                "t": {
                   "docs": {
                     "DataTree.html#ExistVar": {
                       "ref": "DataTree.html#ExistVar",
@@ -2710,13 +2953,10 @@ window.lunrData = {
                     "a": {
                       "docs": {},
                       "r": {
-                        "docs": {},
-                        "i": {
-                          "docs": {
-                            "DataTree.html#GetVar": {
-                              "ref": "DataTree.html#GetVar",
-                              "tf": 6.666666666666667
-                            }
+                        "docs": {
+                          "DataTree.html#ExistVar": {
+                            "ref": "DataTree.html#ExistVar",
+                            "tf": 700
                           }
                         }
                       }
@@ -2726,265 +2966,70 @@ window.lunrData = {
               }
             }
           },
-          "c": {
+          "v": {
             "docs": {},
-            "h": {
+            "e": {
               "docs": {},
-              "e": {
-                "docs": {},
-                "d": {
-                  "docs": {},
-                  "u": {
-                    "docs": {},
-                    "l": {
-                      "docs": {
-                        "DataTree.html": {
-                          "ref": "DataTree.html",
-                          "tf": 4.545454545454546
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "k": {
-          "docs": {},
-          "e": {
-            "docs": {},
-            "p": {
-              "docs": {},
-              "t": {
+              "n": {
                 "docs": {
-                  "DataCommsEngine.html#toBeSubscribed": {
-                    "ref": "DataCommsEngine.html#toBeSubscribed",
-                    "tf": 1.3888888888888888
+                  "DataCommsEngine.html#Read": {
+                    "ref": "DataCommsEngine.html#Read",
+                    "tf": 3.571428571428571
                   }
-                }
-              }
-            },
-            "y": {
-              "docs": {
-                "DataCommsEngine.html#toBeSubscribed": {
-                  "ref": "DataCommsEngine.html#toBeSubscribed",
-                  "tf": 1.3888888888888888
-                },
-                "DataCommsEngine.html#subscribedVar": {
-                  "ref": "DataCommsEngine.html#subscribedVar",
-                  "tf": 2.380952380952381
-                }
-              }
-            }
-          }
-        },
-        "n": {
-          "docs": {},
-          "e": {
-            "docs": {},
-            "t": {
-              "docs": {
-                "DataCommsEngine.html#toBeSubscribed": {
-                  "ref": "DataCommsEngine.html#toBeSubscribed",
-                  "tf": 1.3888888888888888
-                }
-              },
-              "w": {
-                "docs": {},
-                "o": {
-                  "docs": {},
-                  "r": {
-                    "docs": {},
-                    "k": {
-                      "docs": {
-                        "DataCommsEngine.html#aggregationTime_ms": {
-                          "ref": "DataCommsEngine.html#aggregationTime_ms",
-                          "tf": 4.166666666666666
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "u": {
-            "docs": {},
-            "m": {
-              "docs": {},
-              "b": {
-                "docs": {},
-                "e": {
-                  "docs": {},
-                  "r": {
-                    "docs": {
-                      "DataCommsEngine.html#toBeSubscribed": {
-                        "ref": "DataCommsEngine.html#toBeSubscribed",
-                        "tf": 2.7777777777777777
-                      },
-                      "DataCommsEngine.html#subscribedVar": {
-                        "ref": "DataCommsEngine.html#subscribedVar",
-                        "tf": 7.142857142857142
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "o": {
-          "docs": {},
-          "n": {
-            "docs": {
-              "DataCommsEngine.html#subscribedVar": {
-                "ref": "DataCommsEngine.html#subscribedVar",
-                "tf": 2.380952380952381
-              }
-            },
-            "c": {
-              "docs": {
-                "DataCommsEngine.html#toBeSubscribed": {
-                  "ref": "DataCommsEngine.html#toBeSubscribed",
-                  "tf": 1.3888888888888888
                 }
               }
             }
           },
           "r": {
             "docs": {},
-            "g": {
+            "r": {
               "docs": {},
-              "a": {
-                "docs": {},
-                "n": {
-                  "docs": {},
-                  "i": {
-                    "docs": {},
-                    "z": {
-                      "docs": {},
-                      "z": {
-                        "docs": {
-                          "ServiceManager.html": {
-                            "ref": "ServiceManager.html",
-                            "tf": 25
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "c": {
-            "docs": {},
-            "c": {
-              "docs": {},
-              "u": {
+              "o": {
                 "docs": {},
                 "r": {
                   "docs": {
+                    "ErrorCodes.html": {
+                      "ref": "ErrorCodes.html",
+                      "tf": 8.333333333333332
+                    },
                     "systemError.html": {
                       "ref": "systemError.html",
                       "tf": 5
+                    },
+                    "VarResponse.html#setError": {
+                      "ref": "VarResponse.html#setError",
+                      "tf": 12.5
                     }
-                  }
-                }
-              }
-            }
-          },
-          "b": {
-            "docs": {},
-            "j": {
-              "docs": {},
-              "e": {
-                "docs": {},
-                "c": {
-                  "docs": {},
-                  "t": {
-                    "docs": {
-                      "systemVariable.html": {
-                        "ref": "systemVariable.html",
-                        "tf": 3.125
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "p": {
-          "docs": {},
-          "u": {
-            "docs": {},
-            "r": {
-              "docs": {},
-              "g": {
-                "docs": {
-                  "DataCommsEngine.html#toBeSubscribed": {
-                    "ref": "DataCommsEngine.html#toBeSubscribed",
-                    "tf": 2.7777777777777777
-                  }
-                }
-              }
-            }
-          },
-          "r": {
-            "docs": {},
-            "o": {
-              "docs": {},
-              "t": {
-                "docs": {},
-                "e": {
-                  "docs": {},
+                  },
                   "c": {
                     "docs": {},
-                    "t": {
-                      "docs": {
-                        "DataTree.html#GetVar": {
-                          "ref": "DataTree.html#GetVar",
-                          "tf": 3.3333333333333335
+                    "o": {
+                      "docs": {},
+                      "d": {
+                        "docs": {
+                          "ErrorCodes.html": {
+                            "ref": "ErrorCodes.html",
+                            "tf": 1900
+                          }
                         }
                       }
-                    }
-                  }
-                }
-              },
-              "x": {
-                "docs": {},
-                "i": {
-                  "docs": {
-                    "DataTree.html#GetVar": {
-                      "ref": "DataTree.html#GetVar",
-                      "tf": 3.3333333333333335
                     }
                   }
                 }
               }
             }
           },
-          "e": {
+          "t": {
             "docs": {},
-            "r": {
-              "docs": {},
-              "s": {
-                "docs": {},
-                "i": {
-                  "docs": {},
-                  "s": {
-                    "docs": {},
-                    "t": {
-                      "docs": {
-                        "systemVariable.html": {
-                          "ref": "systemVariable.html",
-                          "tf": 3.125
-                        }
-                      }
-                    }
-                  }
+            "c": {
+              "docs": {
+                "systemError.html": {
+                  "ref": "systemError.html",
+                  "tf": 5
+                },
+                "VarResponse.html": {
+                  "ref": "VarResponse.html",
+                  "tf": 4.545454545454546
                 }
               }
             }
@@ -2994,25 +3039,25 @@ window.lunrData = {
           "docs": {},
           "i": {
             "docs": {
-              "DataCommsEngine.html#toBeSubscribed": {
-                "ref": "DataCommsEngine.html#toBeSubscribed",
-                "tf": 1.3888888888888888
-              },
-              "DataCommsEngine.html#subscribedVar": {
-                "ref": "DataCommsEngine.html#subscribedVar",
-                "tf": 2.380952380952381
-              },
-              "DataCommsEngine.html#UpdateData": {
-                "ref": "DataCommsEngine.html#UpdateData",
-                "tf": 3.125
-              },
               "DataTree.html": {
                 "ref": "DataTree.html",
-                "tf": 4.545454545454546
+                "tf": 3.125
               },
               "DataTree.html#Update": {
                 "ref": "DataTree.html#Update",
                 "tf": 5
+              },
+              "DataCommsEngine.html#Write": {
+                "ref": "DataCommsEngine.html#Write",
+                "tf": 3.571428571428571
+              },
+              "DataCommsEngine.html#Read": {
+                "ref": "DataCommsEngine.html#Read",
+                "tf": 3.571428571428571
+              },
+              "DataCommsEngine.html#UpdateData": {
+                "ref": "DataCommsEngine.html#UpdateData",
+                "tf": 3.125
               }
             }
           },
@@ -3024,29 +3069,25 @@ window.lunrData = {
                 "docs": {},
                 "t": {
                   "docs": {
-                    "DataCommsEngine.html#toBeSubscribed": {
-                      "ref": "DataCommsEngine.html#toBeSubscribed",
-                      "tf": 2.7777777777777777
-                    },
-                    "DataCommsEngine.html#toBeUnsubscribed": {
-                      "ref": "DataCommsEngine.html#toBeUnsubscribed",
-                      "tf": 10
-                    },
-                    "DataCommsEngine.html#subscribedVar": {
-                      "ref": "DataCommsEngine.html#subscribedVar",
-                      "tf": 2.380952380952381
-                    },
-                    "DataCommsEngine.html#UpdateData": {
-                      "ref": "DataCommsEngine.html#UpdateData",
-                      "tf": 9.375
-                    },
                     "DataTree.html": {
                       "ref": "DataTree.html",
-                      "tf": 4.545454545454546
+                      "tf": 3.125
                     },
                     "DataTree.html#Update": {
                       "ref": "DataTree.html#Update",
                       "tf": 705
+                    },
+                    "DataCommsEngine.html#Subscribe": {
+                      "ref": "DataCommsEngine.html#Subscribe",
+                      "tf": 5
+                    },
+                    "DataCommsEngine.html#Unsubscribe": {
+                      "ref": "DataCommsEngine.html#Unsubscribe",
+                      "tf": 5
+                    },
+                    "DataCommsEngine.html#UpdateData": {
+                      "ref": "DataCommsEngine.html#UpdateData",
+                      "tf": 9.375
                     }
                   },
                   "e": {
@@ -3105,9 +3146,9 @@ window.lunrData = {
                           "docs": {},
                           "b": {
                             "docs": {
-                              "DataCommsEngine.html#toBeUnsubscribed": {
-                                "ref": "DataCommsEngine.html#toBeUnsubscribed",
-                                "tf": 10
+                              "DataCommsEngine.html#Unsubscribe": {
+                                "ref": "DataCommsEngine.html#Unsubscribe",
+                                "tf": 680
                               }
                             }
                           }
@@ -3117,19 +3158,267 @@ window.lunrData = {
                   }
                 }
               }
-            }
-          },
-          "s": {
-            "docs": {},
+            },
             "u": {
               "docs": {},
-              "a": {
+              "b": {
                 "docs": {},
-                "l": {
+                "s": {
+                  "docs": {},
+                  "c": {
+                    "docs": {},
+                    "r": {
+                      "docs": {},
+                      "i": {
+                        "docs": {},
+                        "b": {
+                          "docs": {
+                            "DataCommsEngine.html#Unsubscribe": {
+                              "ref": "DataCommsEngine.html#Unsubscribe",
+                              "tf": 5
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "p": {
+          "docs": {},
+          "r": {
+            "docs": {},
+            "o": {
+              "docs": {},
+              "t": {
+                "docs": {},
+                "e": {
+                  "docs": {},
+                  "c": {
+                    "docs": {},
+                    "t": {
+                      "docs": {
+                        "DataTree.html#GetVar": {
+                          "ref": "DataTree.html#GetVar",
+                          "tf": 3.3333333333333335
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "x": {
+                "docs": {},
+                "i": {
                   "docs": {
-                    "DataCommsEngine.html#subscribedVar": {
-                      "ref": "DataCommsEngine.html#subscribedVar",
-                      "tf": 2.380952380952381
+                    "DataTree.html#GetVar": {
+                      "ref": "DataTree.html#GetVar",
+                      "tf": 3.3333333333333335
+                    }
+                  }
+                }
+              },
+              "m": {
+                "docs": {},
+                "i": {
+                  "docs": {},
+                  "s": {
+                    "docs": {},
+                    "e": {
+                      "docs": {},
+                      ".": {
+                        "docs": {},
+                        "&": {
+                          "docs": {},
+                          "l": {
+                            "docs": {},
+                            "t": {
+                              "docs": {},
+                              ";": {
+                                "docs": {},
+                                "a": {
+                                  "docs": {},
+                                  "r": {
+                                    "docs": {},
+                                    "r": {
+                                      "docs": {},
+                                      "a": {
+                                        "docs": {},
+                                        "y": {
+                                          "docs": {},
+                                          ".": {
+                                            "docs": {},
+                                            "&": {
+                                              "docs": {},
+                                              "l": {
+                                                "docs": {},
+                                                "t": {
+                                                  "docs": {},
+                                                  ";": {
+                                                    "docs": {},
+                                                    "v": {
+                                                      "docs": {},
+                                                      "a": {
+                                                        "docs": {},
+                                                        "r": {
+                                                          "docs": {},
+                                                          "r": {
+                                                            "docs": {},
+                                                            "e": {
+                                                              "docs": {},
+                                                              "s": {
+                                                                "docs": {},
+                                                                "p": {
+                                                                  "docs": {},
+                                                                  "o": {
+                                                                    "docs": {},
+                                                                    "n": {
+                                                                      "docs": {},
+                                                                      "s": {
+                                                                        "docs": {},
+                                                                        "e": {
+                                                                          "docs": {},
+                                                                          "&": {
+                                                                            "docs": {},
+                                                                            "g": {
+                                                                              "docs": {},
+                                                                              "t": {
+                                                                                "docs": {},
+                                                                                ";": {
+                                                                                  "docs": {},
+                                                                                  "&": {
+                                                                                    "docs": {},
+                                                                                    "g": {
+                                                                                      "docs": {},
+                                                                                      "t": {
+                                                                                        "docs": {
+                                                                                          "DataCommsEngine.html#Subscribe": {
+                                                                                            "ref": "DataCommsEngine.html#Subscribe",
+                                                                                            "tf": 25
+                                                                                          },
+                                                                                          "DataCommsEngine.html#Unsubscribe": {
+                                                                                            "ref": "DataCommsEngine.html#Unsubscribe",
+                                                                                            "tf": 25
+                                                                                          },
+                                                                                          "DataCommsEngine.html#Write": {
+                                                                                            "ref": "DataCommsEngine.html#Write",
+                                                                                            "tf": 20
+                                                                                          },
+                                                                                          "DataCommsEngine.html#Read": {
+                                                                                            "ref": "DataCommsEngine.html#Read",
+                                                                                            "tf": 25
+                                                                                          }
+                                                                                        }
+                                                                                      }
+                                                                                    }
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "v": {
+                "docs": {},
+                "i": {
+                  "docs": {},
+                  "d": {
+                    "docs": {
+                      "DataCommsEngine.html#Write": {
+                        "ref": "DataCommsEngine.html#Write",
+                        "tf": 3.571428571428571
+                      }
+                    }
+                  }
+                }
+              },
+              "p": {
+                "docs": {},
+                "e": {
+                  "docs": {},
+                  "r": {
+                    "docs": {},
+                    "t": {
+                      "docs": {},
+                      "i": {
+                        "docs": {
+                          "VarResponse.html#setError": {
+                            "ref": "VarResponse.html#setError",
+                            "tf": 12.5
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "l": {
+            "docs": {},
+            "a": {
+              "docs": {},
+              "c": {
+                "docs": {},
+                "e": {
+                  "docs": {
+                    "DataCommsEngine.html#Initialize": {
+                      "ref": "DataCommsEngine.html#Initialize",
+                      "tf": 5
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "e": {
+            "docs": {},
+            "r": {
+              "docs": {},
+              "s": {
+                "docs": {},
+                "i": {
+                  "docs": {},
+                  "s": {
+                    "docs": {},
+                    "t": {
+                      "docs": {
+                        "systemVariable.html": {
+                          "ref": "systemVariable.html",
+                          "tf": 3.125
+                        }
+                      }
                     }
                   }
                 }
@@ -3141,61 +3430,33 @@ window.lunrData = {
           "docs": {},
           "a": {
             "docs": {},
-            "r": {
-              "docs": {
-                "DataCommsEngine.html#toBeSubscribed": {
-                  "ref": "DataCommsEngine.html#toBeSubscribed",
-                  "tf": 1.3888888888888888
+            "l": {
+              "docs": {},
+              "u": {
+                "docs": {
+                  "DataTree.html#GetVar": {
+                    "ref": "DataTree.html#GetVar",
+                    "tf": 6.666666666666667
+                  },
+                  "DataCommsEngine.html#Write": {
+                    "ref": "DataCommsEngine.html#Write",
+                    "tf": 23.57142857142857
+                  },
+                  "DataCommsEngine.html#UpdateData": {
+                    "ref": "DataCommsEngine.html#UpdateData",
+                    "tf": 3.125
+                  },
+                  "systemVariable.html": {
+                    "ref": "systemVariable.html",
+                    "tf": 6.25
+                  }
                 }
-              },
+              }
+            },
+            "r": {
+              "docs": {},
               "i": {
                 "docs": {},
-                "a": {
-                  "docs": {},
-                  "b": {
-                    "docs": {},
-                    "l": {
-                      "docs": {
-                        "DataCommsEngine.html#toBeSubscribed": {
-                          "ref": "DataCommsEngine.html#toBeSubscribed",
-                          "tf": 4.166666666666666
-                        },
-                        "DataCommsEngine.html#toBeUnsubscribed": {
-                          "ref": "DataCommsEngine.html#toBeUnsubscribed",
-                          "tf": 10
-                        },
-                        "DataCommsEngine.html#subscribedVar": {
-                          "ref": "DataCommsEngine.html#subscribedVar",
-                          "tf": 4.761904761904762
-                        },
-                        "DataCommsEngine.html#aggregationTime_ms": {
-                          "ref": "DataCommsEngine.html#aggregationTime_ms",
-                          "tf": 4.166666666666666
-                        },
-                        "DataCommsEngine.html#UpdateData": {
-                          "ref": "DataCommsEngine.html#UpdateData",
-                          "tf": 6.25
-                        },
-                        "DataTree.html": {
-                          "ref": "DataTree.html",
-                          "tf": 4.545454545454546
-                        },
-                        "DataTree.html#Update": {
-                          "ref": "DataTree.html#Update",
-                          "tf": 60
-                        },
-                        "DataTree.html#ExistVar": {
-                          "ref": "DataTree.html#ExistVar",
-                          "tf": 8.333333333333332
-                        },
-                        "systemVariable.html": {
-                          "ref": "systemVariable.html",
-                          "tf": 3.125
-                        }
-                      }
-                    }
-                  }
-                },
                 "d": {
                   "docs": {
                     "DataTree.html#GetVar": {
@@ -3207,24 +3468,155 @@ window.lunrData = {
                       "tf": 50
                     }
                   }
+                },
+                "a": {
+                  "docs": {},
+                  "b": {
+                    "docs": {},
+                    "l": {
+                      "docs": {
+                        "DataTree.html#Update": {
+                          "ref": "DataTree.html#Update",
+                          "tf": 60
+                        },
+                        "DataTree.html#ExistVar": {
+                          "ref": "DataTree.html#ExistVar",
+                          "tf": 8.333333333333332
+                        },
+                        "DataCommsEngine.html#Subscribe": {
+                          "ref": "DataCommsEngine.html#Subscribe",
+                          "tf": 30
+                        },
+                        "DataCommsEngine.html#Unsubscribe": {
+                          "ref": "DataCommsEngine.html#Unsubscribe",
+                          "tf": 30
+                        },
+                        "DataCommsEngine.html#Write": {
+                          "ref": "DataCommsEngine.html#Write",
+                          "tf": 3.571428571428571
+                        },
+                        "DataCommsEngine.html#Read": {
+                          "ref": "DataCommsEngine.html#Read",
+                          "tf": 3.571428571428571
+                        },
+                        "DataCommsEngine.html#UpdateData": {
+                          "ref": "DataCommsEngine.html#UpdateData",
+                          "tf": 6.25
+                        },
+                        "ErrorCodes.html": {
+                          "ref": "ErrorCodes.html",
+                          "tf": 4.166666666666666
+                        },
+                        "VarResponse.html": {
+                          "ref": "VarResponse.html",
+                          "tf": 4.545454545454546
+                        },
+                        "systemVariable.html": {
+                          "ref": "systemVariable.html",
+                          "tf": 3.125
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "r": {
+                "docs": {},
+                "e": {
+                  "docs": {},
+                  "s": {
+                    "docs": {},
+                    "p": {
+                      "docs": {},
+                      "o": {
+                        "docs": {},
+                        "n": {
+                          "docs": {},
+                          "s": {
+                            "docs": {
+                              "VarResponse.html": {
+                                "ref": "VarResponse.html",
+                                "tf": 1900
+                              }
+                            },
+                            "e": {
+                              "docs": {},
+                              "#": {
+                                "docs": {},
+                                "s": {
+                                  "docs": {},
+                                  "e": {
+                                    "docs": {},
+                                    "t": {
+                                      "docs": {},
+                                      "e": {
+                                        "docs": {},
+                                        "r": {
+                                          "docs": {},
+                                          "r": {
+                                            "docs": {},
+                                            "o": {
+                                              "docs": {},
+                                              "r": {
+                                                "docs": {
+                                                  "VarResponse.html#setError": {
+                                                    "ref": "VarResponse.html#setError",
+                                                    "tf": 1150
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
                 }
               }
-            },
-            "l": {
+            }
+          }
+        },
+        "n": {
+          "docs": {},
+          "e": {
+            "docs": {},
+            "e": {
               "docs": {},
-              "u": {
+              "d": {
                 "docs": {
-                  "DataCommsEngine.html#UpdateData": {
-                    "ref": "DataCommsEngine.html#UpdateData",
-                    "tf": 3.125
+                  "DataCommsEngine.html#Initialize": {
+                    "ref": "DataCommsEngine.html#Initialize",
+                    "tf": 5
+                  }
+                }
+              }
+            }
+          },
+          "a": {
+            "docs": {},
+            "m": {
+              "docs": {},
+              "e": {
+                "docs": {
+                  "DataCommsEngine.html#Subscribe": {
+                    "ref": "DataCommsEngine.html#Subscribe",
+                    "tf": 5
                   },
-                  "DataTree.html#GetVar": {
-                    "ref": "DataTree.html#GetVar",
-                    "tf": 6.666666666666667
+                  "DataCommsEngine.html#Unsubscribe": {
+                    "ref": "DataCommsEngine.html#Unsubscribe",
+                    "tf": 5
                   },
-                  "systemVariable.html": {
-                    "ref": "systemVariable.html",
-                    "tf": 6.25
+                  "DataCommsEngine.html#Read": {
+                    "ref": "DataCommsEngine.html#Read",
+                    "tf": 25
                   }
                 }
               }
@@ -3233,42 +3625,6 @@ window.lunrData = {
         },
         "w": {
           "docs": {},
-          "a": {
-            "docs": {},
-            "i": {
-              "docs": {},
-              "t": {
-                "docs": {
-                  "DataCommsEngine.html#toBeSubscribed": {
-                    "ref": "DataCommsEngine.html#toBeSubscribed",
-                    "tf": 1.3888888888888888
-                  },
-                  "DataCommsEngine.html#toBeUnsubscribed": {
-                    "ref": "DataCommsEngine.html#toBeUnsubscribed",
-                    "tf": 10
-                  },
-                  "DataCommsEngine.html#aggregationTime_ms": {
-                    "ref": "DataCommsEngine.html#aggregationTime_ms",
-                    "tf": 4.166666666666666
-                  }
-                }
-              }
-            }
-          },
-          "o": {
-            "docs": {},
-            "n": {
-              "docs": {},
-              "t": {
-                "docs": {
-                  "DataCommsEngine.html#toBeSubscribed": {
-                    "ref": "DataCommsEngine.html#toBeSubscribed",
-                    "tf": 1.3888888888888888
-                  }
-                }
-              }
-            }
-          },
           "r": {
             "docs": {},
             "i": {
@@ -3277,9 +3633,17 @@ window.lunrData = {
                 "docs": {},
                 "e": {
                   "docs": {
+                    "DataCommsEngine.html#Write": {
+                      "ref": "DataCommsEngine.html#Write",
+                      "tf": 677.1428571428571
+                    },
                     "systemError.html": {
                       "ref": "systemError.html",
                       "tf": 5
+                    },
+                    "VarResponse.html": {
+                      "ref": "VarResponse.html",
+                      "tf": 4.545454545454546
                     }
                   }
                 }
@@ -3288,27 +3652,27 @@ window.lunrData = {
           }
         }
       },
-      "length": 209
+      "length": 262
     },
     "corpusTokens": [
       "abstract",
       "action",
       "addengin",
-      "aggreg",
-      "aggregationtime_m",
       "anyth",
       "app",
+      "appear",
       "assign",
       "automat",
       "avail",
-      "befor",
+      "basicrespons",
+      "belong",
       "bound",
       "build",
       "call",
-      "cant",
-      "case",
       "check",
       "class",
+      "code",
+      "commun",
       "compat",
       "compon",
       "comun",
@@ -3317,11 +3681,12 @@ window.lunrData = {
       "current",
       "data",
       "datacommsengin",
-      "datacommsengine#aggregationtime_m",
-      "datacommsengine#subscribedvar",
-      "datacommsengine#tobesubscrib",
-      "datacommsengine#tobeunsubscrib",
+      "datacommsengine#initi",
+      "datacommsengine#read",
+      "datacommsengine#subscrib",
+      "datacommsengine#unsubscrib",
       "datacommsengine#updatedata",
+      "datacommsengine#writ",
       "datamanag",
       "datatre",
       "datatree#existvar",
@@ -3335,100 +3700,99 @@ window.lunrData = {
       "element",
       "engin",
       "error",
+      "errorcod",
       "etc",
+      "even",
       "exist",
       "existvar",
-      "fail",
+      "forc",
       "framework",
       "function",
       "gener",
       "getvar",
       "global",
       "good",
+      "helper",
+      "here",
       "human",
       "i/o",
+      "implemet",
       "index",
+      "initi",
       "interfac",
+      "involv",
       "iot",
       "jahmin",
       "javascript",
       "json",
-      "kept",
-      "key",
-      "later",
       "list",
       "list:class",
       "list:tutori",
       "localstorag",
+      "lt;abstract&gt",
       "machin",
-      "make",
-      "mani",
-      "map",
-      "member",
-      "more",
-      "moreeffici",
-      "net",
-      "network",
-      "number",
+      "method",
+      "name",
+      "need",
       "object",
       "occur",
-      "on",
-      "onc",
       "organizz",
       "persist",
+      "place",
+      "promise.&lt;array.&lt;varresponse&gt;&gt",
+      "properti",
       "protect",
+      "provid",
       "proxi",
-      "purg",
+      "read",
       "readm",
       "readonli",
       "real",
-      "regist",
+      "rel",
       "relat",
       "repres",
       "request",
+      "respons",
       "return",
-      "same",
+      "save",
       "schedul",
-      "send",
       "server",
       "servicemanag",
       "servicemanager#addengin",
-      "special",
+      "servicestatuscod",
+      "set",
+      "seterror",
       "specif",
       "state",
       "statevari",
+      "static",
       "statu",
       "status",
-      "sub",
+      "structur",
       "subscrib",
-      "subscribedvar",
-      "subscript",
-      "subscruiption/unsubscript",
       "subsystem",
       "subsystemnam",
       "system",
       "systemerror",
+      "systemobject",
       "systemvari",
+      "target",
       "those",
       "throw",
-      "time",
-      "tobesubscrib",
-      "tobeunsubscrib",
       "tree",
       "tri",
       "tutori",
       "ui",
       "unsubscrib",
+      "unubscrib",
       "upadt",
       "updat",
       "updatedata",
-      "usual",
       "valu",
-      "var",
       "variabl",
       "varid",
-      "wait",
-      "wont",
+      "varrespons",
+      "varresponse#seterror",
       "write"
     ],
     "pipeline": [
@@ -3492,67 +3856,6 @@ window.lunrData = {
       "description": "",
       "body": ""
     },
-    "DataCommsEngine.html": {
-      "id": "DataCommsEngine.html",
-      "kind": "class",
-      "title": "DataCommsEngine",
-      "longname": "DataCommsEngine",
-      "name": "DataCommsEngine",
-      "tags": "DataCommsEngine",
-      "summary": "",
-      "description": "Abstract class defining a Comunication Engine for data I/O with a server.",
-      "body": ""
-    },
-    "DataCommsEngine.html#toBeSubscribed": {
-      "id": "DataCommsEngine.html#toBeSubscribed",
-      "kind": "member",
-      "title": "toBeSubscribed",
-      "longname": "DataCommsEngine#toBeSubscribed",
-      "name": "toBeSubscribed",
-      "tags": "DataCommsEngine#toBeSubscribed toBeSubscribed",
-      "summary": "",
-      "description": "Variables waiting to be subscribed for updates. It is a key-number map. The number represent how many UI element times requested updates from that variable. Variables are purged once subscribed. If subscription fails with \"NO-NET\" or \"CANT-SUB\" error the var is kept for later subscription, if fails with \"WONT-SUB\" or \"NOT-EXIST\" it will be purged from list."
-    },
-    "DataCommsEngine.html#toBeUnsubscribed": {
-      "id": "DataCommsEngine.html#toBeUnsubscribed",
-      "kind": "member",
-      "title": "toBeUnsubscribed",
-      "longname": "DataCommsEngine#toBeUnsubscribed",
-      "name": "toBeUnsubscribed",
-      "tags": "DataCommsEngine#toBeUnsubscribed toBeUnsubscribed",
-      "summary": "",
-      "description": "List of Variables waiting to be unsubscribed from updates."
-    },
-    "DataCommsEngine.html#subscribedVar": {
-      "id": "DataCommsEngine.html#subscribedVar",
-      "kind": "member",
-      "title": "subscribedVar",
-      "longname": "DataCommsEngine#subscribedVar",
-      "name": "subscribedVar",
-      "tags": "DataCommsEngine#subscribedVar subscribedVar",
-      "summary": "",
-      "description": "List of Variables currently subscribed for updates. It is a key-number map. The number represent the number of UI-elements registered with the same variable, usually one, but for special cases could be more."
-    },
-    "DataCommsEngine.html#aggregationTime_ms": {
-      "id": "DataCommsEngine.html#aggregationTime_ms",
-      "kind": "member",
-      "title": "aggregationTime_ms",
-      "longname": "DataCommsEngine#aggregationTime_ms",
-      "name": "aggregationTime_ms",
-      "tags": "DataCommsEngine#aggregationTime_ms aggregationTime_ms",
-      "summary": "",
-      "description": "Time the system will wait before sending subscruiption/unsubscription, so that variable can be aggregated and make moreefficient network calls."
-    },
-    "DataCommsEngine.html#UpdateData": {
-      "id": "DataCommsEngine.html#UpdateData",
-      "kind": "function",
-      "title": "UpdateData( data )",
-      "longname": "DataCommsEngine#UpdateData",
-      "name": "UpdateData",
-      "tags": "DataCommsEngine#UpdateData UpdateData",
-      "summary": "",
-      "description": "Action Update. It updates a list of variable values and statuses in the DataManager. The updates will be automatically dispatched to all UI component connected to those variables."
-    },
     "ServiceManager.html": {
       "id": "ServiceManager.html",
       "kind": "class",
@@ -3582,7 +3885,7 @@ window.lunrData = {
       "name": "DataTree",
       "tags": "DataTree",
       "summary": "",
-      "description": "Class that contains all the variable of the App for all the subsystem. It is connected automatically to UI element and schedule updates on them.",
+      "description": "Class that contains all the data structure of the App for all the subsystems. The app state is saved in here. It is connected automatically to UI element and schedule updates on them.",
       "body": ""
     },
     "DataTree.html#GetVar": {
@@ -3615,6 +3918,110 @@ window.lunrData = {
       "summary": "",
       "description": "Checks if the variable exist in the current state tree"
     },
+    "DataCommsEngine.html": {
+      "id": "DataCommsEngine.html",
+      "kind": "class",
+      "title": "DataCommsEngine",
+      "longname": "DataCommsEngine",
+      "name": "DataCommsEngine",
+      "tags": "DataCommsEngine",
+      "summary": "",
+      "description": "Abstract class defining a Comunication Engine for data I/O with a server.",
+      "body": ""
+    },
+    "DataCommsEngine.html#Initialize": {
+      "id": "DataCommsEngine.html#Initialize",
+      "kind": "function",
+      "title": "&lt;abstract&gt; Initialize() → {basicResponse}",
+      "longname": "DataCommsEngine#Initialize",
+      "name": "Initialize",
+      "tags": "DataCommsEngine#Initialize Initialize",
+      "summary": "",
+      "description": "Abstract method. Action Initialize. Place here anything that is needed for initialization of this engine."
+    },
+    "DataCommsEngine.html#Subscribe": {
+      "id": "DataCommsEngine.html#Subscribe",
+      "kind": "function",
+      "title": "&lt;abstract&gt; Subscribe( variables ) → {Promise.&lt;Array.&lt;VarResponse&gt;&gt;}",
+      "longname": "DataCommsEngine#Subscribe",
+      "name": "Subscribe",
+      "tags": "DataCommsEngine#Subscribe Subscribe",
+      "summary": "",
+      "description": "Abstract method. Action Subscribe. It subscribes the list of variables names for automatic updates."
+    },
+    "DataCommsEngine.html#Unsubscribe": {
+      "id": "DataCommsEngine.html#Unsubscribe",
+      "kind": "function",
+      "title": "&lt;abstract&gt; Unsubscribe( variables ) → {Promise.&lt;Array.&lt;VarResponse&gt;&gt;}",
+      "longname": "DataCommsEngine#Unsubscribe",
+      "name": "Unsubscribe",
+      "tags": "DataCommsEngine#Unsubscribe Unsubscribe",
+      "summary": "",
+      "description": "Abstract method. Action Unsubscribe. It unubscribes the list of variables names from automatic updates."
+    },
+    "DataCommsEngine.html#Write": {
+      "id": "DataCommsEngine.html#Write",
+      "kind": "function",
+      "title": "&lt;abstract&gt; Write( targets, values ) → {Promise.&lt;Array.&lt;VarResponse&gt;&gt;}",
+      "longname": "DataCommsEngine#Write",
+      "name": "Write",
+      "tags": "DataCommsEngine#Write Write",
+      "summary": "",
+      "description": "Abstract method. Action Write, this can be called by a UI element. It writes to server the provided list of values to the relative variables."
+    },
+    "DataCommsEngine.html#Read": {
+      "id": "DataCommsEngine.html#Read",
+      "kind": "function",
+      "title": "&lt;abstract&gt; Read( names ) → {Promise.&lt;Array.&lt;VarResponse&gt;&gt;}",
+      "longname": "DataCommsEngine#Read",
+      "name": "Read",
+      "tags": "DataCommsEngine#Read Read",
+      "summary": "",
+      "description": "Abstract method. Action Read, this can be called by a UI element. Forces a list of variables to be read from server even if not scheduled."
+    },
+    "DataCommsEngine.html#UpdateData": {
+      "id": "DataCommsEngine.html#UpdateData",
+      "kind": "function",
+      "title": "UpdateData( data )",
+      "longname": "DataCommsEngine#UpdateData",
+      "name": "UpdateData",
+      "tags": "DataCommsEngine#UpdateData UpdateData",
+      "summary": "",
+      "description": "Action Update. It updates a list of variable values and statuses in the DataManager. The updates will be automatically dispatched to all UI component connected to those variables."
+    },
+    "ServiceStatusCodes.html": {
+      "id": "ServiceStatusCodes.html",
+      "kind": "class",
+      "title": "ServiceStatusCodes",
+      "longname": "ServiceStatusCodes",
+      "name": "ServiceStatusCodes",
+      "tags": "ServiceStatusCodes",
+      "summary": "",
+      "description": "Static class defining status codes for the data engine status.",
+      "body": ""
+    },
+    "ErrorCodes.html": {
+      "id": "ErrorCodes.html",
+      "kind": "class",
+      "title": "ErrorCodes",
+      "longname": "ErrorCodes",
+      "name": "ErrorCodes",
+      "tags": "ErrorCodes",
+      "summary": "",
+      "description": "Static class defining Error codes that appear during communication with the server. These are variables related errors.",
+      "body": ""
+    },
+    "systemObject.html": {
+      "id": "systemObject.html",
+      "kind": "class",
+      "title": "systemObject",
+      "longname": "systemObject",
+      "name": "systemObject",
+      "tags": "systemObject",
+      "summary": "",
+      "description": "It represent a generic object belonging to a specific system.",
+      "body": ""
+    },
     "systemError.html": {
       "id": "systemError.html",
       "kind": "class",
@@ -3625,6 +4032,27 @@ window.lunrData = {
       "summary": "",
       "description": "Describe a system error occurred during a requested Action (like subscribe, write, etc.).",
       "body": ""
+    },
+    "VarResponse.html": {
+      "id": "VarResponse.html",
+      "kind": "class",
+      "title": "VarResponse",
+      "longname": "VarResponse",
+      "name": "VarResponse",
+      "tags": "VarResponse",
+      "summary": "",
+      "description": "Class that implemets a general response to actions that involve variable read, write, subscribe, etc.",
+      "body": ""
+    },
+    "VarResponse.html#setError": {
+      "id": "VarResponse.html#setError",
+      "kind": "function",
+      "title": "setError()",
+      "longname": "VarResponse#setError",
+      "name": "setError",
+      "tags": "VarResponse#setError setError",
+      "summary": "",
+      "description": "helper to set the \"error\" property."
     },
     "systemVariable.html": {
       "id": "systemVariable.html",

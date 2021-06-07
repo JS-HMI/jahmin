@@ -3,7 +3,22 @@ import {systemObject,ServiceStatusCodes,basicResponse,systemVariable,customActio
 
 
 
-/**Abstract class defining a Comunication Engine for data I/O with a server.*/
+/**Abstract class defining a Comunication Engine for data I/O with a server.
+ * 
+ * @prop toBeSubscribed {Map<string,number>} -  Variables waiting to be subscribed for updates. It is a key-number map. 
+ * The number represent how many UI element times requested updates from that variable.
+ * Variables are purged once subscribed. If subscription fails with "NO-NET" 
+ * or "CANT-SUB" error the var is kept for later subscription, if fails with "WONT-SUB" or "NOT-EXIST" it will be purged from list.
+ * 
+ * @prop toBeUnsubscribed {Set<string>} - List of Variables waiting to be unsubscribed from updates. 
+ * 
+ * @prop subscribedVar  {Map<string,number>} - List of Variables currently subscribed for updates. It is a key-number map.
+ * The number represent the number of UI-elements registered with the same variable, 
+ * usually one, but for special cases could be more.
+ * 
+ * @prop aggregationTime_ms {number} - Time the system will wait before sending subscruiption/unsubscription, so that variable
+ * can be aggregated and make moreefficient network calls.
+*/
 export abstract class DataCommsEngine {
     
     manager:ServiceManager = Manager;
@@ -13,30 +28,11 @@ export abstract class DataCommsEngine {
     VarErrorUnsubCases:string[]
     VarErrorNoActCases:string[]
 
-    /**
-     * Variables waiting to be subscribed for updates. It is a key-number map.
-     * The number represent how many UI element times requested updates from that variable.
-     * Variables are purged once subscribed. If subscription fails with "NO-NET" 
-     * or "CANT-SUB" error the var is kept for later subscription,
-     * if fails with "WONT-SUB" or "NOT-EXIST" it will be purged from list.
-    */
-    toBeSubscribed = new Map<string,number>()
-    /**
-     * List of Variables waiting to be unsubscribed from updates. 
-     */
-    toBeUnsubscribed = new Set<string>()
-    /**
-     * List of Variables currently subscribed for updates. It is a key-number map.
-     * The number represent the number of UI-elements registered with the same variable, 
-     * usually one, but for special cases could be more.
-     */
-    subscribedVar = new Map<string,number>()
+    toBeSubscribed     = new Map<string,number>()
+    toBeUnsubscribed   = new Set<string>()
+    subscribedVar      = new Map<string,number>()
     sub_timerID:number = null
     unsub_timerID:number = null
-    /**
-     * Time the system will wait before sending subscruiption/unsubscription, so that variable
-     * can be aggregated and make moreefficient network calls.
-     */
     aggregationTime_ms:number = 10
 
 
@@ -205,36 +201,46 @@ export abstract class DataCommsEngine {
     }
 
     /**
-     * Action Initialize. Place here anything that is needed for initialization of this engine.
+     * Abstract method. Action Initialize. Place here anything that is needed for initialization of this engine.
+     * @abstract
+     * @return {basicResponse} - return status of initialization action.
      */
-    abstract Initialize() : Promise<basicResponse> ;
+    Initialize() : Promise<basicResponse> {return null;}
 
     /**
-     * Action Subscribe. It subscribes the list of variables names for automatic updates.
-     * @param variables variables names to be subscribed
+     * Abstract method. Action Subscribe. It subscribes the list of variables names for automatic updates.
+     * @abstract
+     * @param {systemObject[]} variables - variables names to be subscribed
+     * @return {Promise<VarResponse[]>}  - Response of the action.
      */
-    abstract Subscribe(variables:systemObject[]) : Promise<VarResponse[]> ;
+    Subscribe(variables:systemObject[]) : Promise<VarResponse[]> {return null;}
 
     /**
-     * Action Unsubscribe. It unubscribes the list of variables names from automatic updates.
-     * @param variables variables names to be unsubscribed
+     * Abstract method. Action Unsubscribe. It unubscribes the list of variables names from automatic updates.
+     * @abstract
+     * @param {systemObject[]} variables - variables names to be unsubscribed
+     * @return {Promise<VarResponse[]>} - Response of the action.
      */
-    abstract Unsubscribe(variables:systemObject[]) : Promise<VarResponse[]> ;
+    Unsubscribe(variables:systemObject[]) : Promise<VarResponse[]>  {return null;}
 
     /**
-     * Action Write, this can be called by a UI element. 
+     * Abstract method. Action Write, this can be called by a UI element. 
      * It writes to server the provided list of values to the relative variables.
-     * @param names list of variables to be written to
-     * @param values values related to variables to be written
+     * @abstract
+     * @param {systemObject[]} targets - variables names to be unsubscribed
+     * @param values {any[]} - values related to variables to be written
+     * @return {Promise<VarResponse[]>}
      */
-    abstract Write( targets:systemObject[], values:any[] ) : Promise<VarResponse[]>
+    Write( targets:systemObject[], values:any[] ) : Promise<VarResponse[]> { return null;}
     
     /**
-     * Action Read, this can be called by a UI element. 
+     * Abstract method. Action Read, this can be called by a UI element. 
      * Forces a list of variables to be read from server even if not scheduled.
+     * @abstract
      * @param names list of variable to be read
+     * @return  {Promise<VarResponse[]>}
      */
-    abstract  Read( targets:systemObject[] ) : Promise<VarResponse[]>
+    Read( targets:systemObject[] ) : Promise<VarResponse[]> { return null; }
 
     /**
      * Action Update. It updates a list of variable values and statuses in the DataManager.

@@ -1,7 +1,8 @@
 import { StateVariable } from "impera-js";
 import { systemObject, systemVariable, VarStatusCodes, variable } from "./Types.js";
 /**
- * Class that contains all the variable of the App for all the subsystem.
+ * Class that contains all the data structure of the App for all the subsystems.
+ * The app state is saved in here.
  * It is connected automatically to UI element and schedule updates on them.
  */
 export declare class DataTree extends StateVariable {

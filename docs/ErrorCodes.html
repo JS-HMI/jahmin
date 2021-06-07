@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-		<title>Tutorials</title>
+		<title>ErrorCodes</title>
 		<!--[if lt IE 9]>
 		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
@@ -77,33 +77,165 @@
 	</header>
 	<!-- end:navbar.hbs -->		<div class="page-header">
 			<div class="container">
-				<span class="kind">list</span>
-				<h1><span class="name">Tutorials</span></h1>
-				<div class="summary"><p>All available tutorials.</p></div>			</div>
+				<span class="kind">class</span>
+				<h1><span class="name">ErrorCodes</span></h1>
+			</div>
 		</div>
 	<div class="container content">
 		<div class="row">
 			<div class="col-md-9 main-content">
 						<ol class="breadcrumb">
 							<li><a href="index.html">Home</a></li>
-							<li class="active">Tutorials</li>
+							<li><a href="list_class.html">Classes</a></li>
+							<li class="active">ErrorCodes</li>
 						</ol>
 					<section>
-		<h2><span class="name">Tutorials</span></h2>
-		<article class="secondary">
-				<dl class="symbol">
-						
-						<dt class="symbol-title tutorial public">
-			<h4 id="" class="tutorial public"><a href="tutorial-README.html"><span class="title">README</span></a></h4>
+							<dl class="symbol primary">
+								<dt class="symbol-title class collapsible-symbol expanded">
+			<h2 class="class"><span class="signature-new">new&nbsp;</span><span class="name">ErrorCodes</span><span class="signature-params">()</span><span class="signature-type"></span></h2>
 </dt>
-<dd class="symbol-details tutorial public">
+<dd class="symbol-details class  collapsible-symbol expanded" style="max-height: 9999px;">
 	<div class="symbol-details-inner">
-		<dl class="symbol tutorial-children">
-		</dl>
-	</div>
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description classdesc">Static class defining Error codes that appear during communication with the server.
+			These are variables related errors.</div>
+			</div>			<div class="callout callout-info">
+				<h5>Properties</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>VarNotExist</code></td>
+							<td></td>
+							<td class="last">
+									Variable was not found in server
+							</td>
+						</tr>
+						<tr>
+								<td><code>WontSubcribe</code></td>
+							<td></td>
+							<td class="last">
+							</td>
+						</tr>
+						<tr>
+								<td><code>CantSubcribe</code></td>
+							<td></td>
+							<td class="last">
+							</td>
+						</tr>
+						<tr>
+								<td><code>CantUnSubcribe</code></td>
+							<td></td>
+							<td class="last">
+							</td>
+						</tr>
+						<tr>
+								<td><code>BadValue</code></td>
+							<td></td>
+							<td class="last">
+									Provided Write Request value has wrong type or could not be understood
+							</td>
+						</tr>
+						<tr>
+								<td><code>NoNetwork</code></td>
+							<td></td>
+							<td class="last">
+									Network is down, cannot retrieve values
+							</td>
+						</tr>
+						<tr>
+								<td><code>NetError</code></td>
+							<td></td>
+							<td class="last">
+							</td>
+						</tr>
+						<tr>
+								<td><code>Unauthorized</code></td>
+							<td></td>
+							<td class="last">
+									Action cannot be performed, user has no rights.
+							</td>
+						</tr>
+						<tr>
+								<td><code>BadReq</code></td>
+							<td></td>
+							<td class="last">
+									HTTP 400 error on request
+							</td>
+						</tr>
+						<tr>
+								<td><code>ServerError</code></td>
+							<td></td>
+							<td class="last">
+									Serverside bug? HTTP 500
+							</td>
+						</tr>
+						<tr>
+								<td><code>NotFound</code></td>
+							<td></td>
+							<td class="last">
+									Return from a HTTP 404
+							</td>
+						</tr>
+						<tr>
+								<td><code>BadData</code></td>
+							<td></td>
+							<td class="last">
+							</td>
+						</tr>
+						<tr>
+								<td><code>EngineNotExist</code></td>
+							<td></td>
+							<td class="last">
+							</td>
+						</tr>
+						<tr>
+								<td><code>UnknownError</code></td>
+							<td></td>
+							<td class="last">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="DataModels_Types.js.html">DataModels/Types.js</a>, <a href="DataModels_Types.js.html#line-65">line 65</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
 </dd>
-				</dl>
-		</article>
+							</dl>
+							<article class="secondary">
+							</article>
 					</section>
 			</div>
 				<div class="col-md-3 side-content">

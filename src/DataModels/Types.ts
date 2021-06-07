@@ -37,41 +37,54 @@ VarStatusCodesLit.Pending = css`${unsafeCSS(VarStatusCodes.Pending)}`
 VarStatusCodesLit.Warning = css`${unsafeCSS(VarStatusCodes.Warning)}`
 VarStatusCodesLit.Unsubscribed = css`${unsafeCSS(VarStatusCodes.Unsubscribed)}`
 
-
-export enum ServiceStatusCodes{
-    
-    /**Engine Running, all ok */
-    Ready = "READY",
-    /**Engine is still down, no subscription can be made, but no error was raised. */
-    Down = "DOWN",
-    /**Waiting for initialization to complete */
-    Warming = "WARMUP",
-    /**Engine could not be initialized. */
-    Error = "ERROR"
+/**
+ * Static class defining status codes for the data engine status. 
+ * @prop Ready - Engine Running, all ok 
+ * @prop Down  - Engine is still down, no subscription can be made, but no error was raised. 
+ * @prop Warming - Waiting for initialization to complete 
+ * @prop Error - Engine could not be initialized.
+ * */
+export class ServiceStatusCodes{
+    static Ready = "READY"
+    static Down = "DOWN"
+    static Warming = "WARMUP"
+    static Error = "ERROR"
 }
 
-export enum ErrorCodes{
-    /**Variable was not found in server */
-    VarNotExist = "VAR-NOT-EXIST",
-    WontSubcribe = "WONT-SUB",
-    CantSubcribe = "CANT-SUB",
-    CantUnSubcribe = "CANT-UNSUB",
-    /**Provided Write Request value has wrong type or could not be understood */
-    BadValue = "BAD-VALUE",
-    /**Network is down, cannot retrieve values */
-    NoNetwork = "NO-NETWORK",
-    NetError = "NET-ERROR",
-    /**Action cannot be performed, user has no rights. */
-    Unauthorized = "UNAUTHORIZED",
-    /**HTTP 400 error on request */
-    BadReq = "BAD-REQUEST",
-    /**Serverside bug? HTTP 500*/
-    ServerError = "SERVER-ERROR",
-    /**Return from a HTTP 404 */
-    NotFound = "NOT-FOUND",
-    BadData = "BAD-DATA",
-    EngineNotExist = "NO-ENGINE",
-    UnknownError = "UKNOWN"
+/**
+ * Static class defining Error codes that appear during communication with the server. 
+ * These are variables related errors.
+ * 
+ * @prop VarNotExist - Variable was not found in server
+ * @prop WontSubcribe 
+ * @prop CantSubcribe
+ * @prop CantUnSubcribe
+ * @prop BadValue - Provided Write Request value has wrong type or could not be understood 
+ * @prop NoNetwork - Network is down, cannot retrieve values
+ * @prop NetError
+ * @prop Unauthorized - Action cannot be performed, user has no rights. 
+ * @prop BadReq - HTTP 400 error on request
+ * @prop ServerError - Serverside bug? HTTP 500
+ * @prop NotFound - Return from a HTTP 404 
+ * @prop BadData
+ * @prop EngineNotExist
+ * @prop UnknownError
+ */
+export class ErrorCodes{
+    static VarNotExist = "VAR-NOT-EXIST"
+    static WontSubcribe = "WONT-SUB"
+    static CantSubcribe = "CANT-SUB"
+    static CantUnSubcribe = "CANT-UNSUB"
+    static BadValue = "BAD-VALUE"
+    static NoNetwork = "NO-NETWORK"
+    static NetError = "NET-ERROR"
+    static Unauthorized = "UNAUTHORIZED"
+    static BadReq = "BAD-REQUEST"
+    static ServerError = "SERVER-ERROR"
+    static NotFound = "NOT-FOUND"
+    static BadData = "BAD-DATA"
+    static EngineNotExist = "NO-ENGINE"
+    static UnknownError = "UKNOWN"
 }
 
 export enum Actions{
@@ -84,11 +97,26 @@ export enum Actions{
     Unknown = "UNKNOWN"
 }
 
-/** It represent a generic object belonging to a specific system */
-export interface systemObject{
-    name : string
+/** 
+ * It represent a generic object belonging to a specific system.
+ * 
+ * @prop {string} name - Name of the variable, an identifier for the server
+ * @prop {string} system - System namespace that identifies the server item
+*/
+export class systemObject{
+    name : string 
     system : string 
-    [key:string] : any
+
+    /**
+     * 
+     * @param Name {string} Variable Name
+     * @param System {string} System Namespace
+     */
+    constructor(Name:string,System:string)
+    {
+        this.name = Name || "";
+        this.system = System || "default";
+    }
 }
 
 export interface basicError{
@@ -164,23 +192,53 @@ export class systemAlarm extends systemError {
 }
 
 /**
+ * Class that implemets a general response to actions that involve variable read, write, subscribe, etc.
+ * @prop {boolean} success  - weather the request had success or not
+ * @prop {object}  error  - if success is false then this must not be null, contain error code and error message(optional).
+ * @prop {string} name - name of the variable.
+ * @prop {string}  system  -  system name related to the variable.
+ * @prop {any}  value  -  the value of the variable (can be an object if supported).
+ * 
+ */
+ export class VarResponse extends systemObject implements basicResponse {
+    success:boolean
+    error:basicError = null
+    value:any
+
+    /**
+     * 
+     * @param Success {bolean} - weather the request had success or not
+     * @param name {string} - name of the variable
+     * @param system {string} - system name related to the variable
+     * @param value {any} -  the value of the variable (can be an object if supported)
+     */
+    constructor(Success:boolean, _name:string, _system:string, _value:any=null){
+        super(_name,_system);
+        this.success = Success;
+        this.value = _value;
+    }
+    
+    /** helper to set the "error" property. */
+    setError(ErrorCode:string, Message:string=""){
+        this.error = {
+            code : ErrorCode,
+            message : Message
+        }
+    }
+
+}
+
+/**
  * Defines a generic variable bound to a specific system.
  * The "value" must be a JSON compatible object, since these values are 
  * persisted in localstorage. So anything is good but functions.
  */
-export class systemVariable implements systemObject, variable{
-    /**string bla */
-    name  : string
-    /**string blu */
-    system : string
-    /**string cu */
+export class systemVariable extends systemObject implements variable{
     value : any 
     status: string
-    // [key:string] : any 
 
     constructor(sys_obj:systemObject){
-        this.system = sys_obj.system;
-        this.name   = sys_obj.name;
+        super(sys_obj.name, sys_obj.system);
         this.value = null;
         this.status = null;
     }
@@ -197,36 +255,6 @@ export interface variable {
     [key:string] : any 
 }
 
-/**
- * Class that implemets a general response to actions that involve variable read, write, subscribe, etc.
- * @prop {boolean} success  - weather the request had success or not
- * @prop {object}  error  - if success is false then this must not be null, contain error code and error message(optional).
- * @prop {string} name - name of the variable.
- * @prop {string}  system  -  system name related to the variable.
- * @prop {any}  value  -  the value of the variable (can be an object if supported).
- * @method setError - helper to set the "error" property.
- */
-export class VarResponse implements basicResponse, systemObject {
-    success:boolean
-    error:basicError = null
-    name:string
-    value:any
-    system:string
-
-    constructor(Success:boolean, _name:string, _system:string, _value:any=null){
-        this.success = Success;
-        this.name = _name;
-        this.value = _value;
-        this.system = _system;
-    }
-    setError(ErrorCode:string, Message:string=""){
-        this.error = {
-            code : ErrorCode,
-            message : Message
-        }
-    }
-
-}
 export interface customAction{
     (target:systemObject, data:any) : Promise<basicResponse>
 }

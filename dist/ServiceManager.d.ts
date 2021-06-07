@@ -1,5 +1,5 @@
 import { DataCommsEngine } from './DataCommsEngine.js';
-import { systemVariable, systemObject, ServiceStatusCodes, systemError, VarResponse } from './DataModels/Types.js';
+import { systemVariable, systemObject, systemError, VarResponse } from './DataModels/Types.js';
 import { DataTree } from './DataModels/DataTree.js';
 import { ErrorTray } from './DataModels/ErrorTray.js';
 /**Organizzational class */
@@ -8,7 +8,7 @@ export declare class ServiceManager {
     errorTray: ErrorTray;
     dataEngines: Map<string, DataCommsEngine>;
     _defaultEngine: DataCommsEngine;
-    status: ServiceStatusCodes;
+    status: string;
     _initPromise: Promise<boolean>;
     _initResolve: Function;
     constructor();

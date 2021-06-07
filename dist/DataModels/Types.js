@@ -30,41 +30,54 @@ VarStatusCodesLit.Error = css `${unsafeCSS(VarStatusCodes.Error)}`;
 VarStatusCodesLit.Pending = css `${unsafeCSS(VarStatusCodes.Pending)}`;
 VarStatusCodesLit.Warning = css `${unsafeCSS(VarStatusCodes.Warning)}`;
 VarStatusCodesLit.Unsubscribed = css `${unsafeCSS(VarStatusCodes.Unsubscribed)}`;
-export var ServiceStatusCodes;
-(function (ServiceStatusCodes) {
-    /**Engine Running, all ok */
-    ServiceStatusCodes["Ready"] = "READY";
-    /**Engine is still down, no subscription can be made, but no error was raised. */
-    ServiceStatusCodes["Down"] = "DOWN";
-    /**Waiting for initialization to complete */
-    ServiceStatusCodes["Warming"] = "WARMUP";
-    /**Engine could not be initialized. */
-    ServiceStatusCodes["Error"] = "ERROR";
-})(ServiceStatusCodes || (ServiceStatusCodes = {}));
-export var ErrorCodes;
-(function (ErrorCodes) {
-    /**Variable was not found in server */
-    ErrorCodes["VarNotExist"] = "VAR-NOT-EXIST";
-    ErrorCodes["WontSubcribe"] = "WONT-SUB";
-    ErrorCodes["CantSubcribe"] = "CANT-SUB";
-    ErrorCodes["CantUnSubcribe"] = "CANT-UNSUB";
-    /**Provided Write Request value has wrong type or could not be understood */
-    ErrorCodes["BadValue"] = "BAD-VALUE";
-    /**Network is down, cannot retrieve values */
-    ErrorCodes["NoNetwork"] = "NO-NETWORK";
-    ErrorCodes["NetError"] = "NET-ERROR";
-    /**Action cannot be performed, user has no rights. */
-    ErrorCodes["Unauthorized"] = "UNAUTHORIZED";
-    /**HTTP 400 error on request */
-    ErrorCodes["BadReq"] = "BAD-REQUEST";
-    /**Serverside bug? HTTP 500*/
-    ErrorCodes["ServerError"] = "SERVER-ERROR";
-    /**Return from a HTTP 404 */
-    ErrorCodes["NotFound"] = "NOT-FOUND";
-    ErrorCodes["BadData"] = "BAD-DATA";
-    ErrorCodes["EngineNotExist"] = "NO-ENGINE";
-    ErrorCodes["UnknownError"] = "UKNOWN";
-})(ErrorCodes || (ErrorCodes = {}));
+/**
+ * Static class defining status codes for the data engine status.
+ * @prop Ready - Engine Running, all ok
+ * @prop Down  - Engine is still down, no subscription can be made, but no error was raised.
+ * @prop Warming - Waiting for initialization to complete
+ * @prop Error - Engine could not be initialized.
+ * */
+export class ServiceStatusCodes {
+}
+ServiceStatusCodes.Ready = "READY";
+ServiceStatusCodes.Down = "DOWN";
+ServiceStatusCodes.Warming = "WARMUP";
+ServiceStatusCodes.Error = "ERROR";
+/**
+ * Static class defining Error codes that appear during communication with the server.
+ * These are variables related errors.
+ *
+ * @prop VarNotExist - Variable was not found in server
+ * @prop WontSubcribe
+ * @prop CantSubcribe
+ * @prop CantUnSubcribe
+ * @prop BadValue - Provided Write Request value has wrong type or could not be understood
+ * @prop NoNetwork - Network is down, cannot retrieve values
+ * @prop NetError
+ * @prop Unauthorized - Action cannot be performed, user has no rights.
+ * @prop BadReq - HTTP 400 error on request
+ * @prop ServerError - Serverside bug? HTTP 500
+ * @prop NotFound - Return from a HTTP 404
+ * @prop BadData
+ * @prop EngineNotExist
+ * @prop UnknownError
+ */
+export class ErrorCodes {
+}
+ErrorCodes.VarNotExist = "VAR-NOT-EXIST";
+ErrorCodes.WontSubcribe = "WONT-SUB";
+ErrorCodes.CantSubcribe = "CANT-SUB";
+ErrorCodes.CantUnSubcribe = "CANT-UNSUB";
+ErrorCodes.BadValue = "BAD-VALUE";
+ErrorCodes.NoNetwork = "NO-NETWORK";
+ErrorCodes.NetError = "NET-ERROR";
+ErrorCodes.Unauthorized = "UNAUTHORIZED";
+ErrorCodes.BadReq = "BAD-REQUEST";
+ErrorCodes.ServerError = "SERVER-ERROR";
+ErrorCodes.NotFound = "NOT-FOUND";
+ErrorCodes.BadData = "BAD-DATA";
+ErrorCodes.EngineNotExist = "NO-ENGINE";
+ErrorCodes.UnknownError = "UKNOWN";
 export var Actions;
 (function (Actions) {
     Actions["Write"] = "WRITE";
@@ -75,6 +88,23 @@ export var Actions;
     Actions["Init"] = "INITIALIZE";
     Actions["Unknown"] = "UNKNOWN";
 })(Actions || (Actions = {}));
+/**
+ * It represent a generic object belonging to a specific system.
+ *
+ * @prop {string} name - Name of the variable, an identifier for the server
+ * @prop {string} system - System namespace that identifies the server item
+*/
+export class systemObject {
+    /**
+     *
+     * @param Name {string} Variable Name
+     * @param System {string} System Namespace
+     */
+    constructor(Name, System) {
+        this.name = Name || "";
+        this.system = System || "default";
+    }
+}
 /**
  * Describe a system error occurred during a requested Action (like subscribe, write, etc.).
  * @prop {string}  code - Error code as defined in ErrorCodes
@@ -135,40 +165,45 @@ export class systemAlarm extends systemError {
     }
 }
 /**
- * Defines a generic variable bound to a specific system.
- * The "value" must be a JSON compatible object, since these values are
- * persisted in localstorage. So anything is good but functions.
- */
-export class systemVariable {
-    // [key:string] : any 
-    constructor(sys_obj) {
-        this.system = sys_obj.system;
-        this.name = sys_obj.name;
-        this.value = null;
-        this.status = null;
-    }
-}
-/**
  * Class that implemets a general response to actions that involve variable read, write, subscribe, etc.
  * @prop {boolean} success  - weather the request had success or not
  * @prop {object}  error  - if success is false then this must not be null, contain error code and error message(optional).
  * @prop {string} name - name of the variable.
  * @prop {string}  system  -  system name related to the variable.
  * @prop {any}  value  -  the value of the variable (can be an object if supported).
- * @method setError - helper to set the "error" property.
+ *
  */
-export class VarResponse {
+export class VarResponse extends systemObject {
+    /**
+     *
+     * @param Success {bolean} - weather the request had success or not
+     * @param name {string} - name of the variable
+     * @param system {string} - system name related to the variable
+     * @param value {any} -  the value of the variable (can be an object if supported)
+     */
     constructor(Success, _name, _system, _value = null) {
+        super(_name, _system);
         this.error = null;
         this.success = Success;
-        this.name = _name;
         this.value = _value;
-        this.system = _system;
     }
+    /** helper to set the "error" property. */
     setError(ErrorCode, Message = "") {
         this.error = {
             code: ErrorCode,
             message: Message
         };
+    }
+}
+/**
+ * Defines a generic variable bound to a specific system.
+ * The "value" must be a JSON compatible object, since these values are
+ * persisted in localstorage. So anything is good but functions.
+ */
+export class systemVariable extends systemObject {
+    constructor(sys_obj) {
+        super(sys_obj.name, sys_obj.system);
+        this.value = null;
+        this.status = null;
     }
 }

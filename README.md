@@ -9,6 +9,11 @@ A **Ja**vascript framework to build **H**uman **M**achine **In**terfaces for IoT
 npm install jahmin
 ```
 
+### Docs
+
+Full documentation available at: [js-hmi.github.io/jahmin](https://js-hmi.github.io/jahmin/index.html)
+
+
 ### Working Principles
 
 Jahmin is a framework that helps with the boiler plate necessary to put in comunication browser UI-elements 
@@ -27,11 +32,3 @@ all data points, the variables of your system, are accessible by name from the H
 populating and subscribing HMIElements to your data stream automatically. This decoupling between data comunication and UI 
 gives the oppurtunity to re-use the components and share them. 
 Jahmin comes with a set of basic components, which you can explore [here](https://js-hmi.github.io/jmn-basic-elements/demo).
-
-
-### Docs
-
-Full documentation available at: [js-hmi.github.io/jahmin](https://js-hmi.github.io/jahmin/index.html)
-
-
-
