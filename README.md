@@ -31,7 +31,7 @@ Jahmin comes with a set of basic components, which you can explore [here](https:
 
 ### Docs
 
-/!\ Work in progress... 
+Full documentation available at: [js-hmi.github.io/jahmin](https://js-hmi.github.io/jahmin/index.html)
 
 
 
