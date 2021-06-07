@@ -9,9 +9,7 @@ A **Ja**vascript framework to build **H**uman **M**achine **In**terfaces for IoT
 npm install jahmin
 ```
 
-### Docs
-
-Full documentation available at: [js-hmi.github.io/jahmin](https://js-hmi.github.io/jahmin/index.html)
+### Docs available at: [js-hmi.github.io/jahmin](https://js-hmi.github.io/jahmin/index.html)
 
 
 ### Working Principles
