@@ -2,7 +2,7 @@
 A **Ja**vascript framework to build **H**uman **M**achine **In**terfaces for IoT.
 
 - **Demo of basic elements available [here](https://js-hmi.github.io/jmn-basic-elements/demo)**.
-- **Full Documentation available at: [js-hmi.github.io/jahmin](https://js-hmi.github.io/jahmin/index.html)**.
+- **Full JSDocs available at: [js-hmi.github.io/jahmin](https://js-hmi.github.io/jahmin/index.html)**.
 - **Tutorials avaliable [here](https://js-hmi.github.io/jahmin/list_tutorial.html)**.
 
 
