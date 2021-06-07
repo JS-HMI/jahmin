@@ -56,7 +56,8 @@
           "global"
         ],
         "undefined": [
-          "readm",
+          "get",
+          "start",
           "tutori"
         ],
         "list_class.html": [
@@ -892,9 +893,6 @@
                     "index.html": {
                       "ref": "index.html",
                       "tf": 110
-                    },
-                    "undefined": {
-                      "tf": 1900
                     }
                   }
                 },
@@ -1498,7 +1496,11 @@
           "e": {
             "docs": {},
             "t": {
-              "docs": {},
+              "docs": {
+                "undefined": {
+                  "tf": 950
+                }
+              },
               "v": {
                 "docs": {},
                 "a": {
@@ -1546,6 +1548,495 @@
                   "systemVariable.html": {
                     "ref": "systemVariable.html",
                     "tf": 3.125
+                  }
+                }
+              }
+            }
+          }
+        },
+        "s": {
+          "docs": {},
+          "t": {
+            "docs": {},
+            "a": {
+              "docs": {},
+              "r": {
+                "docs": {},
+                "t": {
+                  "docs": {
+                    "undefined": {
+                      "tf": 950
+                    }
+                  }
+                }
+              },
+              "t": {
+                "docs": {},
+                "e": {
+                  "docs": {
+                    "DataTree.html": {
+                      "ref": "DataTree.html",
+                      "tf": 3.125
+                    },
+                    "DataTree.html#ExistVar": {
+                      "ref": "DataTree.html#ExistVar",
+                      "tf": 8.333333333333332
+                    }
+                  },
+                  "v": {
+                    "docs": {},
+                    "a": {
+                      "docs": {},
+                      "r": {
+                        "docs": {},
+                        "i": {
+                          "docs": {
+                            "DataTree.html#GetVar": {
+                              "ref": "DataTree.html#GetVar",
+                              "tf": 6.666666666666667
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "u": {
+                  "docs": {
+                    "DataTree.html#GetVar": {
+                      "ref": "DataTree.html#GetVar",
+                      "tf": 3.3333333333333335
+                    },
+                    "ServiceStatusCodes.html": {
+                      "ref": "ServiceStatusCodes.html",
+                      "tf": 12.5
+                    }
+                  },
+                  "s": {
+                    "docs": {
+                      "DataCommsEngine.html#UpdateData": {
+                        "ref": "DataCommsEngine.html#UpdateData",
+                        "tf": 3.125
+                      }
+                    }
+                  }
+                },
+                "i": {
+                  "docs": {},
+                  "c": {
+                    "docs": {
+                      "ServiceStatusCodes.html": {
+                        "ref": "ServiceStatusCodes.html",
+                        "tf": 6.25
+                      },
+                      "ErrorCodes.html": {
+                        "ref": "ErrorCodes.html",
+                        "tf": 4.166666666666666
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "r": {
+              "docs": {},
+              "u": {
+                "docs": {},
+                "c": {
+                  "docs": {},
+                  "t": {
+                    "docs": {},
+                    "u": {
+                      "docs": {},
+                      "r": {
+                        "docs": {
+                          "DataTree.html": {
+                            "ref": "DataTree.html",
+                            "tf": 3.125
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "e": {
+            "docs": {},
+            "r": {
+              "docs": {},
+              "v": {
+                "docs": {},
+                "i": {
+                  "docs": {},
+                  "c": {
+                    "docs": {},
+                    "e": {
+                      "docs": {},
+                      "m": {
+                        "docs": {},
+                        "a": {
+                          "docs": {},
+                          "n": {
+                            "docs": {},
+                            "a": {
+                              "docs": {},
+                              "g": {
+                                "docs": {
+                                  "ServiceManager.html": {
+                                    "ref": "ServiceManager.html",
+                                    "tf": 1900
+                                  }
+                                },
+                                "e": {
+                                  "docs": {},
+                                  "r": {
+                                    "docs": {},
+                                    "#": {
+                                      "docs": {},
+                                      "a": {
+                                        "docs": {},
+                                        "d": {
+                                          "docs": {},
+                                          "d": {
+                                            "docs": {},
+                                            "e": {
+                                              "docs": {},
+                                              "n": {
+                                                "docs": {},
+                                                "g": {
+                                                  "docs": {},
+                                                  "i": {
+                                                    "docs": {},
+                                                    "n": {
+                                                      "docs": {
+                                                        "ServiceManager.html#AddEngine": {
+                                                          "ref": "ServiceManager.html#AddEngine",
+                                                          "tf": 1150
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "s": {
+                        "docs": {},
+                        "t": {
+                          "docs": {},
+                          "a": {
+                            "docs": {},
+                            "t": {
+                              "docs": {},
+                              "u": {
+                                "docs": {},
+                                "s": {
+                                  "docs": {},
+                                  "c": {
+                                    "docs": {},
+                                    "o": {
+                                      "docs": {},
+                                      "d": {
+                                        "docs": {
+                                          "ServiceStatusCodes.html": {
+                                            "ref": "ServiceStatusCodes.html",
+                                            "tf": 1900
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "e": {
+                  "docs": {},
+                  "r": {
+                    "docs": {
+                      "DataCommsEngine.html": {
+                        "ref": "DataCommsEngine.html",
+                        "tf": 6.25
+                      },
+                      "DataCommsEngine.html#Write": {
+                        "ref": "DataCommsEngine.html#Write",
+                        "tf": 3.571428571428571
+                      },
+                      "DataCommsEngine.html#Read": {
+                        "ref": "DataCommsEngine.html#Read",
+                        "tf": 3.571428571428571
+                      },
+                      "ErrorCodes.html": {
+                        "ref": "ErrorCodes.html",
+                        "tf": 4.166666666666666
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "t": {
+              "docs": {
+                "VarResponse.html#setError": {
+                  "ref": "VarResponse.html#setError",
+                  "tf": 12.5
+                }
+              },
+              "e": {
+                "docs": {},
+                "r": {
+                  "docs": {},
+                  "r": {
+                    "docs": {},
+                    "o": {
+                      "docs": {},
+                      "r": {
+                        "docs": {
+                          "VarResponse.html#setError": {
+                            "ref": "VarResponse.html#setError",
+                            "tf": 750
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "u": {
+            "docs": {},
+            "b": {
+              "docs": {},
+              "s": {
+                "docs": {},
+                "y": {
+                  "docs": {},
+                  "s": {
+                    "docs": {},
+                    "t": {
+                      "docs": {},
+                      "e": {
+                        "docs": {},
+                        "m": {
+                          "docs": {
+                            "DataTree.html": {
+                              "ref": "DataTree.html",
+                              "tf": 3.125
+                            }
+                          },
+                          "n": {
+                            "docs": {},
+                            "a": {
+                              "docs": {},
+                              "m": {
+                                "docs": {
+                                  "ServiceManager.html#AddEngine": {
+                                    "ref": "ServiceManager.html#AddEngine",
+                                    "tf": 33.33333333333333
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "c": {
+                  "docs": {},
+                  "r": {
+                    "docs": {},
+                    "i": {
+                      "docs": {},
+                      "b": {
+                        "docs": {
+                          "DataCommsEngine.html#Subscribe": {
+                            "ref": "DataCommsEngine.html#Subscribe",
+                            "tf": 685
+                          },
+                          "systemError.html": {
+                            "ref": "systemError.html",
+                            "tf": 5
+                          },
+                          "VarResponse.html": {
+                            "ref": "VarResponse.html",
+                            "tf": 4.545454545454546
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "a": {
+            "docs": {},
+            "v": {
+              "docs": {},
+              "e": {
+                "docs": {
+                  "DataTree.html": {
+                    "ref": "DataTree.html",
+                    "tf": 3.125
+                  }
+                }
+              }
+            }
+          },
+          "c": {
+            "docs": {},
+            "h": {
+              "docs": {},
+              "e": {
+                "docs": {},
+                "d": {
+                  "docs": {},
+                  "u": {
+                    "docs": {},
+                    "l": {
+                      "docs": {
+                        "DataTree.html": {
+                          "ref": "DataTree.html",
+                          "tf": 3.125
+                        },
+                        "DataCommsEngine.html#Read": {
+                          "ref": "DataCommsEngine.html#Read",
+                          "tf": 3.571428571428571
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "p": {
+            "docs": {},
+            "e": {
+              "docs": {},
+              "c": {
+                "docs": {},
+                "i": {
+                  "docs": {},
+                  "f": {
+                    "docs": {
+                      "systemObject.html": {
+                        "ref": "systemObject.html",
+                        "tf": 8.333333333333332
+                      },
+                      "systemVariable.html": {
+                        "ref": "systemVariable.html",
+                        "tf": 3.125
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "y": {
+            "docs": {},
+            "s": {
+              "docs": {},
+              "t": {
+                "docs": {},
+                "e": {
+                  "docs": {},
+                  "m": {
+                    "docs": {
+                      "systemObject.html": {
+                        "ref": "systemObject.html",
+                        "tf": 8.333333333333332
+                      },
+                      "systemError.html": {
+                        "ref": "systemError.html",
+                        "tf": 5
+                      },
+                      "systemVariable.html": {
+                        "ref": "systemVariable.html",
+                        "tf": 3.125
+                      }
+                    },
+                    "o": {
+                      "docs": {},
+                      "b": {
+                        "docs": {},
+                        "j": {
+                          "docs": {},
+                          "e": {
+                            "docs": {},
+                            "c": {
+                              "docs": {},
+                              "t": {
+                                "docs": {
+                                  "systemObject.html": {
+                                    "ref": "systemObject.html",
+                                    "tf": 1900
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "e": {
+                      "docs": {},
+                      "r": {
+                        "docs": {},
+                        "r": {
+                          "docs": {},
+                          "o": {
+                            "docs": {},
+                            "r": {
+                              "docs": {
+                                "systemError.html": {
+                                  "ref": "systemError.html",
+                                  "tf": 1900
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "v": {
+                      "docs": {},
+                      "a": {
+                        "docs": {},
+                        "r": {
+                          "docs": {},
+                          "i": {
+                            "docs": {
+                              "systemVariable.html": {
+                                "ref": "systemVariable.html",
+                                "tf": 1900
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               }
@@ -2390,485 +2881,6 @@
             }
           }
         },
-        "s": {
-          "docs": {},
-          "e": {
-            "docs": {},
-            "r": {
-              "docs": {},
-              "v": {
-                "docs": {},
-                "i": {
-                  "docs": {},
-                  "c": {
-                    "docs": {},
-                    "e": {
-                      "docs": {},
-                      "m": {
-                        "docs": {},
-                        "a": {
-                          "docs": {},
-                          "n": {
-                            "docs": {},
-                            "a": {
-                              "docs": {},
-                              "g": {
-                                "docs": {
-                                  "ServiceManager.html": {
-                                    "ref": "ServiceManager.html",
-                                    "tf": 1900
-                                  }
-                                },
-                                "e": {
-                                  "docs": {},
-                                  "r": {
-                                    "docs": {},
-                                    "#": {
-                                      "docs": {},
-                                      "a": {
-                                        "docs": {},
-                                        "d": {
-                                          "docs": {},
-                                          "d": {
-                                            "docs": {},
-                                            "e": {
-                                              "docs": {},
-                                              "n": {
-                                                "docs": {},
-                                                "g": {
-                                                  "docs": {},
-                                                  "i": {
-                                                    "docs": {},
-                                                    "n": {
-                                                      "docs": {
-                                                        "ServiceManager.html#AddEngine": {
-                                                          "ref": "ServiceManager.html#AddEngine",
-                                                          "tf": 1150
-                                                        }
-                                                      }
-                                                    }
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      },
-                      "s": {
-                        "docs": {},
-                        "t": {
-                          "docs": {},
-                          "a": {
-                            "docs": {},
-                            "t": {
-                              "docs": {},
-                              "u": {
-                                "docs": {},
-                                "s": {
-                                  "docs": {},
-                                  "c": {
-                                    "docs": {},
-                                    "o": {
-                                      "docs": {},
-                                      "d": {
-                                        "docs": {
-                                          "ServiceStatusCodes.html": {
-                                            "ref": "ServiceStatusCodes.html",
-                                            "tf": 1900
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                },
-                "e": {
-                  "docs": {},
-                  "r": {
-                    "docs": {
-                      "DataCommsEngine.html": {
-                        "ref": "DataCommsEngine.html",
-                        "tf": 6.25
-                      },
-                      "DataCommsEngine.html#Write": {
-                        "ref": "DataCommsEngine.html#Write",
-                        "tf": 3.571428571428571
-                      },
-                      "DataCommsEngine.html#Read": {
-                        "ref": "DataCommsEngine.html#Read",
-                        "tf": 3.571428571428571
-                      },
-                      "ErrorCodes.html": {
-                        "ref": "ErrorCodes.html",
-                        "tf": 4.166666666666666
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "t": {
-              "docs": {
-                "VarResponse.html#setError": {
-                  "ref": "VarResponse.html#setError",
-                  "tf": 12.5
-                }
-              },
-              "e": {
-                "docs": {},
-                "r": {
-                  "docs": {},
-                  "r": {
-                    "docs": {},
-                    "o": {
-                      "docs": {},
-                      "r": {
-                        "docs": {
-                          "VarResponse.html#setError": {
-                            "ref": "VarResponse.html#setError",
-                            "tf": 750
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "u": {
-            "docs": {},
-            "b": {
-              "docs": {},
-              "s": {
-                "docs": {},
-                "y": {
-                  "docs": {},
-                  "s": {
-                    "docs": {},
-                    "t": {
-                      "docs": {},
-                      "e": {
-                        "docs": {},
-                        "m": {
-                          "docs": {
-                            "DataTree.html": {
-                              "ref": "DataTree.html",
-                              "tf": 3.125
-                            }
-                          },
-                          "n": {
-                            "docs": {},
-                            "a": {
-                              "docs": {},
-                              "m": {
-                                "docs": {
-                                  "ServiceManager.html#AddEngine": {
-                                    "ref": "ServiceManager.html#AddEngine",
-                                    "tf": 33.33333333333333
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                },
-                "c": {
-                  "docs": {},
-                  "r": {
-                    "docs": {},
-                    "i": {
-                      "docs": {},
-                      "b": {
-                        "docs": {
-                          "DataCommsEngine.html#Subscribe": {
-                            "ref": "DataCommsEngine.html#Subscribe",
-                            "tf": 685
-                          },
-                          "systemError.html": {
-                            "ref": "systemError.html",
-                            "tf": 5
-                          },
-                          "VarResponse.html": {
-                            "ref": "VarResponse.html",
-                            "tf": 4.545454545454546
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "a": {
-            "docs": {},
-            "v": {
-              "docs": {},
-              "e": {
-                "docs": {
-                  "DataTree.html": {
-                    "ref": "DataTree.html",
-                    "tf": 3.125
-                  }
-                }
-              }
-            }
-          },
-          "c": {
-            "docs": {},
-            "h": {
-              "docs": {},
-              "e": {
-                "docs": {},
-                "d": {
-                  "docs": {},
-                  "u": {
-                    "docs": {},
-                    "l": {
-                      "docs": {
-                        "DataTree.html": {
-                          "ref": "DataTree.html",
-                          "tf": 3.125
-                        },
-                        "DataCommsEngine.html#Read": {
-                          "ref": "DataCommsEngine.html#Read",
-                          "tf": 3.571428571428571
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "t": {
-            "docs": {},
-            "a": {
-              "docs": {},
-              "t": {
-                "docs": {},
-                "e": {
-                  "docs": {
-                    "DataTree.html": {
-                      "ref": "DataTree.html",
-                      "tf": 3.125
-                    },
-                    "DataTree.html#ExistVar": {
-                      "ref": "DataTree.html#ExistVar",
-                      "tf": 8.333333333333332
-                    }
-                  },
-                  "v": {
-                    "docs": {},
-                    "a": {
-                      "docs": {},
-                      "r": {
-                        "docs": {},
-                        "i": {
-                          "docs": {
-                            "DataTree.html#GetVar": {
-                              "ref": "DataTree.html#GetVar",
-                              "tf": 6.666666666666667
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                },
-                "u": {
-                  "docs": {
-                    "DataTree.html#GetVar": {
-                      "ref": "DataTree.html#GetVar",
-                      "tf": 3.3333333333333335
-                    },
-                    "ServiceStatusCodes.html": {
-                      "ref": "ServiceStatusCodes.html",
-                      "tf": 12.5
-                    }
-                  },
-                  "s": {
-                    "docs": {
-                      "DataCommsEngine.html#UpdateData": {
-                        "ref": "DataCommsEngine.html#UpdateData",
-                        "tf": 3.125
-                      }
-                    }
-                  }
-                },
-                "i": {
-                  "docs": {},
-                  "c": {
-                    "docs": {
-                      "ServiceStatusCodes.html": {
-                        "ref": "ServiceStatusCodes.html",
-                        "tf": 6.25
-                      },
-                      "ErrorCodes.html": {
-                        "ref": "ErrorCodes.html",
-                        "tf": 4.166666666666666
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "r": {
-              "docs": {},
-              "u": {
-                "docs": {},
-                "c": {
-                  "docs": {},
-                  "t": {
-                    "docs": {},
-                    "u": {
-                      "docs": {},
-                      "r": {
-                        "docs": {
-                          "DataTree.html": {
-                            "ref": "DataTree.html",
-                            "tf": 3.125
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "p": {
-            "docs": {},
-            "e": {
-              "docs": {},
-              "c": {
-                "docs": {},
-                "i": {
-                  "docs": {},
-                  "f": {
-                    "docs": {
-                      "systemObject.html": {
-                        "ref": "systemObject.html",
-                        "tf": 8.333333333333332
-                      },
-                      "systemVariable.html": {
-                        "ref": "systemVariable.html",
-                        "tf": 3.125
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "y": {
-            "docs": {},
-            "s": {
-              "docs": {},
-              "t": {
-                "docs": {},
-                "e": {
-                  "docs": {},
-                  "m": {
-                    "docs": {
-                      "systemObject.html": {
-                        "ref": "systemObject.html",
-                        "tf": 8.333333333333332
-                      },
-                      "systemError.html": {
-                        "ref": "systemError.html",
-                        "tf": 5
-                      },
-                      "systemVariable.html": {
-                        "ref": "systemVariable.html",
-                        "tf": 3.125
-                      }
-                    },
-                    "o": {
-                      "docs": {},
-                      "b": {
-                        "docs": {},
-                        "j": {
-                          "docs": {},
-                          "e": {
-                            "docs": {},
-                            "c": {
-                              "docs": {},
-                              "t": {
-                                "docs": {
-                                  "systemObject.html": {
-                                    "ref": "systemObject.html",
-                                    "tf": 1900
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "e": {
-                      "docs": {},
-                      "r": {
-                        "docs": {},
-                        "r": {
-                          "docs": {},
-                          "o": {
-                            "docs": {},
-                            "r": {
-                              "docs": {
-                                "systemError.html": {
-                                  "ref": "systemError.html",
-                                  "tf": 1900
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "v": {
-                      "docs": {},
-                      "a": {
-                        "docs": {},
-                        "r": {
-                          "docs": {},
-                          "i": {
-                            "docs": {
-                              "systemVariable.html": {
-                                "ref": "systemVariable.html",
-                                "tf": 1900
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
         "e": {
           "docs": {},
           "n": {
@@ -3652,7 +3664,7 @@
           }
         }
       },
-      "length": 262
+      "length": 263
     },
     "corpusTokens": [
       "abstract",
@@ -3709,6 +3721,7 @@
       "framework",
       "function",
       "gener",
+      "get",
       "getvar",
       "global",
       "good",
@@ -3763,6 +3776,7 @@
       "set",
       "seterror",
       "specif",
+      "start",
       "state",
       "statevari",
       "static",
@@ -3826,10 +3840,10 @@
     },
     "undefined": {
       "kind": "tutorial",
-      "title": "README",
-      "longname": "README",
-      "name": "README",
-      "tags": "README",
+      "title": "Getting-Started",
+      "longname": "Getting-Started",
+      "name": "Getting-Started",
+      "tags": "Getting-Started",
       "summary": "",
       "description": "",
       "body": ""
