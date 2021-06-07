@@ -4,7 +4,7 @@ import { DataTree } from './DataModels/DataTree.js'
 import {escape as escapeHtml} from 'html-escaper';
 import { ErrorTray } from './DataModels/ErrorTray.js';
 
-
+/**Organizzational class */
 export class ServiceManager 
 {
     dataTree  = new DataTree();

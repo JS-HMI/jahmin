@@ -24,7 +24,7 @@ export class DataTree extends StateVariable {
      * Get the current value and status of the related stateVariable.
      * It returns a proxy to the real stateVariable, this is readonly, as a protection
      * it will throw if you try to assign a value.
-     * @param varID identifier of the variable, an object with {name,system}
+     * @param {systemObject} varID - identifier of the variable, an object with keys (name,system)
      */
     GetVar(varID) {
         if (this.ExistVar(varID)) {
@@ -44,7 +44,7 @@ export class DataTree extends StateVariable {
     /**
      * It upadtes with the variable or the list of variables.
      * This will automatically call UI update of all connected elements.
-     * @param variables a list or a single systemVariable object {name,system,status,value}
+     * @param variables a list or a single systemVariable object with keys (name,system,status,value)
      */
     Update(variables) {
         if (Array.isArray(variables)) {
@@ -91,7 +91,7 @@ export class DataTree extends StateVariable {
     }
     /**
      * Checks if the variable exist in the current state tree
-     * @param varID identifier of the variable, an object with {name,system}
+     * @param varID identifier of the variable, an object with keys (name,system)
      */
     ExistVar(varID) {
         if (typeof varID.system !== "string" && typeof varID.name !== "string")

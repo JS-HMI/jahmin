@@ -1,0 +1,298 @@
+<!-- start:source.tmpl.hbs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+		<title>DataCommsEngine.js</title>
+		<!--[if lt IE 9]>
+		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link href="https://fonts.googleapis.com/css?family=PT+Mono" rel="stylesheet">
+		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
+		<link type="text/css" rel="stylesheet" href="css/prism.min.css">
+		<link type="text/css" rel="stylesheet" href="css/template.min.css">
+		<script type="text/javascript">
+			window.TEMPLATE_OPTIONS = {"includeDate":true,"dateFormat":"Do MMM YYYY","systemName":"JaHMIn","systemSummary":"A Javascript framework to build Human Machine Interfaces for IoT","systemLogo":"","systemColor":"","navMembers":[{"kind":"class","title":"Classes","summary":"All documented classes."},{"kind":"external","title":"Externals","summary":"All documented external members."},{"kind":"global","title":"Globals","summary":"All documented globals."},{"kind":"mixin","title":"Mixins","summary":"All documented mixins."},{"kind":"interface","title":"Interfaces","summary":"All documented interfaces."},{"kind":"module","title":"Modules","summary":"All documented modules."},{"kind":"namespace","title":"Namespaces","summary":"All documented namespaces."},{"kind":"tutorial","title":"Tutorials","summary":"All available tutorials."}],"footer":"","copyright":"FooDoc Copyright © 2016 The contributors to the JSDoc3 and FooDoc projects.","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":false,"cleverLinks":false,"theme":"yeti"};
+			window.DOCLET_TOC_ENABLED = false;
+			window.DOCLET_AFILTER_ENABLED = false;
+		</script>
+</head>
+<body>
+	<!-- start:navbar.hbs -->
+	<header class="navbar navbar-default navbar-fixed-top navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="index.html">
+					JaHMIn
+				</a>
+				<!-- displayed on small devices -->
+				<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="navbar-collapse collapse" id="topNavigation">
+				<ul class="nav navbar-nav">
+								<li class="dropdown">
+									<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Globals<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="global.html#setError-helpertosetthe%2522error%2522property.">setError - helper to set the "error" property.</a></li>
+											<li><a href="global.html#VarStatusCodes">VarStatusCodes</a></li>
+									</ul>
+								</li>
+								<li class="dropdown">
+									<a href="list_class.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="DataCommsEngine.html">DataCommsEngine</a></li>
+											<li><a href="DataTree.html">DataTree</a></li>
+											<li><a href="ServiceManager.html">ServiceManager</a></li>
+											<li><a href="systemError.html">systemError</a></li>
+											<li><a href="systemVariable.html">systemVariable</a></li>
+									</ul>
+								</li>
+								<li class="dropdown">
+									<a href="list_tutorial.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="tutorial-README.html">README</a></li>
+									</ul>
+								</li>
+				</ul>
+					<!-- start:lunr-search-navbar.hbs -->
+					<form class="navbar-form navbar-right" role="search">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Search" id="lunr-search-input">
+							<div class="input-group-btn">
+								<button class="btn btn-default" id="lunr-search-submit">
+									<i class="glyphicon glyphicon-search"></i>
+								</button>
+							</div>
+						</div>
+					</form>
+					<!-- start:lunr-search-navbar.hbs -->		</div>
+		</div>
+	</header>
+	<!-- end:navbar.hbs -->		<div class="page-header">
+			<div class="container">
+				<span class="kind">source</span>
+				<h1><span class="name">DataCommsEngine.js</span></h1>
+			</div>
+		</div>
+	<div class="container content">
+		<div class="row">
+			<div class="col-md-12 main-content">
+		<section class="source-section">
+			<article></article>
+			<pre class="prettyprint source language-javascript line-numbers"><code class="language-javascript">import { Manager } from './ServiceManager.js';
+import { ServiceStatusCodes, systemVariable, Actions, VarStatusCodes, ErrorCodes, systemError } from './DataModels/Types.js';
+/**Abstract class defining a Comunication Engine for data I/O with a server.*/
+export class DataCommsEngine {
+    constructor(EngineName) {
+        this.manager = Manager;
+        this.status = ServiceStatusCodes.Down;
+        /**
+         * Variables waiting to be subscribed for updates. It is a key-number map.
+         * The number represent how many UI element times requested updates from that variable.
+         * Variables are purged once subscribed. If subscription fails with "NO-NET"
+         * or "CANT-SUB" error the var is kept for later subscription,
+         * if fails with "WONT-SUB" or "NOT-EXIST" it will be purged from list.
+        */
+        this.toBeSubscribed = new Map();
+        /**
+         * List of Variables waiting to be unsubscribed from updates.
+         */
+        this.toBeUnsubscribed = new Set();
+        /**
+         * List of Variables currently subscribed for updates. It is a key-number map.
+         * The number represent the number of UI-elements registered with the same variable,
+         * usually one, but for special cases could be more.
+         */
+        this.subscribedVar = new Map();
+        this.sub_timerID = null;
+        this.unsub_timerID = null;
+        /**
+         * Time the system will wait before sending subscruiption/unsubscription, so that variable
+         * can be aggregated and make moreefficient network calls.
+         */
+        this.aggregationTime_ms = 10;
+        this.name = EngineName || "DataEngine";
+        this.VarDispatchErrorCases = [
+            ErrorCodes.VarNotExist, ErrorCodes.WontSubcribe, ErrorCodes.Unauthorized,
+            ErrorCodes.UnknownError, ErrorCodes.CantUnSubcribe
+        ];
+        this.VarErrorNoActCases = [ErrorCodes.BadValue, ErrorCodes.CantUnSubcribe,
+            ErrorCodes.Unauthorized];
+        this.VarErrorUnsubCases = [ErrorCodes.CantSubcribe, ErrorCodes.NoNetwork];
+    }
+    serializeSysObject(target) {
+        if (typeof target.name !== "string" || target.name.includes(":") ||
+            typeof target.system !== "string" || target.system.includes(":"))
+            return null;
+        return (target.system + ":" + target.name);
+    }
+    deserializeSysObject(target) {
+        let tmp = target.split(":");
+        if (tmp.length !== 2)
+            return null;
+        return { system: tmp[0], name: tmp[1] };
+    }
+    RequestSubscription(target) {
+        let ser_obj = this.serializeSysObject(target);
+        if (ser_obj === null)
+            throw Error("CANNOT SUBSCRIBE variable " + target.name);
+        if (this.subscribedVar.has(ser_obj)) {
+            // case already subscribed, just bump the number of subscribed var
+            let idx = this.subscribedVar.get(ser_obj);
+            this.subscribedVar.set(ser_obj, idx + 1);
+            return;
+        }
+        let count = this.toBeSubscribed.get(ser_obj) || 0;
+        this.toBeSubscribed.set(ser_obj, count + 1);
+        // this case just fill the subscribelist,willbe submitted after init
+        if (this.status === ServiceStatusCodes.Down ||
+            this.status === ServiceStatusCodes.Warming)
+            return;
+        if (this.sub_timerID)
+            clearTimeout(this.sub_timerID);
+        this.sub_timerID = window.setTimeout(this._subcribe.bind(this), this.aggregationTime_ms);
+    }
+    RequestUnsubscription(target) {
+        let ser_obj = this.serializeSysObject(target);
+        if (ser_obj === null || !this.subscribedVar.has(ser_obj))
+            throw Error("CANNOT UNSUBSCRIBE variable " + target.name);
+        let count = this.subscribedVar.get(ser_obj);
+        if (count > 1) {
+            // the variable needs to remain subscribed untill there 
+            // are related UI element connected
+            this.subscribedVar.set(ser_obj, count - 1);
+            return;
+        }
+        this.toBeUnsubscribed.add(ser_obj);
+        if (this.unsub_timerID)
+            clearTimeout(this.unsub_timerID);
+        this.unsub_timerID = window.setTimeout(this._unsubcribe.bind(this), this.aggregationTime_ms);
+    }
+    async _subcribe() {
+        let targets = Array.from(this.toBeSubscribed.keys()).map(t => this.deserializeSysObject(t));
+        let response = await this.Subscribe(targets);
+        this.updateSubscriberLists(response);
+        this.UpdateVars(response, VarStatusCodes.Subscribed, Actions.Subscribe);
+    }
+    updateSubscriberLists(response) {
+        for (let rsp of response) {
+            let var_id = this.serializeSysObject(rsp);
+            if (rsp.success) {
+                let count = this.toBeSubscribed.get(var_id);
+                count += (this.subscribedVar.get(var_id) || 0);
+                this.subscribedVar.set(var_id, count);
+                this.toBeSubscribed.delete(var_id);
+            }
+            else {
+                let code = rsp.error ? rsp.error.code : ErrorCodes.UnknownError;
+                // keep in list for next try later in case of these errors
+                if (code !== ErrorCodes.NoNetwork &amp;&amp; code !== ErrorCodes.CantSubcribe)
+                    this.toBeSubscribed.delete(var_id);
+            }
+        }
+    }
+    isVarSubscribed(varID) {
+        let id = this.serializeSysObject(varID);
+        return this.subscribedVar.has(id);
+    }
+    UpdateVars(response, ok_status, action = "") {
+        let var_upd = [];
+        for (let rsp of response) {
+            let var_idx = new systemVariable(rsp);
+            if (rsp.success) {
+                var_idx.status = ok_status;
+                if (rsp.value !== null &amp;&amp; rsp.value !== undefined)
+                    var_idx.value = rsp.value;
+            }
+            else {
+                let code = rsp.error ? rsp.error.code : ErrorCodes.UnknownError;
+                if (this.VarDispatchErrorCases.includes(code))
+                    this.manager.CreateAndDispatchError(rsp.system, code, rsp.name, action);
+                if (this.VarErrorUnsubCases.includes(code))
+                    var_idx.status = VarStatusCodes.Unsubscribed;
+                else if (this.VarErrorNoActCases.includes(code)) // no modify status, unless is "pending"
+                 {
+                    let _var = this.manager.dataTree.GetVar(rsp);
+                    var_idx.status = _var.status === VarStatusCodes.Pending ? VarStatusCodes.Subscribed : null;
+                }
+                else
+                    var_idx.status = VarStatusCodes.Error;
+            }
+            var_upd.push(var_idx);
+        }
+        this.manager.Update(var_upd);
+    }
+    async _unsubcribe() {
+        let targets = Array.from(this.toBeUnsubscribed).map(t => this.deserializeSysObject(t));
+        let response = await this.Unsubscribe(targets);
+        for (let rsp of response) {
+            let var_id = this.serializeSysObject(rsp);
+            if (rsp.success)
+                this.subscribedVar.delete(var_id);
+            this.toBeUnsubscribed.delete(var_id);
+        }
+        this.UpdateVars(response, VarStatusCodes.Unsubscribed, Actions.Unsubscribe);
+    }
+    async _init() {
+        this.status = ServiceStatusCodes.Warming;
+        let resp = await this.Initialize();
+        if (resp.success)
+            this.status = ServiceStatusCodes.Ready;
+        else {
+            this.status = ServiceStatusCodes.Error;
+            let code = resp.error ? resp.error.code : ErrorCodes.UnknownError;
+            let err = new systemError(this.name, code, this.name, Actions.Init);
+            this.manager.DispatchError(err);
+        }
+        if (this.toBeSubscribed.size > 0)
+            this._subcribe();
+    }
+    /**
+     * Action Update. It updates a list of variable values and statuses in the DataManager.
+     * The updates will be automatically dispatched to all UI component connected to those variables.
+     * @param data A list of variable updates, properties (like status or value) that are null will not be updated.
+     */
+    UpdateData(data) {
+        this.manager.Update(data);
+    }
+}
+</code></pre>
+		</section>
+			</div>
+		</div>
+	</div>
+	<footer>
+				<div class="copyright">FooDoc Copyright © 2016 The contributors to the JSDoc3 and FooDoc projects.</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on 7th Jun 2021 using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+	</footer>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/clipboard.min.js"></script>
+	<script src="js/prism.min.js"></script>
+	<script src="js/template.min.js"></script>
+		<!-- start:lunr-search-modal.hbs -->
+		<div class="modal fade" id="lunr-search-modal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">Search results</h4>
+					</div>
+					<div class="modal-body" id="lunr-search-body">
+					</div>
+					<div class="modal-footer" id="lunr-search-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div>
+		<!-- end:lunr-search-modal.hbs -->		<script src="js/lunr.min.js"></script>
+	
+</body>
+</html>
+<!-- end:source.tmpl.hbs -->

@@ -169,8 +169,11 @@ export class systemAlarm extends systemError {
  * persisted in localstorage. So anything is good but functions.
  */
 export class systemVariable implements systemObject, variable{
+    /**string bla */
     name  : string
+    /**string blu */
     system : string
+    /**string cu */
     value : any 
     status: string
     // [key:string] : any 

@@ -1,0 +1,226 @@
+<!-- start:source.tmpl.hbs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+		<title>DataModels/DataTree.js</title>
+		<!--[if lt IE 9]>
+		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link href="https://fonts.googleapis.com/css?family=PT+Mono" rel="stylesheet">
+		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
+		<link type="text/css" rel="stylesheet" href="css/prism.min.css">
+		<link type="text/css" rel="stylesheet" href="css/template.min.css">
+		<script type="text/javascript">
+			window.TEMPLATE_OPTIONS = {"includeDate":true,"dateFormat":"Do MMM YYYY","systemName":"JaHMIn","systemSummary":"A Javascript framework to build Human Machine Interfaces for IoT","systemLogo":"","systemColor":"","navMembers":[{"kind":"class","title":"Classes","summary":"All documented classes."},{"kind":"external","title":"Externals","summary":"All documented external members."},{"kind":"global","title":"Globals","summary":"All documented globals."},{"kind":"mixin","title":"Mixins","summary":"All documented mixins."},{"kind":"interface","title":"Interfaces","summary":"All documented interfaces."},{"kind":"module","title":"Modules","summary":"All documented modules."},{"kind":"namespace","title":"Namespaces","summary":"All documented namespaces."},{"kind":"tutorial","title":"Tutorials","summary":"All available tutorials."}],"footer":"","copyright":"FooDoc Copyright © 2016 The contributors to the JSDoc3 and FooDoc projects.","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":false,"cleverLinks":false,"theme":"yeti"};
+			window.DOCLET_TOC_ENABLED = false;
+			window.DOCLET_AFILTER_ENABLED = false;
+		</script>
+</head>
+<body>
+	<!-- start:navbar.hbs -->
+	<header class="navbar navbar-default navbar-fixed-top navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="index.html">
+					JaHMIn
+				</a>
+				<!-- displayed on small devices -->
+				<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="navbar-collapse collapse" id="topNavigation">
+				<ul class="nav navbar-nav">
+								<li class="dropdown">
+									<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Globals<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="global.html#setError-helpertosetthe%2522error%2522property.">setError - helper to set the "error" property.</a></li>
+											<li><a href="global.html#VarStatusCodes">VarStatusCodes</a></li>
+									</ul>
+								</li>
+								<li class="dropdown">
+									<a href="list_class.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="DataCommsEngine.html">DataCommsEngine</a></li>
+											<li><a href="DataTree.html">DataTree</a></li>
+											<li><a href="ServiceManager.html">ServiceManager</a></li>
+											<li><a href="systemError.html">systemError</a></li>
+											<li><a href="systemVariable.html">systemVariable</a></li>
+									</ul>
+								</li>
+								<li class="dropdown">
+									<a href="list_tutorial.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="tutorial-README.html">README</a></li>
+									</ul>
+								</li>
+				</ul>
+					<!-- start:lunr-search-navbar.hbs -->
+					<form class="navbar-form navbar-right" role="search">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Search" id="lunr-search-input">
+							<div class="input-group-btn">
+								<button class="btn btn-default" id="lunr-search-submit">
+									<i class="glyphicon glyphicon-search"></i>
+								</button>
+							</div>
+						</div>
+					</form>
+					<!-- start:lunr-search-navbar.hbs -->		</div>
+		</div>
+	</header>
+	<!-- end:navbar.hbs -->		<div class="page-header">
+			<div class="container">
+				<span class="kind">source</span>
+				<h1><span class="name">DataModels/DataTree.js</span></h1>
+			</div>
+		</div>
+	<div class="container content">
+		<div class="row">
+			<div class="col-md-12 main-content">
+		<section class="source-section">
+			<article></article>
+			<pre class="prettyprint source language-javascript line-numbers"><code class="language-javascript">import { StateVariable } from "impera-js";
+import { systemVariable, VarStatusCodes } from "./Types.js";
+import { escape as escapeHtml } from 'html-escaper';
+// NOTE:
+// There are plenty of way of doing this, here we chose to have a single 
+// object representing the whole App state. If one have many var and many
+// subsystems it can be heavy to write in localstorage all the time. It 
+// could be more efficient if split instead per subsystem (or even per 
+// single variables), to do so Impera-JS needs the additional capability 
+// of attaching a stateVar to an already instantiated object, without using 
+// a mixin. See issue: https://github.com/WebComponentHelpers/ImperaJS/issues/8
+/**
+ * Class that contains all the variable of the App for all the subsystem.
+ * It is connected automatically to UI element and schedule updates on them.
+ */
+export class DataTree extends StateVariable {
+    constructor() {
+        super("datatree", {});
+        this.addTransition("create", this._create);
+        this.addTransition("update", this._update);
+        this.addTransition("multiupdate", this._multiupdate);
+    }
+    /**
+     * Get the current value and status of the related stateVariable.
+     * It returns a proxy to the real stateVariable, this is readonly, as a protection
+     * it will throw if you try to assign a value.
+     * @param {systemObject} varID - identifier of the variable, an object with keys (name,system)
+     */
+    GetVar(varID) {
+        if (this.ExistVar(varID)) {
+            return this.value[varID.system][varID.name];
+        }
+        else
+            return null;
+    }
+    Create(varID) {
+        this.applyTransition("create", varID);
+    }
+    UpdateStatus(varID, _status) {
+        let upd_var = new systemVariable(varID);
+        upd_var.status = _status;
+        this.applyTransition("update", upd_var);
+    }
+    /**
+     * It upadtes with the variable or the list of variables.
+     * This will automatically call UI update of all connected elements.
+     * @param variables a list or a single systemVariable object with keys (name,system,status,value)
+     */
+    Update(variables) {
+        if (Array.isArray(variables)) {
+            this.applyTransition("multiupdate", variables);
+        }
+        else {
+            this.applyTransition("update", variables);
+        }
+    }
+    _create(varID) {
+        if (varID &amp;&amp; typeof varID.system === "string" &amp;&amp; typeof varID.name === "string") {
+            varID.system = escapeHtml(varID.system);
+            varID.name = escapeHtml(varID.name);
+            let new_var = { status: null, value: null }; //new systemVariable(varID.name, varID.system);
+            new_var.status = VarStatusCodes.Pending;
+            if (!this.value.hasOwnProperty(varID.system))
+                this.value[varID.system] = {};
+            this.value[varID.system][varID.name] = new_var;
+        }
+    }
+    _multiupdate(sys_vars) {
+        sys_vars.forEach(input_var => {
+            this._update(input_var);
+        });
+    }
+    _update(varID) {
+        this._checkVarType(varID);
+        let sys_var = this.GetVar(varID);
+        if (!sys_var)
+            throw new Error("Requested Variable does not exist: " + varID.name);
+        if (typeof varID.value === 'string')
+            varID.value = escapeHtml(varID.value);
+        if (varID.status)
+            sys_var.status = escapeHtml(varID.status);
+        // carefull here as value can also be false for a boolean, so if(varID.value) does not work
+        if (varID.value !== null &amp;&amp; varID.value !== undefined)
+            sys_var.value = varID.value;
+    }
+    _checkVarType(v) {
+        if (!v)
+            throw new TypeError("Variable cannot be null");
+        if (typeof v.name !== "string")
+            throw new TypeError("Variable Name must be a string");
+    }
+    /**
+     * Checks if the variable exist in the current state tree
+     * @param varID identifier of the variable, an object with keys (name,system)
+     */
+    ExistVar(varID) {
+        if (typeof varID.system !== "string" &amp;&amp; typeof varID.name !== "string")
+            return false;
+        if (!this.value.hasOwnProperty(varID.system))
+            return false;
+        if (!this.value[varID.system].hasOwnProperty(varID.name))
+            return false;
+        return true;
+    }
+}
+</code></pre>
+		</section>
+			</div>
+		</div>
+	</div>
+	<footer>
+				<div class="copyright">FooDoc Copyright © 2016 The contributors to the JSDoc3 and FooDoc projects.</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on 7th Jun 2021 using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+	</footer>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/clipboard.min.js"></script>
+	<script src="js/prism.min.js"></script>
+	<script src="js/template.min.js"></script>
+		<!-- start:lunr-search-modal.hbs -->
+		<div class="modal fade" id="lunr-search-modal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">Search results</h4>
+					</div>
+					<div class="modal-body" id="lunr-search-body">
+					</div>
+					<div class="modal-footer" id="lunr-search-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div>
+		<!-- end:lunr-search-modal.hbs -->		<script src="js/lunr.min.js"></script>
+	
+</body>
+</html>
+<!-- end:source.tmpl.hbs -->

@@ -2,6 +2,7 @@ import { DataCommsEngine } from './DataCommsEngine.js';
 import { systemVariable, systemObject, ServiceStatusCodes, systemError, VarResponse } from './DataModels/Types.js';
 import { DataTree } from './DataModels/DataTree.js';
 import { ErrorTray } from './DataModels/ErrorTray.js';
+/**Organizzational class */
 export declare class ServiceManager {
     dataTree: DataTree;
     errorTray: ErrorTray;
